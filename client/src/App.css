@@ -1,0 +1,33 @@
+.nav, .foot { opacity: 0.90; }
+.nav, .nav * { 
+  color: whitesmoke !important; 
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+.navbar-text { font-size: 2rem; line-height: 2rem;}
+.navbar-caption { text-shadow: -1px -1px 2px #000, 2px 2px 2px black; }
+
+/* -------------------------------------------------------------- */
+
+.svg-ico { display: inline-block; }
+.svg-nav, .svg-dif { margin-left: 10px; }
+
+.svg-dis .svg__icon g { fill: transparent !important; }
+.svg-dis .svg__icon path { stroke: rgba(255, 255, 255, 1) !important; }
+
+.svg-dif .svg__icon { width: 30px; }
+.svg-dif .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
+.svg-dif .svg__icon path { stroke: rgba(245, 245, 245, 0.25); stroke-width: 5px; }
+
+.svg-nav .svg__icon { width: 30px; }
+.svg-nav .svg__icon g { fill: rgba(245, 245, 245, 0.664); }
+.svg-nav .svg__icon path { stroke: rgba(245, 245, 245, 0.664); stroke-width: 5px; }
+
+.svg-btn .svg__icon { width: 20px; }
+.svg-btn .svg__icon g { fill: rgba(245, 245, 245, 0.9); }
+.svg-btn .svg__icon path { stroke: rgba(245, 245, 245, 0.9); stroke-width: 3px; }
+
+.svg-txt .svg__icon { width: 1.2rem; }
+.svg-txt .svg__icon g { fill: rgba(245, 245, 245, 0.9); }
+.svg-txt .svg__icon path { stroke: rgba(245, 245, 245, 0.9); stroke-width: 3px; }
