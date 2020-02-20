@@ -10,8 +10,8 @@ const ProtectedRoute = ({
         return user ? (
           <Component {...props} {...rest} user={user} />
         ) : (
-            <Redirect to={redirectPath} />
-          );
+          <Redirect to={redirectPath} />
+        );
       }}
     />
   );

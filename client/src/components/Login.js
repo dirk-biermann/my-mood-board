@@ -1,17 +1,26 @@
 import React, { Component } from "react";
 import { login } from "../services/auth";
-import { Alert, Form, Button } from "react-bootstrap";
+import { Alert, Form, Button, ButtonToolbar } from "react-bootstrap";
+import IconSvg from "./Icons/IconSvg";
 
-class Login extends Component {
-  state = {
-    username: "",
-    password: "",
-    error: ""
+export default class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+        username: "",
+        password: "",
+        error: ""
+      };
+  };
+
+  handleClose = () => {
+    this.props.history.push("/");
   };
 
   handleChange = event => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      error: undefined
     });
   };
 
@@ -29,44 +38,51 @@ class Login extends Component {
         // lift the data up to the App state
         this.props.setUser(data);
         // redirect to "/projects"
-        this.props.history.push("/");
+        this.props.history.push("/projectboard");
       }
     });
   };
 
   render() {
     return (
-      <div>
-        <h2>Login</h2>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group>
-            <Form.Label htmlFor="username">Username: </Form.Label>
-            <Form.Control
-              type="text"
-              name="username"
-              id="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label htmlFor="password">Password: </Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              id="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          {this.state.error && (
-            <Alert variant="danger">{this.state.error}</Alert>
-          )}
-          <Button type="submit">Log in</Button>
-        </Form>
+      <div className="info-box f-row">
+        <div className="f-item">
+          <img className="acb-img" src="./acb.png" alt="acb" width="200px"/>
+        </div>
+        <div className="f-item f-col txt-box">
+          <h1 className="b-item title">Login</h1>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group>
+              <Form.Label htmlFor="username">Username: </Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                id="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor="password">Password: </Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                id="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            {this.state.error && (
+              <Alert variant="danger"><IconSvg ico="error" cls="svg-btn svg-cw90 svg-mr"/>{this.state.error}</Alert>
+            )}
+            <ButtonToolbar>
+              <Button className="acb-btn" variant="dark" onClick={this.handleClose}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Close</Button>
+              <Button className="acb-btn" variant="dark" type="submit"><IconSvg ico="login" cls="svg-btn svg-cw90 svg-mr"/>Log in</Button>
+            </ButtonToolbar>
+          </Form>
+        </div>
       </div>
     );
   }
 }
 
-export default Login;

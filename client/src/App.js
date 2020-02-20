@@ -1,17 +1,14 @@
 import React from "react";
 import "./App.css";
-import "./Acb.css";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-//import Projects from "./components/tmp/Projects";
-//import ProjectDetail from "./components/tmp/ProjectDetail";
-//import TaskDetail from "./components/tmp/TaskDetail";
-import MoodBoard from "./components/MoodBoard";
+import ProjectBoard from "./components/ProjectBoard";
 import Startpage from "./components/Startpage";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Distance from "./components/Distance";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 class App extends React.Component {
   state = {
@@ -27,13 +24,15 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <Distance/>
         <Navbar user={this.state.user} clearUser={this.setUser} />
-        <Distance />
-          <Route exact path="/signup" render={props => <Signup {...props} setUser={this.setUser} />} />
-          <Route exact path="/login" render={props => <Login {...props} setUser={this.setUser} />} />
-          <Route exact path="/moodboard" render={props => <MoodBoard {...props} setUser={this.setUser} /> }/>
-          <Route exact path="/" render={props => <Startpage {...props} setUser={this.setUser} /> }/>
-        <Distance />
+          <div className="dist-horz">
+            <Route exact path="/" render={props => <Startpage user={this.state.user} {...props} /> }/>
+            <Route exact path="/signup" render={props => <Signup {...props} setUser={this.setUser} />} />
+            <Route exact path="/login" render={props => <Login {...props} setUser={this.setUser} />} />
+            <ProtectedRoute path='/projectboard' user={this.state.user} component={ProjectBoard} {...this.props}/>
+          </div>
+        <Distance vert={true}/>
         <Footer />
       </div>
     );
@@ -41,27 +40,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-/*
-        <Route exact path="/tasks/:id" component={TaskDetail} />
-        <Route
-          exact
-          path="/projects"
-          // component={Projects}
-          render={props => {
-            if (this.state.user) {
-              return <Projects {...props} />;
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        />
-
-        <Route
-          exact
-          path="/projects/:id"
-          render={props => <ProjectDetail user={this.state.user} {...props} />}
-        />
-        {/* <Route exact path="/projects/:id" component={ProjectDetail} /> * /}
-
-*/

@@ -1,3 +1,14 @@
+
+.modal-header { align-items: center; padding: 0.5rem 1rem;}
+
+/* -------------------------------------------------------------- */
+
+.card-img-overlay {
+  padding: 0.25rem;
+}
+
+/* -------------------------------------------------------------- */
+
 .nav, .foot { opacity: 0.90; }
 .nav, .nav * { 
   color: whitesmoke !important; 
@@ -5,29 +16,149 @@
   padding-bottom: 2px !important;
 }
 
-.navbar-text { font-size: 2rem; line-height: 2rem;}
+.navbar-text { font-size: 2rem; line-height: 2rem; font-variant: small-caps;}
 .navbar-caption { text-shadow: -1px -1px 2px #000, 2px 2px 2px black; }
 
 /* -------------------------------------------------------------- */
 
+.btn { 
+  vertical-align: bottom;
+  font-size: 1.5rem;
+  font-variant: small-caps;
+}
+
+.acb-a-svg { cursor: pointer; display: inline-block; }
+
+.acb-btn { margin: 0 5px 5px 0px; letter-spacing: 4px;}
+.acb-btn:last-child{ margin: 0 0 5px 0; }
+
 .svg-ico { display: inline-block; }
-.svg-nav, .svg-dif { margin-left: 10px; }
+.svg-nav { margin: 0 5px; }
 
-.svg-dis .svg__icon g { fill: transparent !important; }
-.svg-dis .svg__icon path { stroke: rgba(255, 255, 255, 1) !important; }
+.svg-mr { margin-right: 10px; }
+.svg-ml { margin-left: 10px; }
 
-.svg-dif .svg__icon { width: 30px; }
-.svg-dif .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
-.svg-dif .svg__icon path { stroke: rgba(245, 245, 245, 0.25); stroke-width: 5px; }
 
-.svg-nav .svg__icon { width: 30px; }
-.svg-nav .svg__icon g { fill: rgba(245, 245, 245, 0.664); }
-.svg-nav .svg__icon path { stroke: rgba(245, 245, 245, 0.664); stroke-width: 5px; }
+.svg__icon { width: 1.2rem; }
+.svg__icon path { stroke-width: 5px; }
+.svg__icon g { fill: rgba(245, 245, 245, 0.25); }
+.svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
 
-.svg-btn .svg__icon { width: 20px; }
-.svg-btn .svg__icon g { fill: rgba(245, 245, 245, 0.9); }
-.svg-btn .svg__icon path { stroke: rgba(245, 245, 245, 0.9); stroke-width: 3px; }
+.svg-btn .svg__icon { width: 20px !important; }
+.svg-nav .svg__icon,
+.svg-big .svg__icon { width: 30px !important; }
 
-.svg-txt .svg__icon { width: 1.2rem; }
-.svg-txt .svg__icon g { fill: rgba(245, 245, 245, 0.9); }
-.svg-txt .svg__icon path { stroke: rgba(245, 245, 245, 0.9); stroke-width: 3px; }
+.svg-sw10 .svg__icon path { stroke-width: 10px !important; }
+
+.svg-cw25 .svg__icon g { fill: rgba(245, 245, 245, 0.25) !important; }
+.svg-cw25 .svg__icon path { stroke: rgba(245, 245, 245, 0.25) !important; }
+.svg-cw50 .svg__icon g { fill: rgba(245, 245, 245, 0.50) !important; }
+.svg-cw50 .svg__icon path { stroke: rgba(245, 245, 245, 0.50) !important; }
+.svg-cw75 .svg__icon g { fill: rgba(245, 245, 245, 0.75) !important; }
+.svg-cw75 .svg__icon path { stroke: rgba(245, 245, 245, 0.75) !important; }
+.svg-cw90 .svg__icon g { fill: rgba(245, 245, 245, 0.9) !important; }
+.svg-cw90 .svg__icon path { stroke: rgba(245, 245, 245, 0.9) !important; }
+.svg-cb90 .svg__icon g { fill: rgba(0, 0, 0, 0.9) !important; }
+.svg-cb90 .svg__icon path { stroke: rgba(0, 0, 0, 0.9) !important; }
+
+.svg-cw25-h .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
+.svg-cw25-h .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
+.svg-cw25-h:hover .svg__icon g { fill: rgba(245, 245, 245, 0.75); }
+.svg-cw25-h:hover .svg__icon path { stroke: rgba(245, 245, 245, 0.75); }
+
+.alert-danger .svg__icon g { fill: #721c24 !important; }
+.alert-danger .svg__icon path { stroke: #721c24 !important; }
+
+.modal-content { box-Shadow: 0px 0px 30px #999 };
+
+.acb-img { width: 200px; }
+@media screen and (min-width: 400px) { .acb-img { width: 300px; } }
+@media screen and (min-width: 600px) { .acb-img { width: 400px; } }
+
+/* ------------------------------- */
+
+.f-row { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: flex-start; }
+.f-row .f-item { margin: 0px 10px; }
+.f-col { display: flex; flex-direction: column; justify-content: space-evenly; align-items: flex-start; }
+
+.ico-row { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+.ico-row .f-item { margin: 0px 2px; }
+
+.info-box { margin-top: 10%; }
+.txt-box .b-item { margin: 10px 0px; }
+
+.info-box h1.title {
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  width: 100%;
+  text-shadow: 4px 4px 4px black;
+  font-variant: small-caps;
+}
+@media screen and (min-width: 400px) { .info-box h1.title { font-size: 3.5rem; letter-spacing: 3px; } }
+@media screen and (min-width: 600px) { .info-box h1.title { font-size: 5rem; letter-spacing: 5px; } }
+
+.txt-box > :first-child::after {
+  content: '';
+  background-color: #ffffff;
+  display: block;
+  height: 2px;
+  margin: 0.325em 0 0.5em 0;
+  width: 100%;
+}
+
+.info-box .desc p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-variant: small-caps;
+  letter-spacing: 0.15em;
+  margin-bottom: 0;
+  /* text-transform: uppercase; */
+}
+@media screen and (min-width: 400px) { .info-box h1.title { font-size: 3.5rem; letter-spacing: 3px; } }
+@media screen and (min-width: 600px) { .info-box h1.title { font-size: 5rem; letter-spacing: 5px; } }
+
+/* ------------------------------- */
+
+.dist-top-bottom { height: 60px; }
+.dist-horz { margin: 0 1rem; }
+
+.card-columns {
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-column-gap: 0 !important;
+  -moz-column-gap: 0 !important;
+  grid-column-gap: 0 !important;
+  column-gap: 0 !important;  
+}
+
+.card-columns .card {
+  display: inline-block;
+  width: 19.99999%;
+  margin-bottom: 0rem !important;
+  background-color: transparent;
+}
+
+.cardImage {
+  min-height:200px;
+  max-height:200px;
+  object-fit: cover;
+}
+
+.shw-acb { display: inline-block; }
+
+@media (max-width: 599px) {
+  .card-columns .card { width: 49.99999%; }
+  .shw-acb { display: none; }
+}
+@media (min-width: 600px) and (max-width: 799px) {
+  .card-columns .card { width: 33.33333%; }
+}
+@media (min-width: 800px) and (max-width: 999px) {
+  .card-columns .card { width: 24.99999%; }
+}
+@media (min-width: 1000px) and (max-width:1199px) {
+  .card-columns .card { width: 19.99999%; }
+}
+@media (min-width: 1200px) {
+  .card-columns .card { width: 16.66666%; }
+}
