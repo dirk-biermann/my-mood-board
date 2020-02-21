@@ -1,15 +1,10 @@
 
 .modal-header { align-items: center; padding: 0.5rem 1rem;}
+.modal-content { box-Shadow: 0px 0px 30px #999 };
 
 /* -------------------------------------------------------------- */
 
-.card-img-overlay {
-  padding: 0.25rem;
-}
-
-/* -------------------------------------------------------------- */
-
-.nav, .foot { opacity: 0.90; }
+.nav, .foot { opacity: 0.95; }
 .nav, .nav * { 
   color: whitesmoke !important; 
   padding-top: 2px !important;
@@ -19,6 +14,9 @@
 .navbar-text { font-size: 2rem; line-height: 2rem; font-variant: small-caps;}
 .navbar-caption { text-shadow: -1px -1px 2px #000, 2px 2px 2px black; }
 
+.footer-text { font-size: 1rem; color: rgb(255,255,255,0.5); padding: 0rem; }
+.footer-text-si { font-size: 1.1rem; color: rgb(255,255,255,0.75); padding: 0rem; }
+
 /* -------------------------------------------------------------- */
 
 .btn { 
@@ -27,10 +25,16 @@
   font-variant: small-caps;
 }
 
-.acb-a-svg { cursor: pointer; display: inline-block; }
-
 .acb-btn { margin: 0 5px 5px 0px; letter-spacing: 4px;}
 .acb-btn:last-child{ margin: 0 0 5px 0; }
+
+.acb-a-svg { cursor: pointer; display: inline-block; }
+
+.acb-img { width: 200px; }
+@media screen and (min-width: 400px) { .acb-img { width: 300px; } }
+@media screen and (min-width: 600px) { .acb-img { width: 400px; } }
+
+/* -------------------------------------------------------------- */
 
 .svg-ico { display: inline-block; }
 .svg-nav { margin: 0 5px; }
@@ -44,36 +48,32 @@
 .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
 .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
 
+.svg-crd .svg__icon { width: 1.5rem !important; }
 .svg-btn .svg__icon { width: 20px !important; }
 .svg-nav .svg__icon,
 .svg-big .svg__icon { width: 30px !important; }
 
 .svg-sw10 .svg__icon path { stroke-width: 10px !important; }
 
-.svg-cw25 .svg__icon g { fill: rgba(245, 245, 245, 0.25) !important; }
-.svg-cw25 .svg__icon path { stroke: rgba(245, 245, 245, 0.25) !important; }
-.svg-cw50 .svg__icon g { fill: rgba(245, 245, 245, 0.50) !important; }
-.svg-cw50 .svg__icon path { stroke: rgba(245, 245, 245, 0.50) !important; }
-.svg-cw75 .svg__icon g { fill: rgba(245, 245, 245, 0.75) !important; }
-.svg-cw75 .svg__icon path { stroke: rgba(245, 245, 245, 0.75) !important; }
-.svg-cw90 .svg__icon g { fill: rgba(245, 245, 245, 0.9) !important; }
-.svg-cw90 .svg__icon path { stroke: rgba(245, 245, 245, 0.9) !important; }
-.svg-cb90 .svg__icon g { fill: rgba(0, 0, 0, 0.9) !important; }
-.svg-cb90 .svg__icon path { stroke: rgba(0, 0, 0, 0.9) !important; }
+.svg-cw75 .svg__icon g { fill: rgba(245, 245, 245, 0.75) }
+.svg-cw75 .svg__icon path { stroke: rgba(245, 245, 245, 0.75) }
+.svg-cw90 .svg__icon g { fill: rgba(245, 245, 245, 0.9) }
+.svg-cw90 .svg__icon path { stroke: rgba(245, 245, 245, 0.9) }
+.svg-cb90 .svg__icon g { fill: rgba(0, 0, 0, 0.9) }
+.svg-cb90 .svg__icon path { stroke: rgba(0, 0, 0, 0.9) }
 
-.svg-cw25-h .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
-.svg-cw25-h .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
+.svg-cw25 .svg__icon g, .svg-cw25-h .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
+.svg-cw25 .svg__icon g, .svg-cw25-h .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
 .svg-cw25-h:hover .svg__icon g { fill: rgba(245, 245, 245, 0.75); }
 .svg-cw25-h:hover .svg__icon path { stroke: rgba(245, 245, 245, 0.75); }
 
+.svg-cw50 .svg__icon g, .svg-cw50-h .svg__icon g { fill: rgba(245, 245, 245, 0.50) }
+.svg-cw50 .svg__icon path, .svg-cw50-h .svg__icon path { stroke: rgba(245, 245, 245, 0.50) }
+.svg-cw50-h:hover .svg__icon g { fill: rgba(245, 245, 245, 0.90) }
+.svg-cw50-h:hover .svg__icon path { stroke: rgba(245, 245, 245, 0.90) }
+
 .alert-danger .svg__icon g { fill: #721c24 !important; }
 .alert-danger .svg__icon path { stroke: #721c24 !important; }
-
-.modal-content { box-Shadow: 0px 0px 30px #999 };
-
-.acb-img { width: 200px; }
-@media screen and (min-width: 400px) { .acb-img { width: 300px; } }
-@media screen and (min-width: 600px) { .acb-img { width: 400px; } }
 
 /* ------------------------------- */
 
@@ -120,7 +120,20 @@
 /* ------------------------------- */
 
 .dist-top-bottom { height: 60px; }
-.dist-horz { margin: 0 1rem; }
+.dist-horz { margin: 0 0.5rem; }
+
+/* -------------------------------------------------------------- */
+
+.card-img-overlay, .card-footer { padding: 0; }
+.card-title {
+  padding: 0.5rem;
+  background-color: rgba(128,128,128,0.25);
+  color: white;
+  white-space: nowrap;
+  width: 100%;                   
+  overflow: hidden;              /* "overflow"-Wert darf nicht "visible" sein */ 
+  text-overflow: ellipsis;
+}
 
 .card-columns {
   display: flex;

@@ -10,6 +10,7 @@ export default class Startpage extends Component {
   }
 
   handleGetStarted = () => {
+    console.log( "GETS:", this.props.user );
     if( this.props.user ) {
       this.props.history.push("/projectboard");
     } else {

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import {ReactComponent as IconDiff} from './SVG/diff.svg';
 import {ReactComponent as IconHome} from './SVG/home.svg';
 import {ReactComponent as IconBoard} from './SVG/moodboard.svg';
+import {ReactComponent as IconProject} from './SVG/project.svg';
 import {ReactComponent as IconMaterial} from './SVG/material.svg';
 import {ReactComponent as IconTemplate} from './SVG/template.svg';
 import {ReactComponent as IconSignup} from './SVG/signup.svg';
@@ -23,6 +24,7 @@ import {ReactComponent as IconLeft} from './SVG/left.svg';
 import {ReactComponent as IconRight} from './SVG/right.svg';
 import {ReactComponent as IconError} from './SVG/error.svg';
 import {ReactComponent as IconChecked} from './SVG/checked.svg';
+import {ReactComponent as IconDoc} from './SVG/doc.svg';
 import {ReactComponent as IconFreePik} from './SVG/freepik.svg';
 import {ReactComponent as IconMinimize} from './SVG/minimize.svg';
 import {ReactComponent as IconExpand} from './SVG/expand.svg';
@@ -32,10 +34,10 @@ export default class IconSvg extends Component {
   constructor() {
     super();
     this.iconList = [
-      "home","moodboard","material","template","signup","edit","settings","login",
+      "home","project","moodboard","material","template","signup","edit","settings","login",
       "logout","info","plus","minus","cancel","save","delete","sad","diff",
       "up","down","left","right","error","checked","freepik","minimize","expand",
-      "menu"
+      "menu","doc"
     ]
   }
   
@@ -53,7 +55,9 @@ export default class IconSvg extends Component {
       {
         case "menu":       icoComponent = <IconMenu key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "diff":       icoComponent = <IconDiff key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
+        case "doc":        icoComponent = <IconDoc key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
         case "home":       icoComponent = <IconHome key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
+        case "project":    icoComponent = <IconProject key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
         case "moodboard":  icoComponent = <IconBoard key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
         case "material":   icoComponent = <IconMaterial key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
         case "template":   icoComponent = <IconTemplate key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
@@ -75,8 +79,8 @@ export default class IconSvg extends Component {
         case "error":      icoComponent = <IconError key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
         case "checked":    icoComponent = <IconChecked key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         case "freepik":    icoComponent = <IconFreePik key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
-        case "minimize":   icoComponent = <IconMinimize key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
-        case "expand":     icoComponent = <IconExpand key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
+        case "minimize":   icoComponent = <IconMinimize key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
+        case "expand":     icoComponent = <IconExpand key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
         default:           icoComponent = <IconSad key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
       }
       icoList.push( icoComponent );

@@ -50,23 +50,23 @@ export default class Navbar extends Component {
           <Navmenu.Text className="shw-acb navbar-caption">Arts-Craft-Base</Navmenu.Text>
             
           <Navmenu.Collapse className="justify-content-end">
-            <Link to="/"><IconSvg ico="home" cls="svg-nav svg-sw10 svg-cw50"/></Link> 
+            <Link to="/"><IconSvg ico="home" cls="svg-nav svg-sw10 svg-cw50-h"/></Link> 
 
             {this.props.user ? (
               <>
-                <Link to="/projectboard"><IconSvg ico="moodboard" cls="svg-nav svg-sw10 svg-cw50"/></Link>
-                <Link to="/"><IconSvg ico="material" cls="svg-nav svg-sw10 svg-cw50"/></Link>
-                <Link to="/"><IconSvg ico="template" cls="svg-nav svg-sw10 svg-cw50"/></Link>
-                <Link to="/" onClick={this.handleLogout}><IconSvg ico="logout" cls="svg-nav svg-sw10 svg-cw50"/></Link>
+                <Link to="/projectboard"><IconSvg ico="project" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                <Link to="/"><IconSvg ico="material" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                <Link to="/"><IconSvg ico="template" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                <Link to="/" onClick={this.handleLogout}><IconSvg ico="logout" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
               </>
             ) : (
               <>
-                <Link to="/signup"><IconSvg ico="signup" cls="svg-nav svg-sw10 svg-cw50"/></Link>
-                <Link to="/login"><IconSvg ico="login" cls="svg-nav svg-sw10 svg-cw50"/></Link>
+                <Link to="/signup"><IconSvg ico="signup" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                <Link to="/login"><IconSvg ico="login" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
               </>
             )}
             <IconSvg ico="diff" cls="svg-nav svg-sw10 svg-cw25"/>
-            <div onClick={this.showAbout}><IconSvg ico="info" cls="svg-nav svg-sw10 svg-cw50"/></div>
+            <div className="acb-a-svg" onClick={this.showAbout}><IconSvg ico="info" cls="svg-nav svg-sw10 svg-cw50-h"/></div>
           </Navmenu.Collapse>
         </Navmenu>
         <About show={this.state.showAbout} close={this.hideAbout} />

@@ -26,6 +26,7 @@ export default class ProjectBoard extends Component {
                                 handleObjectSettings={this.handleObjectSettingsCB}
                                 {...this.props}/> )
     }
+    
     return (
       <CardColumns>
         { objList }

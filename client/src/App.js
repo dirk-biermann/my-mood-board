@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProjectBoard from "./components/ProjectBoard";
 import Startpage from "./components/Startpage";
@@ -8,7 +8,6 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Distance from "./components/Distance";
 import Footer from "./components/Footer";
-import ProtectedRoute from "./components/ProtectedRoute";
 
 class App extends React.Component {
   state = {
@@ -21,7 +20,16 @@ class App extends React.Component {
     });
   };
 
+  routeProjectBoard = (props) => {  
+    if (this.state.user) {
+      return <ProjectBoard user={this.state.user} {...props} />;
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+
   render() {
+    console.log( "APP:", this.state.user ? "set" : "undef", this.state.user )
     return (
       <div className="App">
         <Distance/>
@@ -30,10 +38,10 @@ class App extends React.Component {
             <Route exact path="/" render={props => <Startpage user={this.state.user} {...props} /> }/>
             <Route exact path="/signup" render={props => <Signup {...props} setUser={this.setUser} />} />
             <Route exact path="/login" render={props => <Login {...props} setUser={this.setUser} />} />
-            <ProtectedRoute path='/projectboard' user={this.state.user} component={ProjectBoard} {...this.props}/>
+            <Route exact path="/projectboard" render={this.routeProjectBoard} />
           </div>
-        <Distance vert={true}/>
-        <Footer />
+        <Distance/>
+        <Footer user={this.state.user}/>
       </div>
     );
   }
