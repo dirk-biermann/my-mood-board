@@ -9,12 +9,14 @@ export default class ProjectBoard extends Component {
     }
   }
 
-  handleObjectExpandCB = (idx) =>{
-    console.log( "EXP:", idx );
+  handleProjectMoodBoard = (idx) =>{
+    console.log( "MB-PRJ:", idx );
+    this.props.history.push(`/moodboard/${idx}`);
   }
 
-  handleObjectSettingsCB = (idx) =>{
-    console.log( "SET:", idx );
+  handleProjectDetails = (idx) =>{
+    console.log( "D-PRJ:", idx );
+    this.props.history.push(`/projectdetail/${idx}`);
   }
 
   render() {
@@ -22,8 +24,10 @@ export default class ProjectBoard extends Component {
     for( let i=0; i<30; i++ ){
       objList.push( <ObjectCard key={`object_card_${i}`} 
                                 idx={i} 
-                                handleObjectExpand={this.handleObjectExpandCB}
-                                handleObjectSettings={this.handleObjectSettingsCB}
+                                typ={"p"}
+                                imgUrl = {"./project.png"}
+                                handleObjectMoodBoard={this.handleProjectMoodBoard}
+                                handleObjectDetails={this.handleProjectDetails}
                                 {...this.props}/> )
     }
     

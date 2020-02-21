@@ -3,6 +3,9 @@ import "./App.css";
 import { Route, Redirect } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProjectBoard from "./components/ProjectBoard";
+import ProjectDetail from "./components/ProjectDetail";
+import MaterialDetail from "./components/MaterialDetail";
+import MoodBoard from "./components/MoodBoard";
 import Startpage from "./components/Startpage";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -28,6 +31,30 @@ class App extends React.Component {
     }
   }
 
+  routeMoodBoard = (props) => {  
+    if (this.state.user) {
+      return <MoodBoard user={this.state.user} {...props} />;
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+
+  routeProjectDetail = (props) => {  
+    if (this.state.user) {
+      return <ProjectDetail user={this.state.user} {...props} />;
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+
+  routeMaterialDetail = (props) => {  
+    if (this.state.user) {
+      return <MaterialDetail user={this.state.user} {...props} />;
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+
   render() {
     console.log( "APP:", this.state.user ? "set" : "undef", this.state.user )
     return (
@@ -36,9 +63,15 @@ class App extends React.Component {
         <Navbar user={this.state.user} clearUser={this.setUser} />
           <div className="dist-horz">
             <Route exact path="/" render={props => <Startpage user={this.state.user} {...props} /> }/>
+            
             <Route exact path="/signup" render={props => <Signup {...props} setUser={this.setUser} />} />
             <Route exact path="/login" render={props => <Login {...props} setUser={this.setUser} />} />
+            
             <Route exact path="/projectboard" render={this.routeProjectBoard} />
+            <Route exact path="/projectdetail/:id" render={this.routeProjectDetail} />
+            <Route exact path="/materialdetail/:id" render={this.routeMaterialDetail} />
+            
+            <Route exact path="/moodboard/:id" render={this.routeMoodBoard} />
           </div>
         <Distance/>
         <Footer user={this.state.user}/>
