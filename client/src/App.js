@@ -1,12 +1,8 @@
 import React from "react";
 import "./App.css";
-import "./Acb.css";
 import { Route, Redirect } from "react-router-dom";
 import Navbar from "./components/Navbar";
-//import Projects from "./components/tmp/Projects";
-//import ProjectDetail from "./components/tmp/ProjectDetail";
-//import TaskDetail from "./components/tmp/TaskDetail";
-import MoodBoard from "./components/MoodBoard";
+import ProjectBoard from "./components/ProjectBoard";
 import Startpage from "./components/Startpage";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -24,44 +20,31 @@ class App extends React.Component {
     });
   };
 
+  routeProjectBoard = (props) => {  
+    if (this.state.user) {
+      return <ProjectBoard user={this.state.user} {...props} />;
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+
   render() {
+    console.log( "APP:", this.state.user ? "set" : "undef", this.state.user )
     return (
       <div className="App">
+        <Distance/>
         <Navbar user={this.state.user} clearUser={this.setUser} />
-        <Distance />
-          <Route exact path="/signup" render={props => <Signup {...props} setUser={this.setUser} />} />
-          <Route exact path="/login" render={props => <Login {...props} setUser={this.setUser} />} />
-          <Route exact path="/moodboard" render={props => <MoodBoard {...props} setUser={this.setUser} /> }/>
-          <Route exact path="/" render={props => <Startpage {...props} setUser={this.setUser} /> }/>
-        <Distance />
-        <Footer />
+          <div className="dist-horz">
+            <Route exact path="/" render={props => <Startpage user={this.state.user} {...props} /> }/>
+            <Route exact path="/signup" render={props => <Signup {...props} setUser={this.setUser} />} />
+            <Route exact path="/login" render={props => <Login {...props} setUser={this.setUser} />} />
+            <Route exact path="/projectboard" render={this.routeProjectBoard} />
+          </div>
+        <Distance/>
+        <Footer user={this.state.user}/>
       </div>
     );
   }
 }
 
 export default App;
-
-/*
-        <Route exact path="/tasks/:id" component={TaskDetail} />
-        <Route
-          exact
-          path="/projects"
-          // component={Projects}
-          render={props => {
-            if (this.state.user) {
-              return <Projects {...props} />;
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        />
-
-        <Route
-          exact
-          path="/projects/:id"
-          render={props => <ProjectDetail user={this.state.user} {...props} />}
-        />
-        {/* <Route exact path="/projects/:id" component={ProjectDetail} /> * /}
-
-*/

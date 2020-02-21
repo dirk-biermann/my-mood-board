@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import About from './About.js';
 
 import { Link } from "react-router-dom";
 import { Navbar as Navmenu } from "react-bootstrap";
@@ -9,8 +10,24 @@ import IconSvg from "./Icons/IconSvg";
 export default class Navbar extends Component {
   constructor(){
     super();
-    this.state = {};
+    this.state = {
+      showAbout: false
+    };
   }
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  showAbout = () => {
+    this.setState({ showAbout: true });
+  };
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  hideAbout = () => {
+    this.setState({ showAbout: false });
+  };
 
   // -----------------------------------------
   //
@@ -25,32 +42,35 @@ export default class Navbar extends Component {
   // -----------------------------------------
   render() {
     return (
-      <Navmenu className="nav" bg="dark" fixed="top">
+      <>
+        <Navmenu className="nav" bg="dark" fixed="top">
           <Navmenu.Brand>
-            <img alt="acb-logo" src="../arts_craft_base_logo.svg" width="35" height="35" className=""/>
+            <Link to="/"><img alt="acb-logo" src="../arts_craft_base_logo.svg" width="35" height="35"/></Link>
           </Navmenu.Brand>
-          <Navmenu.Text className="shw-acb navbar-caption">ARTS CRAFT BASE</Navmenu.Text>
+          <Navmenu.Text className="shw-acb navbar-caption">Arts-Craft-Base</Navmenu.Text>
+            
+          <Navmenu.Collapse className="justify-content-end">
+            <Link to="/"><IconSvg ico="home" cls="svg-nav svg-sw10 svg-cw50-h"/></Link> 
 
-          {this.props.user ? (
-            <Navmenu.Collapse className="justify-content-end">
-              <Link to="/"><IconSvg ico="home" cls="svg-nav"/></Link> 
-              <Link to="/moodboard"><IconSvg ico="moodboard" cls="svg-nav"/></Link>
-              <Link to="/"><IconSvg ico="material" cls="svg-nav"/></Link>
-              <Link to="/"><IconSvg ico="template" cls="svg-nav"/></Link>
-              <Link to="/" onClick={this.handleLogout}><IconSvg ico="logout" cls="svg-nav"/></Link>
-              <IconSvg ico="diff" cls="svg-dis svg-nav"/>
-              <Link to="/"><IconSvg ico="info" cls="svg-nav"/></Link>
-            </Navmenu.Collapse>
-          ) : (
-            <Navmenu.Collapse className="justify-content-end">
-              <Link to="/"><IconSvg ico="home" cls="svg-nav"/></Link> 
-              <Link to="/signup"><IconSvg ico="signup" cls="svg-nav"/></Link>
-              <Link to="/login"><IconSvg ico="login" cls="svg-nav"/></Link>
-              <IconSvg ico="diff" cls="svg-dis svg-nav"/>
-              <Link to="/"><IconSvg ico="info" cls="svg-nav"/></Link>
-            </Navmenu.Collapse>
-          )}
-      </Navmenu>
+            {this.props.user ? (
+              <>
+                <Link to="/projectboard"><IconSvg ico="project" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                <Link to="/"><IconSvg ico="material" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                <Link to="/"><IconSvg ico="template" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                <Link to="/" onClick={this.handleLogout}><IconSvg ico="logout" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+              </>
+            ) : (
+              <>
+                <Link to="/signup"><IconSvg ico="signup" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                <Link to="/login"><IconSvg ico="login" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+              </>
+            )}
+            <IconSvg ico="diff" cls="svg-nav svg-sw10 svg-cw25"/>
+            <div className="acb-a-svg" onClick={this.showAbout}><IconSvg ico="info" cls="svg-nav svg-sw10 svg-cw50-h"/></div>
+          </Navmenu.Collapse>
+        </Navmenu>
+        <About show={this.state.showAbout} close={this.hideAbout} />
+      </>
     )
   }
 }
