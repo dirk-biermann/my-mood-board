@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, Container, Image } from "react-bootstrap";
+import { Modal, Container, Image } from "react-bootstrap";
 import IconSvg from "./Icons/IconSvg";
 
 export default class ImageDisp extends Component {
