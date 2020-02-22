@@ -9,13 +9,16 @@ export default class MoodBoard extends Component {
     }
   }
 
+  handleMoodBoardOverview = (idx,typ) =>{
+    console.log( "O-MB:", idx );
+    if( typ === "pm" ) { this.props.history.push(`/projectboard`); } 
+    if( typ === "mm" ) { this.props.history.push(`/materialboard`); } 
+  }
+
   handleMoodBoardDetails = (idx,typ) =>{
     console.log( "D-MB:", idx );
-    if( typ === "p" ) {
-      this.props.history.push(`/projectdetail/${idx}`);
-    } else {
-      this.props.history.push(`/materialdetail/${idx}`);
-    }
+    if( typ === "pm" ) { this.props.history.push(`/projectdetail/${idx}`); }
+    if( typ === "mm" ) { this.props.history.push(`/materialdetail/${idx}`); }
   }
 
   render() {
@@ -23,8 +26,9 @@ export default class MoodBoard extends Component {
     for( let i=0; i<10; i++ ){
       objList.push( <ObjectCard key={`moodboard_card_${i}`} 
                                 idx={i} 
-                                typ={ i===0 ? "p" : "m"}
+                                typ={ i===0 ? "pm" : "mm"}
                                 imgUrl={ i===0 ? "../project.png" : "../material.png"}
+                                handleObjectOverview={this.handleMoodBoardOverview}
                                 handleObjectDetails={this.handleMoodBoardDetails}
                                 {...this.props}/> )
     }

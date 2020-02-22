@@ -4,6 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProjectBoard from "./components/ProjectBoard";
 import ProjectDetail from "./components/ProjectDetail";
+import MaterialBoard from "./components/MaterialBoard";
 import MaterialDetail from "./components/MaterialDetail";
 import MoodBoard from "./components/MoodBoard";
 import Startpage from "./components/Startpage";
@@ -30,6 +31,15 @@ class App extends React.Component {
       return <Redirect to="/" />;
     }
   }
+  
+  routeMaterialBoard = (props) => {  
+    if (this.state.user) {
+      return <MaterialBoard user={this.state.user} {...props} />;
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+
 
   routeMoodBoard = (props) => {  
     if (this.state.user) {
@@ -69,6 +79,8 @@ class App extends React.Component {
             
             <Route exact path="/projectboard" render={this.routeProjectBoard} />
             <Route exact path="/projectdetail/:id" render={this.routeProjectDetail} />
+
+            <Route exact path="/materialboard" render={this.routeMaterialBoard} />
             <Route exact path="/materialdetail/:id" render={this.routeMaterialDetail} />
             
             <Route exact path="/moodboard/:id" render={this.routeMoodBoard} />
