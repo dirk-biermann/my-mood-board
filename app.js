@@ -20,7 +20,7 @@ require("./configs/passport");
 // IF YOU STILL DIDN'T, GO TO 'configs/passport.js' AND UN-COMMENT OUT THE WHOLE FILE
 
 mongoose
-  .connect("mongodb://localhost/project-management-with-upload", {
+  .connect( process.env.MONGODB_URI || "mongodb://localhost/my-mood-board", {
     useNewUrlParser: true, useUnifiedTopology: true
   })
   .then(x => {
