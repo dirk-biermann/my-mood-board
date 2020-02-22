@@ -9,7 +9,7 @@ export default class ProjectBoard extends Component {
     }
   }
 
-  handleProjectMoodBoard = (idx) =>{
+  handleProjectOverview = (idx) =>{
     console.log( "MB-PRJ:", idx );
     this.props.history.push(`/moodboard/${idx}`);
   }
@@ -24,9 +24,9 @@ export default class ProjectBoard extends Component {
     for( let i=0; i<30; i++ ){
       objList.push( <ObjectCard key={`object_card_${i}`} 
                                 idx={i} 
-                                typ={"p"}
+                                typ={"pb"}
                                 imgUrl = {"./project.png"}
-                                handleObjectMoodBoard={this.handleProjectMoodBoard}
+                                handleObjectOverview={this.handleProjectOverview}
                                 handleObjectDetails={this.handleProjectDetails}
                                 {...this.props}/> )
     }

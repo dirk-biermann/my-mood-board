@@ -35,9 +35,9 @@ export default class MoodCard extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
-  handleThisMoodBoard = () => {
-    if( this.props.handleObjectMoodBoard ){
-      this.props.handleObjectMoodBoard(this.props.idx);
+  handleThisOverview = () => {
+    if( this.props.handleObjectOverview ){
+      this.props.handleObjectOverview(this.props.idx, this.props.typ);
     }
   }
 
@@ -52,20 +52,49 @@ export default class MoodCard extends Component {
   //
   // -----------------------------------------
   render() {
-    let hasMoodBoard = this.props.handleObjectMoodBoard ? true : false;
+    let hasOverviewBoard = this.props.handleObjectOverview ? true : false;
     let hasDetails = this.props.handleObjectDetails ? true : false;
-    let ico = this.props.typ === "p" ? "project" : ( this.props.typ === "m" ? "material" : "template" ); 
+
+    let icoMain;
+    let icoOverview;
+    let txtOverview;
+    switch (this.props.typ) {
+      case "pb":
+          icoMain = "project";
+          icoOverview = "moodboard";
+          txtOverview = "Moodboard";
+        break;
+
+      case "pm":
+          icoMain = "project";
+          icoOverview = "project";
+          txtOverview = "Projects";
+        break;
+
+      case "mm":
+          icoMain = "material";
+          icoOverview = "material";
+          txtOverview = "Materiels";
+        break;
+
+      default:
+          icoMain = "template";
+          icoOverview = "template";
+          txtOverview = "Templates";
+        break;
+    }
+
     return (
       <>
         <Card border="dark">
           <Card.Img className="cardImage" src={this.props.imgUrl} alt="Image" />
           <Card.ImgOverlay>
             <Card.Title className="ico-row" style={{justifyContent: "space-between"}}>
-              <div className="f-item"><IconSvg ico={ico} cls="svg-btn svg-sw-10 svg-cw25"/></div>
+              <div className="f-item"><IconSvg ico={icoMain} cls="svg-btn svg-sw-10 svg-cw25"/></div>
               <div>
-                { hasMoodBoard && (
-                    <OverlayTrigger overlay={this.showTooltip(['Show','MoodBoard'])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisMoodBoard}><IconSvg ico="moodboard" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
+                { hasOverviewBoard && (
+                    <OverlayTrigger overlay={this.showTooltip(['Show',`${txtOverview}`])}>
+                      <div className="f-item acb-a-svg" onClick={this.handleThisOverview}><IconSvg ico={icoOverview} cls="svg-crd svg-sw10 svg-cw50-h"/></div>
                     </OverlayTrigger>
                   )
                 }
