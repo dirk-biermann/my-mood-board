@@ -100,4 +100,9 @@ app.use("/api/auth", authRoutes);
 const uploadRoutes = require('./routes/file-upload');
 app.use('/api/upload', uploadRoutes);
 
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
+
 module.exports = app;
