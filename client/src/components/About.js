@@ -9,10 +9,16 @@ export default class AppAbout extends Component {
     }
   };
 
+  // -----------------------------------------
+  //
+  // -----------------------------------------
   closeAbout = () => {
     this.props.close();
   }
 
+  // -----------------------------------------
+  //
+  // -----------------------------------------
   render() {
     if(!this.props.show){ return null; }
     return (
@@ -24,12 +30,14 @@ export default class AppAbout extends Component {
         onHide={this.closeAbout}
         style={{color:"black"}}
       >
-        <Modal.Header className="bg-dark text-light">
-          <img alt="acb-logo" src="../../arts_craft_base_logo.svg" width="50" height="50" />
-          <Modal.Title>
-            <span style={{fontSize: "2rem", fontVariant: "small-caps"}}>Arts-Craft-Base</span>
-          </Modal.Title>
+        <Modal.Header className="bg-dark text-light" style={{borderBottom: "none", justifyContent: "space-between"}}>
+          <>
+            <img alt="acb-logo" src="../../arts_craft_base_logo.svg" width="40" height="40" />
+            <h3>My-Mood-Board</h3>
+          </>
+          <Button className="" size="sm" variant="red" onClick={this.closeAbout}><IconSvg ico="cancel" cls="svg-btn svg-cw90"/></Button>
         </Modal.Header>
+
         <Modal.Body>
           <Container>          
             <Row>
@@ -49,10 +57,16 @@ export default class AppAbout extends Component {
           <hr />
           <p className="abt-cr" >(c) 2020 by <em>Juliane Trapp</em> &amp; <em>Susanne Vogl</em> &amp; <em>Kai Zahn</em> &amp; <em>Dirk Biermann</em></p>
         </Modal.Body>
-        <Modal.Footer>
-          <Button className="acb-btn" size="lg" variant="dark" onClick={this.closeAbout}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Close</Button>
-        </Modal.Footer>
       </Modal>
     )
   }
 }
+
+/*
+        <Modal.Header className="bg-dark text-light">
+          <Modal.Title>
+            <span style={{fontSize: "2rem", fontVariant: "small-caps"}}>My-Mood-Board</span>
+          </Modal.Title>
+        </Modal.Header>
+
+*/

@@ -47,26 +47,27 @@ export default class Navbar extends Component {
           <Navmenu.Brand>
             <Link to="/"><img alt="acb-logo" src="../arts_craft_base_logo.svg" width="35" height="35"/></Link>
           </Navmenu.Brand>
-          <Navmenu.Text className="shw-acb navbar-caption">Arts-Craft-Base</Navmenu.Text>
+          <Navmenu.Text className="shw-acb navbar-caption">My-Mood-Board</Navmenu.Text>
             
           <Navmenu.Collapse className="justify-content-end">
             <Link to="/"><IconSvg ico="home" cls="svg-nav svg-sw10 svg-cw50-h"/></Link> 
+            <IconSvg ico="vlines" cls="svg-dot svg-sw5 svg-cw25"/>
 
             {this.props.user ? (
               <>
                 <Link to="/projectboard"><IconSvg ico="project" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
                 <Link to="/materialboard"><IconSvg ico="material" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
                 <Link to="/templateboard"><IconSvg ico="template" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
-                <IconSvg ico="diff" cls="svg-nav svg-sw10 svg-cw25"/>
+                <IconSvg ico="vlines" cls="svg-dot svg-sw5 svg-cw25"/>
                 <Link to="/" onClick={this.handleLogout}><IconSvg ico="logout" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
               </>
             ) : (
               <>
-                <IconSvg ico="diff" cls="svg-nav svg-sw10 svg-cw25"/>
                 <Link to="/signup"><IconSvg ico="signup" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
                 <Link to="/login"><IconSvg ico="login" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
               </>
             )}
+            <IconSvg ico="vlines" cls="svg-dot svg-sw5 svg-cw25"/>
             <div className="acb-a-svg" onClick={this.showAbout}><IconSvg ico="info" cls="svg-nav svg-sw10 svg-cw50-h"/></div>
           </Navmenu.Collapse>
         </Navmenu>

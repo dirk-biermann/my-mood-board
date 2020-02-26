@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { CardColumns } from "react-bootstrap";
 import ObjectCard from "./ObjectCard";
 
-export default class MaterialBoard extends Component {
+export default class TemplateBoard extends Component {
   constructor(){
     super();
     this.state = {
@@ -12,9 +12,9 @@ export default class MaterialBoard extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
-  handleMaterialDetails = (idx) =>{
-    console.log( "D-MAT:", idx );
-    this.props.history.push(`/materialdetail/${idx}`);
+  handleTemplateDetails = (idx) =>{
+    console.log( "D-PRJ:", idx );
+    this.props.history.push(`/templatedetail/${idx}`);
   }
 
   // -----------------------------------------
@@ -22,16 +22,16 @@ export default class MaterialBoard extends Component {
   // -----------------------------------------
   render() {
     let objList = [];
-    for( let i=0; i<30; i++ ){
-      objList.push( <ObjectCard key={`material_card_${i}`} 
+    for( let i=0; i<14; i++ ){
+      objList.push( <ObjectCard key={`template_card_${i}`} 
                                 idx={i} 
-                                typ={"mm"}
-                                title={`Title M${i}`}
-                                imgUrl = {"./material.png"}
-                                handleObjectDetails={this.handleMaterialDetails}
+                                typ={"tm"}
+                                title={`Title T${i}`}
+                                imgUrl = {"./template.png"}
+                                handleObjectDetails={this.handleTemplateDetails}
                                 {...this.props}/> )
     }
-
+    
     return (
       <CardColumns>
         { objList }

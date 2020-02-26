@@ -8,6 +8,9 @@ export default class AppFooter extends Component {
     }
   }
 
+  // -----------------------------------------
+  //
+  // -----------------------------------------
   render() {
     return(
       <Navbar className="foot" bg="dark" variant="dark" fixed="bottom" style={{textAlign: "left"}}>

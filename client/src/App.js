@@ -6,6 +6,8 @@ import ProjectBoard from "./components/ProjectBoard";
 import ProjectDetail from "./components/ProjectDetail";
 import MaterialBoard from "./components/MaterialBoard";
 import MaterialDetail from "./components/MaterialDetail";
+import TemplateBoard from "./components/TemplateBoard";
+import TemplateDetail from "./components/TemplateDetail";
 import MoodBoard from "./components/MoodBoard";
 import Startpage from "./components/Startpage";
 import Signup from "./components/Signup";
@@ -40,6 +42,14 @@ class App extends React.Component {
     }
   }
 
+  routeTemplateBoard = (props) => {  
+    if (this.state.user) {
+      return <TemplateBoard user={this.state.user} {...props} />;
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+
 
   routeMoodBoard = (props) => {  
     if (this.state.user) {
@@ -65,6 +75,14 @@ class App extends React.Component {
     }
   }
 
+  routeTemplateDetail = (props) => {  
+    if (this.state.user) {
+      return <TemplateDetail user={this.state.user} {...props} />;
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+
   render() {
     console.log( "APP:", this.state.user ? "set" : "undef", this.state.user )
     return (
@@ -83,6 +101,9 @@ class App extends React.Component {
             <Route exact path="/materialboard" render={this.routeMaterialBoard} />
             <Route exact path="/materialdetail/:id" render={this.routeMaterialDetail} />
             
+            <Route exact path="/templateboard" render={this.routeTemplateBoard} />
+            <Route exact path="/templatedetail/:id" render={this.routeTemplateDetail} />
+
             <Route exact path="/moodboard/:id" render={this.routeMoodBoard} />
           </div>
         <Distance/>

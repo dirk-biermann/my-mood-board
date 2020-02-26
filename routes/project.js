@@ -1,41 +1,73 @@
 const express = require("express");
 const router = express.Router();
 const Project = require("../models/Project");
-const Task = require("../models/Task");
+const Material = require("../models/Material");
 
 const { cloudinary } = require('../configs/cloudinary');
 
+// --------------------------------------------------
 // GET /api/projects
-router.get("/", (req, res) => {
-  // return all projects
-  Project.find({})
-    .populate("tasks")
-    .then(projects => {
-      res.json(projects);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+// --------------------------------------------------
+router.get("/", async (req, res, next) => {
+  try {
+    // return all projects
+    const allProjects = await Project.find({owner: req.user._id});
+    res.json( allProjects );
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
+// --------------------------------------------------
 // GET /api/projects/:id
-router.get("/:id", (req, res) => {
-  // return 1 project w/ a given id
+// --------------------------------------------------
+router.get("/:id", async (req, res) => {
+  // return 1 project with a given id
   const projectId = req.params.id;
-
-  Project.findById(projectId)
-    .populate("tasks")
-    .then(project => {
-      if (!project) {
-        res.status(404).json({ message: "Project not found" });
-      } else res.json(project);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+  try {
+    // create one project
+    const project = await Project.findById(projectId);    
+    if (!project) {
+      res.status(404).json({ message: "Project not found" });
+    } else res.json(project);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
+// --------------------------------------------------
+// POST api/projects
+// --------------------------------------------------
+router.post("/create", async (req, res) => {
+  const { info, data } = req.body;
+  try {
+    // create one project
+    const result = await Project.create(data);    
+    res.json( result );
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+// --------------------------------------------------
+// DELETE /api/projects/:id
+// --------------------------------------------------
+router.delete("/:id", async (req, res) => {
+  const projectId = req.params.id;
+  try {
+    // create one project
+    const result = await Project.findByIdAndDelete(projectId);    
+    res.json( result );
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+/*
+// --------------------------------------------------
 // POST /api/projects
+// --------------------------------------------------
 router.post("/", (req, res) => {
   // create 1 project
   console.log(req.body);
@@ -53,8 +85,33 @@ router.post("/", (req, res) => {
       res.status(500).json(err);
     });
 });
+*/
 
+/*
+
+// --------------------------------------------------
+// GET /api/projects/:id
+// --------------------------------------------------
+router.get("/:id", (req, res) => {
+  // return 1 project with a given id
+  const projectId = req.params.id;
+
+  Project.findById(projectId)
+    .populate("tasks")
+    .then(project => {
+      if (!project) {
+        res.status(404).json({ message: "Project not found" });
+      } else res.json(project);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+
+// --------------------------------------------------
 // PUT /api/projects/:id
+// --------------------------------------------------
 router.put("/:id", (req, res) => {
   Project.findByIdAndUpdate(
     req.params.id,
@@ -74,20 +131,5 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// DELETE /api/projects/:id
-router.delete("/:id", (req, res) => {
-  Project.findByIdAndDelete(req.params.id)
-    .then(project => {
-      // Delete the image on cloudinary
-      cloudinary.uploader.destroy(project.imagePublicID);
-      // Deletes all the documents in the Task collection where the value for the `_id` field is present in the `project.tasks` array
-      return Task.deleteMany({ _id: { $in: project.tasks } }).then(() =>
-        res.json({ message: "ok" })
-      );
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
-});
-
+*/
 module.exports = router;

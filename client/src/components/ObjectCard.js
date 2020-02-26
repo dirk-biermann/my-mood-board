@@ -35,6 +35,13 @@ export default class MoodCard extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
+  handleThisDelete = () => {
+    this.props.handleObjectDelete(this.props.idx, this.props.typ);
+  }
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
   handleThisOverview = () => {
     if( this.props.handleObjectOverview ){
       this.props.handleObjectOverview(this.props.idx, this.props.typ);
@@ -54,33 +61,39 @@ export default class MoodCard extends Component {
   render() {
     let hasOverviewBoard = this.props.handleObjectOverview ? true : false;
     let hasDetails = this.props.handleObjectDetails ? true : false;
+    let hasDelete = this.props.handleObjectDelete ? true : false;
 
     let icoMain;
     let icoOverview;
     let txtOverview;
+    let txtDelete;
     switch (this.props.typ) {
       case "pb":
           icoMain = "project";
           icoOverview = "moodboard";
           txtOverview = "Moodboard";
+          txtDelete = "Project";
         break;
 
       case "pm":
           icoMain = "project";
           icoOverview = "project";
           txtOverview = "Projects";
+          txtDelete = "Project";
         break;
 
       case "mm":
           icoMain = "material";
           icoOverview = "material";
-          txtOverview = "Materiels";
+          txtOverview = "Materials";
+          txtDelete = "Material";
         break;
 
       default:
           icoMain = "template";
           icoOverview = "template";
           txtOverview = "Templates";
+          txtDelete = "Template";
         break;
     }
 
@@ -104,6 +117,12 @@ export default class MoodCard extends Component {
                     </OverlayTrigger>
                   )
                 }
+                { hasDelete && (
+                    <OverlayTrigger overlay={this.showTooltip(['Delete',`${txtDelete}`])}>
+                      <div className="f-item acb-a-svg" onClick={this.handleThisDelete}><IconSvg ico="delete" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
+                    </OverlayTrigger>
+                  )
+                }
                 <OverlayTrigger overlay={this.showTooltip(['Expand','Image'])}>
                   <div className="f-item acb-a-svg" onClick={this.showImageDisp}><IconSvg ico="expand" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
                 </OverlayTrigger>
@@ -111,7 +130,7 @@ export default class MoodCard extends Component {
             </Card.Title>
           </Card.ImgOverlay>
         </Card>
-        <ImageDisp show={this.state.showImage} img={this.props.imgUrl} close={this.hideImageDisp} />
+        <ImageDisp show={this.state.showImage} img={this.props.imgUrl} title={this.props.title} close={this.hideImageDisp} />
       </>
     )
   }

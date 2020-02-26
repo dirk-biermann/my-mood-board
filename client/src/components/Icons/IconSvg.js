@@ -29,6 +29,10 @@ import {ReactComponent as IconFreePik} from './SVG/freepik.svg';
 import {ReactComponent as IconMinimize} from './SVG/minimize.svg';
 import {ReactComponent as IconExpand} from './SVG/expand.svg';
 import {ReactComponent as IconMenu} from './SVG/menu.svg';
+import {ReactComponent as IconDot} from './SVG/dot.svg';
+import {ReactComponent as IconDash} from './SVG/dash.svg';
+import {ReactComponent as IconVLine} from './SVG/vline.svg';
+import {ReactComponent as IconVLineS} from './SVG/vlines.svg';
 
 export default class IconSvg extends Component {
   constructor() {
@@ -37,8 +41,7 @@ export default class IconSvg extends Component {
       "home","project","moodboard","material","template","signup","edit","settings","login",
       "logout","info","plus","minus","cancel","save","delete","sad","diff",
       "up","down","left","right","error","checked","freepik","minimize","expand",
-      "menu","doc"
-    ]
+      "menu","doc","dot","dash","vline","vlines"    ]
   }
   
   render() {
@@ -57,7 +60,7 @@ export default class IconSvg extends Component {
         case "diff":       icoComponent = <IconDiff key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "doc":        icoComponent = <IconDoc key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
         case "home":       icoComponent = <IconHome key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
-        case "project":    icoComponent = <IconProject key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
+        case "project":    icoComponent = <IconProject key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         case "moodboard":  icoComponent = <IconBoard key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
         case "material":   icoComponent = <IconMaterial key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
         case "template":   icoComponent = <IconTemplate key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
@@ -81,6 +84,10 @@ export default class IconSvg extends Component {
         case "freepik":    icoComponent = <IconFreePik key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         case "minimize":   icoComponent = <IconMinimize key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
         case "expand":     icoComponent = <IconExpand key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
+        case "dot":        icoComponent = <IconDot key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
+        case "dash":       icoComponent = <IconDash key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
+        case "vline":      icoComponent = <IconVLine key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
+        case "vlines":     icoComponent = <IconVLineS key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
         default:           icoComponent = <IconSad key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
       }
       icoList.push( icoComponent );

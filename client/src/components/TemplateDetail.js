@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-export default class MaterialDetail extends Component {
+export default class TemplateDetail extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
   render() {
     return (
       <div>
-        Material Detail
+        Template Detail
       </div>
     )
   }

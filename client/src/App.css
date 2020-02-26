@@ -25,14 +25,50 @@
   font-variant: small-caps;
 }
 
+.btn-red:hover {
+  color: #fff;
+  background-color: #6c131c;
+  border-color: #570f16;
+}
+
+.btn-red {
+  color: #fff;
+  background-color: #981b27;
+  border-color: #981b27;
+}
+
+.btn-green:hover {
+  color: #fff;
+  background-color: #144C0D;
+  border-color: #103D0B;
+}
+
+.btn-green {
+  color: #fff;
+  background-color: #1D6A13;
+  border-color: #1D6A13;
+}
+
+.btn-blue:hover {
+  color: #fff;
+  background-color: #0D2B4C;
+  border-color: #0B223D;
+}
+
+.btn-blue {
+  color: #fff;
+  background-color: #133D6A;
+  border-color: #133D6A;
+}
+
 .acb-btn { margin: 0 5px 5px 0px; letter-spacing: 4px;}
 .acb-btn:last-child{ margin: 0 0 5px 0; }
 
 .acb-a-svg { cursor: pointer; display: inline-block; }
 
-.acb-img { width: 200px; }
+.acb-img { width: 200px; background-color: rgba( 255,255,255,0.10); }
 @media screen and (min-width: 400px) { .acb-img { width: 300px; } }
-@media screen and (min-width: 600px) { .acb-img { width: 400px; } }
+@media screen and (min-width: 1000px) { .acb-img { width: 400px; } }
 
 /* -------------------------------------------------------------- */
 
@@ -48,10 +84,17 @@
 .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
 .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
 
-.svg-crd .svg__icon { width: 1.5rem !important; }
-.svg-btn .svg__icon { width: 20px !important; }
+.svg-crd .svg__icon { width: 1.5rem; }
+.svg-btn .svg__icon { width: 20px; }
 .svg-nav .svg__icon,
-.svg-big .svg__icon { width: 30px !important; }
+.svg-big .svg__icon { width: 30px; }
+.svg-cls { padding: 4px; }
+.svg-dot .svg__icon { width: 15px; }
+.svg-cls .svg__icon { width: 20px; }
+
+@media screen and (max-width: 400px) {
+  .svg-nav .svg__icon { width: 25px; }
+}
 
 .svg-sw10 .svg__icon path { stroke-width: 10px !important; }
 
@@ -78,7 +121,11 @@
 /* ------------------------------- */
 
 .f-row { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: flex-start; }
-.f-row .f-item { margin: 0px 10px; }
+.f-row .f-item { margin: 0px 10px; flex-grow: 0; flex-basis: 80%; }
+
+@media screen and (min-width: 1000px) { .f-row .f-item { flex-basis: 40%; } }
+@media screen and (min-width: 1400px) { .f-row .f-item { flex-basis: 30%; } }
+
 .f-col { display: flex; flex-direction: column; justify-content: space-evenly; align-items: flex-start; }
 
 .ico-row { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
@@ -87,6 +134,9 @@
 .info-box { margin-top: 10%; }
 .txt-box .b-item { margin: 10px 0px; }
 
+.fj-spa { justify-content: space-around; }
+.fa-cen { align-items: center; }
+
 .info-box h1.title {
   font-size: 2.5rem;
   letter-spacing: 2px;
@@ -94,6 +144,13 @@
   text-shadow: 4px 4px 4px black;
   font-variant: small-caps;
 }
+.fc-r { color: rgb(128, 0, 0); }
+.fc-g { color: rgb(0, 64, 0); }
+.fc-b { color: rgb( 0,0,128); }
+.fc-y { color: rgb(128, 128, 0); }
+.fc-o { color: rgb(128,64,0); }
+.fc-p { color: rgb(128,0,128); }
+
 @media screen and (min-width: 400px) { .info-box h1.title { font-size: 3.5rem; letter-spacing: 3px; } }
 @media screen and (min-width: 600px) { .info-box h1.title { font-size: 5rem; letter-spacing: 5px; } }
 
@@ -107,15 +164,16 @@
 }
 
 .info-box .desc p {
-  font-size: 1.5rem;
+  font-size: 1.0rem;
   font-weight: 600;
   font-variant: small-caps;
   letter-spacing: 0.15em;
   margin-bottom: 0;
   /* text-transform: uppercase; */
 }
-@media screen and (min-width: 400px) { .info-box h1.title { font-size: 3.5rem; letter-spacing: 3px; } }
-@media screen and (min-width: 600px) { .info-box h1.title { font-size: 5rem; letter-spacing: 5px; } }
+
+@media screen and (min-width: 400px) { .info-box .desc p { font-size: 1.25rem; } }
+@media screen and (min-width: 600px) { .info-box .desc p { font-size: 1.5rem; } }
 
 /* ------------------------------- */
 
@@ -143,12 +201,18 @@
   grid-column-gap: 0 !important;
   column-gap: 0 !important;  
 }
+.card-single {
+  display: inline-block;
+}
 
-.card-columns .card {
+.card-columns .card, .card-single .card {
   display: inline-block;
   width: 19.99999%;
   margin-bottom: 0rem !important;
   background-color: transparent;
+}
+.card-single .card {
+  width: 100%;
 }
 
 .cardImage {

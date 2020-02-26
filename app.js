@@ -81,7 +81,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // default value for title local
-app.locals.title = "Express - Generated with IronGenerator";
+app.locals.title = "My-Mood-Board - Express - Generated with IronGenerator";
 
 // ROUTES MIDDLEWARE STARTS HERE:
 
@@ -91,18 +91,17 @@ app.use("/", index);
 const projectRoutes = require("./routes/project");
 app.use("/api/projects", projectRoutes);
 
-const taskRoutes = require("./routes/task");
-app.use("/api/tasks", taskRoutes);
+//const taskRoutes = require("./routes/task");
+//app.use("/api/tasks", taskRoutes);
 
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
 
-const uploadRoutes = require('./routes/file-upload');
-app.use('/api/upload', uploadRoutes);
+//const uploadRoutes = require('./routes/file-upload');
+//app.use('/api/upload', uploadRoutes);
 
-app.use((req, res, next) => {
-  // If no routes match, send them the React HTML.
-  res.sendFile(__dirname + "/public/index.html");
+app.use((req, res) => {
+  res.sendFile(__dirname + "/client/build/index.html");
 });
 
 module.exports = app;

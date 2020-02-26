@@ -7,6 +7,9 @@ export default class Distance extends Component {
     };
   };
 
+  // -----------------------------------------
+  //
+  // -----------------------------------------
   render() {
     return (
       <div className="dist-top-bottom"></div>
