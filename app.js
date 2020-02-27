@@ -57,7 +57,7 @@ app.use(
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 // ADD SESSION SETTINGS HERE:
@@ -85,8 +85,8 @@ app.locals.title = "My-Mood-Board - Express - Generated with IronGenerator";
 
 // ROUTES MIDDLEWARE STARTS HERE:
 
-//const index = require("./routes/index");
-//app.use("/", index);
+const index = require("./routes/index");
+app.use("/", index);
 
 const projectRoutes = require("./routes/project");
 app.use("/api/projects", projectRoutes);
