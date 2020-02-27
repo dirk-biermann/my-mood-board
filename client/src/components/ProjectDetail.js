@@ -4,6 +4,7 @@ import { Form, Col, Button } from "react-bootstrap";
 import ConfirmDelete from "./ConfirmDelete";
 import ObjectCard from "./ObjectCard";
 import IconSvg from "./Icons/IconSvg";
+import { cloneObject, imageExists } from "../services/init";
 
 export default class ProjectDetail extends Component {
   constructor(props) {
@@ -14,20 +15,18 @@ export default class ProjectDetail extends Component {
           name: '',
           description: '',
           notes: '',
-          status: '',
+          status: 'New',
           imageUrl: '',
           owner: this.props.user._id
         },
-        editMode: false
+        editMode: false,
+        createMode: false,
+        isValidImage: true
     }
   }
 
-  // -----------------------------------------
-  //
-  // -----------------------------------------
-  handleProjectDeleteConfirmation = (idx) => {
+  handleProjectDeleteConfirmation = () => {
     this.setState({ 
-        projectDeleteIdx: idx,
         showConfirm: true
       });
   }
@@ -37,11 +36,34 @@ export default class ProjectDetail extends Component {
   // -----------------------------------------
   handleProjectDeleteConfirmationState = (confirmDeleteState) => {
     if (confirmDeleteState === true) {
-      //this.handleProjectDelete( this.state.projectDeleteIdx );
+      this.handleProjectDelete( this.state.project._id );
     }
     this.setState({
-        projectDeleteIdx: undefined, 
         showConfirm: false
+      });
+  };
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  handleChangeInput = (event) => {
+    const { name, value } = event.target;
+
+    if( name === "imageUrl" ) {
+      imageExists( value, (exist) => {
+        this.setState({
+            isValidImage: exist
+          });
+        }
+      );
+    }
+    console.log( "CHG", name, value );
+
+    let tmpProject = cloneObject( this.state.project );
+    tmpProject[name] = value;
+
+    this.setState({
+      project: tmpProject,
       });
   };
 
@@ -63,11 +85,23 @@ export default class ProjectDetail extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
-  handleSubmitx = event => {};
-
-  handleSubmit = event => {
+  handleSubmitProject = (event) => {
     if (event) { event.preventDefault(); }
 
+    if( this.state.createMode && this.state.editMode ) {
+      this.handleCreateNewProject();
+    } else {
+      if( this.state.editMode ) {
+        this.handleUpdateProject();
+      }
+    }
+
+  };
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  handleCreateNewProject = () => {
     axios
       .post("/api/projects/create", {
           info: "Create Project",
@@ -79,10 +113,41 @@ export default class ProjectDetail extends Component {
       .catch(err => {
         console.log(err);
       });
-    // set a flag that the project got submitted
-    this.setState({
-      submitted: true
-    })
+  };
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  handleProjectDelete = (idx) =>{
+    axios
+      .delete(`/api/projects/${idx}`)
+      .then(() => {
+        this.props.history.push("/projectboard");
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  };
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  handleUpdateProject = () => {
+  
+  /*
+    axios
+      .post("/api/projects/create", {
+          info: "Create Project",
+          data: this.state.project
+      })
+      .then(response => {
+        this.props.history.push("/projectboard");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  */
+  
   };
 
   // -----------------------------------------
@@ -93,7 +158,8 @@ export default class ProjectDetail extends Component {
       .get(`/api/projects/${idx}`)
       .then(response => {
         this.setState({
-          project: response.data
+          project: response.data,
+          editMode: true
         });
       })
       .catch(err => {
@@ -106,20 +172,42 @@ export default class ProjectDetail extends Component {
   // -----------------------------------------
   componentDidMount() {
     const projectId = this.props.match.params.id;
-    this.handleProjectGetOne(projectId);
+    if( projectId ) {
+      this.handleProjectGetOne(projectId);
+    } else {
+      this.setState({
+          editMode: true,
+          createMode: true
+        })
+    }
   }
 
   // -----------------------------------------
   //
   // -----------------------------------------
   render() {
-    let projectImage = this.state.project.imageUrl ? ( this.state.project.imageUrl === "" ? "/project.png" : this.state.project.imageUrl ) : ( "/project.png" );
+    let projectImage = this.state.isValidImage ? ( this.state.project.imageUrl !== '' ? this.state.project.imageUrl : '/project.png' ) : '/project.png';
+    let pageTitle = 'Project Detail';
+    let btnList = [];
+
+    if( this.state.editMode === true ) pageTitle = 'Project Update';
+    if( this.state.createMode === true ) pageTitle = 'Project Create';
+
+    if( this.state.createMode === true || this.state.editMode === true ) {
+      btnList.push( <Button key={'project_detail_btn_01'} className="mr-2 mb-1" variant="blue" type="submit"><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button> );
+    }
+    if( this.state.createMode === false && this.state.editMode === true ) {
+      btnList.push( <Button key={'project_detail_btn_02'} className="mr-2 mb-1" variant="red" onClick={this.handleProjectDeleteConfirmation}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button> );
+    }
+    
+    const delProject = [ 'Project', this.state.project.name ];
+
     return (
       <>
-        <Form>
+        <Form onSubmit={this.handleSubmitProject}>
           <Form.Row>
             <Form.Group as={Col} sm="12">
-              <h2>Project Detail</h2>
+              <h2>{pageTitle}</h2>
             </Form.Group>
           </Form.Row>
           <Form.Row>
@@ -140,7 +228,7 @@ export default class ProjectDetail extends Component {
                 type="text"
                 name="name"
                 value={this.state.project.name || ''}
-                onChange={this.handleChange}
+                onChange={this.handleChangeInput}
               />
               <Form.Label>Image Url:</Form.Label>
               <Form.Control 
@@ -148,7 +236,7 @@ export default class ProjectDetail extends Component {
                 type="text"
                 name="imageUrl"
                 value={this.state.project.imageUrl || ''}
-                onChange={this.handleChange}
+                onChange={this.handleChangeInput}
               />
               <Form.Label>Status:</Form.Label>
               <Form.Control
@@ -156,7 +244,7 @@ export default class ProjectDetail extends Component {
                   name="status"
                   id="status"
                   default={this.state.project.status || 'New'}
-                  onChange={this.handleChange}
+                  onChange={this.handleChangeInput}
                 >
                 <option value="New">New</option>
                 <option value="Completed">Completed</option>
@@ -170,7 +258,7 @@ export default class ProjectDetail extends Component {
                 as="textarea"
                 name="description"
                 value={this.state.project.description || ''}
-                onChange={this.handleChange}
+                onChange={this.handleChangeInput}
               />
             </Form.Group>
             <Form.Group as={Col} sm="12" md="6" lg="3">
@@ -180,20 +268,19 @@ export default class ProjectDetail extends Component {
                 as="textarea"
                 name="notes"
                 value={this.state.project.notes || ''}
-                onChange={this.handleChange}
+                onChange={this.handleChangeInput}
               />
             </Form.Group>
           </Form.Row>
           <Form.Row>
             <Form.Group as={Col} sm="12">
               <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/projectboard") }}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button>
-              <Button className="mr-2 mb-1" variant="blue" onClick={this.handleSave}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button>
-              <Button className="mr-2 mb-1" variant="red" onClick={this.showConfirmDelete}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button>
+              {btnList}
               <Button className="mr-2 mb-1" variant="green" onClick={this.modifyComponents}><IconSvg ico="plus" cls="svg-btn svg-cw90 svg-mr"/>Assign/Remove Component</Button>
             </Form.Group>
           </Form.Row>
         </Form>
-        <ConfirmDelete show={this.state.showConfirm} close={this.handleProjectDeleteConfirmationState} title={"delProject"} />
+        <ConfirmDelete show={this.state.showConfirm} close={this.handleProjectDeleteConfirmationState} info={delProject} />
       </>
     )
   }

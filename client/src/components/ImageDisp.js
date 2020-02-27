@@ -35,7 +35,7 @@ export default class ImageDisp extends Component {
           <Button className="" size="sm" variant="red" onClick={this.closeImageDisp}><IconSvg ico="cancel" cls="svg-btn svg-cw90"/></Button>
         </Modal.Header>
         <Modal.Body className="bg-dark" style={{padding: "0"}}>
-          <Container style={{padding: "0"}}>  
+          <Container style={{padding: "0", backgroundColor: "darkgray"}}>  
             <Image src={this.props.img} fluid />       
           </Container>
         </Modal.Body>

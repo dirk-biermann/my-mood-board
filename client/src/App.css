@@ -79,7 +79,7 @@
 .svg-ml { margin-left: 10px; }
 
 
-.svg__icon { width: 1.2rem; }
+.svg__icon { width: 15px; }
 .svg__icon path { stroke-width: 5px; }
 .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
 .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
@@ -135,6 +135,7 @@
 .txt-box .b-item { margin: 10px 0px; }
 
 .fj-spa { justify-content: space-around; }
+.fj-spb { justify-content: space-between; }
 .fa-cen { align-items: center; }
 
 .info-box h1.title {
@@ -144,6 +145,7 @@
   text-shadow: 4px 4px 4px black;
   font-variant: small-caps;
 }
+
 .fc-r { color: rgb(128, 0, 0); }
 .fc-g { color: rgb(0, 64, 0); }
 .fc-b { color: rgb( 0,0,128); }
@@ -169,6 +171,8 @@
   font-variant: small-caps;
   letter-spacing: 0.15em;
   margin-bottom: 0;
+  text-indent: -12px;
+  margin-left: 25px;
   /* text-transform: uppercase; */
 }
 

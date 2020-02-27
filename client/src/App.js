@@ -84,7 +84,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log( "APP:", this.state.user ? "set" : "undef", this.state.user )
     return (
       <div className="App">
         <Distance/>
@@ -97,6 +96,7 @@ class App extends React.Component {
             
             <Route exact path="/projectboard" render={this.routeProjectBoard} />
             <Route exact path="/projectdetail/:id" render={this.routeProjectDetail} />
+            <Route exact path="/projectcreate" render={this.routeProjectDetail} />
 
             <Route exact path="/materialboard" render={this.routeMaterialBoard} />
             <Route exact path="/materialdetail/:id" render={this.routeMaterialDetail} />

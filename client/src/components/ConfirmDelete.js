@@ -37,8 +37,11 @@ export default class ConfirmDelete extends Component {
               <IconSvg ico="delete" cls="svg-big svg-cb90" />
             </div>
             <div className="f-col" style={{flexGrow: "3"}}>
-              <h4>Do you want to delete</h4>
-              <h2 className="trunkText">{this.props.title}</h2>
+              <div className="f-row fa-cen">
+                <h4>Do you want to delete</h4>
+                <h3 className="trunkText">&nbsp;"<span className="fc-b">{this.props.info[0]}"</span></h3>
+              </div>
+              <h2 className="trunkText fc-r">{this.props.info[1]}</h2>
             </div>
           </div>
         </Modal.Body>

@@ -32,6 +32,14 @@ export default class ProjectBoard extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
+  handleProjectCreate = (idx) =>{
+    console.log( "C-PRJ:", idx );
+    this.props.history.push(`/projectcreate`);
+  };
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
   handleProjectDeleteConfirmation = (idx) => {
     this.setState({ 
         projectDeleteIdx: idx,
@@ -96,9 +104,9 @@ export default class ProjectBoard extends Component {
   render() {   
     let delProject = '';
     if( this.state.projectDeleteIdx ){
-      delProject = `Project: ${this.state.projects.find( (project)=>{
-                        return project._id === this.state.projectDeleteIdx;
-                      }).name}`;
+      delProject = [ 'Project', this.state.projects.find( (project)=>{
+                                    return project._id === this.state.projectDeleteIdx;
+                                  }).name ];
     }
  
     return (
@@ -106,7 +114,6 @@ export default class ProjectBoard extends Component {
         <CardColumns>
           { this.state.projects.map( (project, index) => {
               let projectImage = project.imageUrl === "" ? "/project.png" : project.imageUrl;
-              console.log( "P", project, "IMG", project.imgUrl, '|>', projectImage)
               return <ObjectCard key={`project_card_${project._id}`} 
                                   idx={project._id} 
                                   typ={"pb"}
@@ -118,8 +125,15 @@ export default class ProjectBoard extends Component {
                                   {...this.props}/>
             }) 
           }
+          <ObjectCard key={`project_card_0`} 
+                      idx={'0'} 
+                      typ={"pb"}
+                      title={'New Project'}
+                      imgUrl = {'/newobject.png'}
+                      handleObjectCreate={this.handleProjectCreate}
+                      {...this.props}/>
         </CardColumns>
-        <ConfirmDelete show={this.state.showConfirm} close={this.handleProjectDeleteConfirmationState} title={delProject} />
+        <ConfirmDelete show={this.state.showConfirm} close={this.handleProjectDeleteConfirmationState} info={delProject} />
       </>
     )
   }

@@ -51,6 +51,15 @@ export default class MoodCard extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
+  handleThisCreate = () => {
+    if( this.props.handleObjectCreate ){
+      this.props.handleObjectCreate(this.props.idx, this.props.typ);
+    }
+  }
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
   showTooltip = (info) => {
     return ( <Tooltip id={'tooltip-top'}>{info[0]} <strong>{info[1]}</strong></Tooltip> );
   }
@@ -62,6 +71,7 @@ export default class MoodCard extends Component {
     let hasOverviewBoard = this.props.handleObjectOverview ? true : false;
     let hasDetails = this.props.handleObjectDetails ? true : false;
     let hasDelete = this.props.handleObjectDelete ? true : false;
+    let hasCreate = this.props.handleObjectCreate ? true : false;
 
     let icoMain;
     let icoOverview;
@@ -96,11 +106,10 @@ export default class MoodCard extends Component {
           txtDelete = "Template";
         break;
     }
-
     return (
       <>
         <Card border="dark">
-          <Card.Img className="cardImage" src={this.props.imgUrl} alt="Image" />
+          <Card.Img className="cardImage" src={this.props.imgUrl} alt="Image"/>
           <Card.ImgOverlay>
             <Card.Title className="ico-row" style={{justifyContent: "space-between"}}>
               <div className="f-item"><IconSvg ico={icoMain} cls="svg-btn svg-sw-10 svg-cw25"/></div>
@@ -123,11 +132,28 @@ export default class MoodCard extends Component {
                     </OverlayTrigger>
                   )
                 }
-                <OverlayTrigger overlay={this.showTooltip(['Expand','Image'])}>
-                  <div className="f-item acb-a-svg" onClick={this.showImageDisp}><IconSvg ico="expand" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
-                </OverlayTrigger>
+                { hasCreate && (
+                    <OverlayTrigger overlay={this.showTooltip(['Create',`${txtDelete}`])}>
+                      <div className="f-item acb-a-svg" onClick={this.handleThisCreate}><IconSvg ico="new" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
+                    </OverlayTrigger>
+                  )
+                }
+                { !hasCreate && (
+                    <OverlayTrigger overlay={this.showTooltip(['Expand','Image'])}>
+                      <div className="f-item acb-a-svg" onClick={this.showImageDisp}><IconSvg ico="expand" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
+                    </OverlayTrigger>
+                  )
+                }
               </div>
             </Card.Title>
+            <Card.Body>
+              { hasCreate && (
+                  <div className="f-row">
+                    <h1 style={{textAlign:"center", textShadow: "2px 2px 5px black"}}>New</h1>
+                  </div>
+                )
+              }
+            </Card.Body>
           </Card.ImgOverlay>
         </Card>
         <ImageDisp show={this.state.showImage} img={this.props.imgUrl} title={this.props.title} close={this.hideImageDisp} />
