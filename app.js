@@ -85,8 +85,8 @@ app.locals.title = "My-Mood-Board - Express - Generated with IronGenerator";
 
 // ROUTES MIDDLEWARE STARTS HERE:
 
-const index = require("./routes/index");
-app.use("/", index);
+//const index = require("./routes/index");
+//app.use("/", index);
 
 const projectRoutes = require("./routes/project");
 app.use("/api/projects", projectRoutes);
