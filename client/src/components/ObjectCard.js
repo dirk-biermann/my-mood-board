@@ -158,35 +158,35 @@ export default class ObjectCard extends Component {
           <Card.Img onError={this.onErrorImage} onLoad={this.onLoadImage} className="cardImage" src={imgFilename} alt="Image"/>
           <Card.ImgOverlay>
             <Card.Title className="ico-row" style={{justifyContent: "space-between"}}>
-              <div className="f-item"><IconSvg ico={icoMain} cls="svg-crd svg-sw-10 svg-cw25"/></div>
+              <div className="f-item"><IconSvg ico={icoMain} cls="svg-crd svg-sw-10 svg-cw25 svg-mr"/></div>
               <div>
                 { hasOverviewBoard && (
                     <OverlayTrigger overlay={this.showTooltip(['Show',`${txtOverview}`])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisOverview}><IconSvg ico={icoOverview} cls="svg-crd svg-sw10 svg-cw50-h"/></div>
+                      <div className="f-item acb-a-svg" onClick={this.handleThisOverview}><IconSvg ico={icoOverview} cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
                 { hasDetails && (
                     <OverlayTrigger overlay={this.showTooltip(['Show','Details'])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisDetails}><IconSvg ico="doc" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
+                      <div className="f-item acb-a-svg" onClick={this.handleThisDetails}><IconSvg ico="doc" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
                 { hasDelete && (
                     <OverlayTrigger overlay={this.showTooltip(['Delete',`${txtDelete}`])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisDelete}><IconSvg ico="delete" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
+                      <div className="f-item acb-a-svg" onClick={this.handleThisDelete}><IconSvg ico="delete" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
                 { hasCreate && (
                     <OverlayTrigger overlay={this.showTooltip(['Create',`${txtDelete}`])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisCreate}><IconSvg ico="new" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
+                      <div className="f-item acb-a-svg" onClick={this.handleThisCreate}><IconSvg ico="new" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
                 { !hasCreate && (
                     <OverlayTrigger overlay={this.showTooltip(['Expand','Image'])}>
-                      <div className="f-item acb-a-svg" onClick={this.showImageDisp}><IconSvg ico="expand" cls="svg-crd svg-sw10 svg-cw50-h"/></div>
+                      <div className="f-item acb-a-svg" onClick={this.showImageDisp}><IconSvg ico="expand" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
