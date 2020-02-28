@@ -18,7 +18,7 @@ const passport = require("passport");
 require("./configs/passport");
 
 // IF YOU STILL DIDN'T, GO TO 'configs/passport.js' AND UN-COMMENT OUT THE WHOLE FILE
-
+mongoose.set('useFindAndModify', false);
 mongoose
   .connect( process.env.MONGODB_URI || "mongodb://localhost/my-mood-board", {
     useNewUrlParser: true, useUnifiedTopology: true

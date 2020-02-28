@@ -32,12 +32,21 @@ const cloneObject = (obj) => {
   return temp;
 };
 
+const imageExists = (path) =>
+  new Promise(resolve => {
+    console.log("imageExists: ", path );
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = path;
+});
 
-const imageExists = (url, callback) => {
+/*
+const imageExistsx = (url, callback) => {
   var img = new Image();
   img.onload = function() { callback(true); };
   img.onerror = function() { callback(false); };
   img.src = url;
 }
-
+*/
 export { initCollection, cloneObject, imageExists };

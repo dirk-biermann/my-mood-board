@@ -64,20 +64,16 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-/*
 // --------------------------------------------------
-// POST /api/projects
+// PUT /api/projects/:id
 // --------------------------------------------------
-router.post("/", (req, res) => {
-  // create 1 project
-  console.log(req.body);
-  Project.create({
-    title: req.body.title,
-    description: req.body.description,
-    owner: req.user._id,
-    imageURL: req.body.imageURL,
-    imagePublicID: req.body.imagePublicID
-  })
+router.put("/:id", (req, res) => {
+  const { info, data } = req.body;
+  Project.findByIdAndUpdate(
+      req.params.id,
+      data,
+      { new: true }
+    )
     .then(project => {
       res.json(project);
     })
@@ -85,29 +81,19 @@ router.post("/", (req, res) => {
       res.status(500).json(err);
     });
 });
-*/
+
 
 /*
-
-// --------------------------------------------------
-// GET /api/projects/:id
-// --------------------------------------------------
-router.get("/:id", (req, res) => {
-  // return 1 project with a given id
-  const projectId = req.params.id;
-
-  Project.findById(projectId)
-    .populate("tasks")
-    .then(project => {
-      if (!project) {
-        res.status(404).json({ message: "Project not found" });
-      } else res.json(project);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
-});
-
+  	  {
+        name: data.name,
+        description: data.description,
+        notes: data.notes,
+        status: data.status,
+        imageUrl: data.imageUrl,
+        imagePublicID: data.imagePublicID,
+        owner: data.owner,
+        materials: data.materials
+      },
 
 // --------------------------------------------------
 // PUT /api/projects/:id
@@ -132,4 +118,5 @@ router.put("/:id", (req, res) => {
 });
 
 */
+
 module.exports = router;

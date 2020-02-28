@@ -74,6 +74,7 @@
 
 .svg-ico { display: inline-block; }
 .svg-nav { margin: 0 5px; }
+.svg-crd { margin-left: 10px; }
 
 .svg-mr { margin-right: 10px; }
 .svg-ml { margin-left: 10px; }
@@ -84,7 +85,7 @@
 .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
 .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
 
-.svg-crd .svg__icon { width: 1.5rem; }
+.svg-crd .svg__icon { width: 25px; }
 .svg-btn .svg__icon { width: 20px; }
 .svg-nav .svg__icon,
 .svg-big .svg__icon { width: 30px; }

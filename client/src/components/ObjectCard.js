@@ -3,11 +3,16 @@ import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import IconSvg from "./Icons/IconSvg";
 import ImageDisp from "./ImageDisp";
 
-export default class MoodCard extends Component {
-  constructor(){
-    super()
+export default class ObjectCard extends Component {
+  constructor(props){
+    super(props)
+
     this.state = {
-      showImage: false
+      showImage: false,
+      infoText: props.info,
+      infoTextSik: props.info,
+      curImage: props.imgUrl,
+      errLoadImg: false  
     };
   };
 
@@ -61,9 +66,32 @@ export default class MoodCard extends Component {
   //
   // -----------------------------------------
   showTooltip = (info) => {
-    return ( <Tooltip id={'tooltip-top'}>{info[0]} <strong>{info[1]}</strong></Tooltip> );
+    return ( <Tooltip className="shw-acb" id={'tooltip-top'}>{info[0]} <strong>{info[1]}</strong></Tooltip> );
   }
 
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  onErrorImage = (event) => {
+    //console.log( `[4] OC-onErrorImage [`, this.props.idx, '] img:', this.props.imgUrl );
+    event.target.src = '/errobject.png';
+    this.setState({ errLoadImg: true });
+  }
+  onLoadImage = (event) => {
+    //console.log( `[4] OC-onLoadImage [`, this.props.idx, '] img:', this.props.imgUrl );
+    this.setState({ 
+        infoText: this.state.errLoadImg ? "Can't load Image" : this.state.infoTextSik,
+        errLoadImg: false
+      });
+  }
+
+  // -----------------------------------------
+  // LIFE CYCLE
+  // -----------------------------------------
+  componentDidMount() {
+    //console.log( "[2] OC-componentDidMount" );
+  }
+  
   // -----------------------------------------
   //
   // -----------------------------------------
@@ -72,17 +100,25 @@ export default class MoodCard extends Component {
     let hasDetails = this.props.handleObjectDetails ? true : false;
     let hasDelete = this.props.handleObjectDelete ? true : false;
     let hasCreate = this.props.handleObjectCreate ? true : false;
+    let hasInfo = this.state.infoText ? true : false;
 
     let icoMain;
     let icoOverview;
     let txtOverview;
     let txtDelete;
+    let imgFilename;
+
+    //console.log( "[1] OC-render [", this.props.idx, ']' );    
+    //console.log( "[1.1] Image [", this.props.idx, ']', this.props.imgUrl );    
+    //console.log( "[1.2] infoText", this.state.infoText );
+
     switch (this.props.typ) {
       case "pb":
           icoMain = "project";
           icoOverview = "moodboard";
           txtOverview = "Moodboard";
           txtDelete = "Project";
+          imgFilename = "/project.png";
         break;
 
       case "pm":
@@ -90,6 +126,7 @@ export default class MoodCard extends Component {
           icoOverview = "project";
           txtOverview = "Projects";
           txtDelete = "Project";
+          imgFilename = "/project.png";
         break;
 
       case "mm":
@@ -97,6 +134,7 @@ export default class MoodCard extends Component {
           icoOverview = "material";
           txtOverview = "Materials";
           txtDelete = "Material";
+          imgFilename = "/material.png";
         break;
 
       default:
@@ -104,15 +142,23 @@ export default class MoodCard extends Component {
           icoOverview = "template";
           txtOverview = "Templates";
           txtDelete = "Template";
+          imgFilename = "/template.png";
         break;
     }
+
+    // -----------------------
+    // check imageUrl
+    // -----------------------
+    if( this.props.imgUrl !== '' ) { imgFilename = this.props.imgUrl }
+    // -----------------------
+
     return (
       <>
         <Card border="dark">
-          <Card.Img className="cardImage" src={this.props.imgUrl} alt="Image"/>
+          <Card.Img onError={this.onErrorImage} onLoad={this.onLoadImage} className="cardImage" src={imgFilename} alt="Image"/>
           <Card.ImgOverlay>
             <Card.Title className="ico-row" style={{justifyContent: "space-between"}}>
-              <div className="f-item"><IconSvg ico={icoMain} cls="svg-btn svg-sw-10 svg-cw25"/></div>
+              <div className="f-item"><IconSvg ico={icoMain} cls="svg-crd svg-sw-10 svg-cw25"/></div>
               <div>
                 { hasOverviewBoard && (
                     <OverlayTrigger overlay={this.showTooltip(['Show',`${txtOverview}`])}>
@@ -147,9 +193,9 @@ export default class MoodCard extends Component {
               </div>
             </Card.Title>
             <Card.Body>
-              { hasCreate && (
+              { hasInfo && (
                   <div className="f-row">
-                    <h1 style={{textAlign:"center", textShadow: "2px 2px 5px black"}}>New</h1>
+                    <h1 style={{textAlign:"center", textShadow: "2px 2px 5px black"}}>{this.state.infoText}</h1>
                   </div>
                 )
               }
