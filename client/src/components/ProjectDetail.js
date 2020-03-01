@@ -181,7 +181,10 @@ export default class ProjectDetail extends Component {
     if( this.state.createMode === true ) pageTitle = 'Project Create';
 
     if( this.state.createMode === true || this.state.editMode === true ) {
-      btnList.push( <Button key={'project_detail_btn_01'} className="mr-2 mb-1" variant="blue" type="submit"><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button> );
+      let btnText = 'Update';
+      if( this.state.createMode === true ) btnText = 'Save';
+
+      btnList.push( <Button key={'project_detail_btn_01'} className="mr-2 mb-1" variant="blue" type="submit"><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>{btnText}</Button> );
     }
     if( this.state.createMode === false && this.state.editMode === true ) {
       btnList.push( <Button key={'project_detail_btn_02'} className="mr-2 mb-1" variant="red" onClick={this.handleProjectDeleteConfirmation}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button> );
@@ -210,11 +213,10 @@ export default class ProjectDetail extends Component {
         <>
           <Form onSubmit={this.handleProjectSubmit}>
             <Form.Row>
-              <Form.Group as={Col} sm="12">
-                <h2>{pageTitle}</h2>
-              </Form.Group>
+              <IconSvg ico="project" cls="svg-nav svg-sw10 svg-cw50"/>
+              <h2 className="dib">{pageTitle}</h2>
             </Form.Row>
-            <Form.Row>
+            <Form.Row className="frm-alpha-w10">
               <Form.Group as={Col} sm="6" md="4" lg="2">
                 <div className="card-single">
                   <ObjectCard key={`project_card_${this.state.project._id}`} 

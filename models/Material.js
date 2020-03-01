@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const materialSchema = new Schema ({
   name:          { type: String, required: true },
   description:   { type: String, required: false},
-  imageUrl:      { type: String, required: true, default: ""},
+  notes:         { type: String, required: false},
+  imageUrl:      { type: String, required: false, default: ""},
   imagePublicID:  { type: String, required: false  },
   
   owner:         { type: Schema.Types.ObjectId, ref: 'User'},

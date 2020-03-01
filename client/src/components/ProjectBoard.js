@@ -131,7 +131,7 @@ export default class ProjectBoard extends Component {
                       title={'New Project'}
                       imgUrl = {'/newobject.png'}
                       handleObjectCreate={this.handleProjectCreate}
-                      info='Create new Project'
+                      info='New Project'
                       {...this.props}/>
         </CardColumns>
         <ConfirmDelete show={this.state.showConfirm} close={this.handleProjectDeleteConfirmationState} info={delProject} />

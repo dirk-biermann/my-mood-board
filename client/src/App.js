@@ -20,12 +20,16 @@ class App extends React.Component {
     user: this.props.user
   };
 
+  // ----------------------------------------------------------
+
   setUser = user => {
     this.setState({
       user: user
     });
   };
 
+  // ----------------------------------------------------------
+  
   routeProjectBoard = (props) => {  
     if (this.state.user) {
       return <ProjectBoard user={this.state.user} {...props} />;
@@ -50,7 +54,8 @@ class App extends React.Component {
     }
   }
 
-
+  // ----------------------------------------------------------
+  
   routeMoodBoard = (props) => {  
     if (this.state.user) {
       return <MoodBoard user={this.state.user} {...props} />;
@@ -59,6 +64,8 @@ class App extends React.Component {
     }
   }
 
+  // ----------------------------------------------------------
+  
   routeProjectDetail = (props) => {  
     if (this.state.user) {
       return <ProjectDetail user={this.state.user} {...props} />;
@@ -83,6 +90,8 @@ class App extends React.Component {
     }
   }
 
+  // ----------------------------------------------------------
+  
   render() {
     return (
       <div className="App">
@@ -100,6 +109,7 @@ class App extends React.Component {
 
             <Route exact path="/materialboard" render={this.routeMaterialBoard} />
             <Route exact path="/materialdetail/:id" render={this.routeMaterialDetail} />
+            <Route exact path="/materialcreate" render={this.routeMaterialDetail} />
             
             <Route exact path="/templateboard" render={this.routeTemplateBoard} />
             <Route exact path="/templatedetail/:id" render={this.routeTemplateDetail} />

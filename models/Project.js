@@ -6,7 +6,7 @@ const projectSchema = new Schema({
   description:   { type: String, required: false },
   notes:         { type: String, required: false  },
   status:        { type: String, required: true  },
-  imageUrl:      { type: String, required: true, default: "" },
+  imageUrl:      { type: String, required: false, default: "" },
   imagePublicID: { type: String, required: false  },
 
   owner:         { type: Schema.Types.ObjectId, ref: 'User' },

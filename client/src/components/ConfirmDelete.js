@@ -39,10 +39,12 @@ export default class ConfirmDelete extends Component {
             <div className="f-col" style={{flexGrow: "3"}}>
               <div className="f-row fa-cen">
                 <h4>Do you want to delete</h4>
-                <h3 className="trunkText">&nbsp;"<span className="fc-b">{this.props.info[0]}"</span></h3>
+                <h3 className="dib">&nbsp;<span className="fc-b">'{this.props.info[0]}'</span>:</h3>
               </div>
-              <h2 className="trunkText fc-r">{this.props.info[1]}</h2>
             </div>
+          </div>
+          <div className="f-row fj-spa fa-cen"> 
+            <h2 className="dib fc-r">{this.props.info[1]}</h2>
           </div>
         </Modal.Body>
         <Modal.Footer>

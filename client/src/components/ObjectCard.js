@@ -11,7 +11,7 @@ export default class ObjectCard extends Component {
       showImage: false,
       infoText: props.info,
       infoTextSik: props.info,
-      curImage: props.imgUrl,
+      dispImage: props.imgUrl,
       errLoadImg: false  
     };
   };
@@ -77,10 +77,12 @@ export default class ObjectCard extends Component {
     event.target.src = '/errobject.png';
     this.setState({ errLoadImg: true });
   }
+
   onLoadImage = (event) => {
     //console.log( `[4] OC-onLoadImage [`, this.props.idx, '] img:', this.props.imgUrl );
     this.setState({ 
         infoText: this.state.errLoadImg ? "Can't load Image" : this.state.infoTextSik,
+        dispImage: this.state.errLoadImg ? "/errobject.png" : this.props.imgUrl,
         errLoadImg: false
       });
   }
@@ -107,6 +109,7 @@ export default class ObjectCard extends Component {
     let txtOverview;
     let txtDelete;
     let imgFilename;
+    let imgDispname;
 
     //console.log( "[1] OC-render [", this.props.idx, ']' );    
     //console.log( "[1.1] Image [", this.props.idx, ']', this.props.imgUrl );    
@@ -149,7 +152,12 @@ export default class ObjectCard extends Component {
     // -----------------------
     // check imageUrl
     // -----------------------
-    if( this.props.imgUrl !== '' ) { imgFilename = this.props.imgUrl }
+    if( this.props.imgUrl !== '' ) {
+      imgFilename = this.props.imgUrl;
+      imgDispname = this.state.dispImage;
+    } else {
+      imgDispname = imgFilename;      
+    }
     // -----------------------
 
     return (
@@ -202,7 +210,7 @@ export default class ObjectCard extends Component {
             </Card.Body>
           </Card.ImgOverlay>
         </Card>
-        <ImageDisp show={this.state.showImage} img={this.props.imgUrl} title={this.props.title} close={this.hideImageDisp} />
+        <ImageDisp show={this.state.showImage} img={imgDispname} title={this.props.title} close={this.hideImageDisp} />
       </>
     )
   }

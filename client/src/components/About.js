@@ -55,7 +55,7 @@ export default class AppAbout extends Component {
           <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank" rel="noopener noreferrer">Freepik</a><IconSvg ico="freepik" cls="svg-nav svg-cb90"/>&nbsp;
              from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer">www.flaticon.com</a></div>
           <hr />
-          <p className="abt-cr" >(c) 2020 by <em>Juliane Trapp</em> &amp; <em>Susanne Vogl</em> &amp; <em>Kai Zahn</em> &amp; <em>Dirk Biermann</em></p>
+          <p className="abt-cr" >(c) 2020 by <em>Susanne Vogl</em> &amp; <em>Juliane Trapp</em> &amp; <em>Dirk Biermann</em> &amp; <em>Kai Zahn</em></p>
         </Modal.Body>
       </Modal>
     )
