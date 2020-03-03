@@ -93,7 +93,7 @@
 .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
 .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
 
-.svg-crd .svg__icon { width: 25px; }
+.svg-crd .svg__icon { width: 22px; }
 .svg-btn .svg__icon { width: 20px; }
 .svg-nav .svg__icon,
 .svg-big .svg__icon { width: 30px; }
