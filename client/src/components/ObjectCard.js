@@ -33,6 +33,15 @@ export default class ObjectCard extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
+  handleThisAssign = () => {
+    let assignState = true;
+    if( this.props.assignCheck === true ) assignState = false; 
+    this.props.handleObjectAssign(this.props.idx, assignState);
+  }
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
   handleThisDetails = () => {
     this.props.handleObjectDetails(this.props.idx, this.props.typ);
   }
@@ -102,6 +111,7 @@ export default class ObjectCard extends Component {
     let hasDetails = this.props.handleObjectDetails ? true : false;
     let hasDelete = this.props.handleObjectDelete ? true : false;
     let hasCreate = this.props.handleObjectCreate ? true : false;
+    let hasAssign = this.props.handleObjectAssign ? true : false;
     let hasInfo = this.state.infoText ? true : false;
 
     let icoMain;
@@ -125,15 +135,23 @@ export default class ObjectCard extends Component {
         break;
 
       case "pm":
-          icoMain = "project";
+          icoMain = "moodboard";
           icoOverview = "project";
           txtOverview = "Projects";
           txtDelete = "Project";
           imgFilename = "/project.png";
         break;
 
-      case "mm":
+      case "mb":
           icoMain = "material";
+          icoOverview = "material";
+          txtOverview = "Materials";
+          txtDelete = "Material";
+          imgFilename = "/material.png";
+        break;
+
+      case "mm":
+          icoMain = "moodboard";
           icoOverview = "material";
           txtOverview = "Materials";
           txtDelete = "Material";
@@ -160,6 +178,15 @@ export default class ObjectCard extends Component {
     }
     // -----------------------
 
+    let assignState = ( <></> ); 
+    if( hasAssign ) {
+      if( this.props.assignCheck === true ) {
+        assignState = <IconSvg ico="checked" cls="svg-big svg-sw10 svg-cw75-h svg-ml acb-a-svg"/>
+      } else {
+        assignState = <IconSvg ico="material" cls="svg-big svg-sw10 svg-cw75-h svg-ml acb-a-svg"/>
+      }
+    }
+
     return (
       <>
         <Card border="dark">
@@ -174,7 +201,7 @@ export default class ObjectCard extends Component {
                     </OverlayTrigger>
                   )
                 }
-                { hasDetails && (
+                { hasDetails && !hasAssign && (
                     <OverlayTrigger overlay={this.showTooltip(['Show','Details'])}>
                       <div className="f-item acb-a-svg" onClick={this.handleThisDetails}><IconSvg ico="doc" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
@@ -183,6 +210,12 @@ export default class ObjectCard extends Component {
                 { hasDelete && (
                     <OverlayTrigger overlay={this.showTooltip(['Delete',`${txtDelete}`])}>
                       <div className="f-item acb-a-svg" onClick={this.handleThisDelete}><IconSvg ico="delete" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
+                    </OverlayTrigger>
+                  )
+                }
+                { hasAssign && hasDetails && (
+                    <OverlayTrigger overlay={this.showTooltip(['Show','Project'])}>
+                      <div className="f-item acb-a-svg" onClick={this.handleThisDetails}><IconSvg ico="project" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
@@ -200,14 +233,12 @@ export default class ObjectCard extends Component {
                 }
               </div>
             </Card.Title>
-            <Card.Body>
-              { hasInfo && (
-                  <div className="f-row">
-                    <h1 style={{textAlign:"center", textShadow: "2px 2px 5px black"}}>{this.state.infoText}</h1>
-                  </div>
-                )
-              }
-            </Card.Body>
+            <>
+              <div className="svg-chk" style={{textAlign: "right"}}>
+                { hasInfo && ( <h4 style={{textShadow: "2px 2px 5px black"}}>{this.state.infoText}</h4> ) }
+                { hasAssign && ( <div className="f-item">Assigned<span onClick={this.handleThisAssign}>{assignState}</span></div> ) }
+              </div>
+            </>
           </Card.ImgOverlay>
         </Card>
         <ImageDisp show={this.state.showImage} img={imgDispname} title={this.props.title} close={this.hideImageDisp} />

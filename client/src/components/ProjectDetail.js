@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
+import { CardColumns, Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
 import ConfirmDelete from "./ConfirmDelete";
+import SiteHeader from "./SiteHeader";
 import ObjectCard from "./ObjectCard";
 import IconSvg from "./Icons/IconSvg";
 import { cloneObject } from "../services/init";
@@ -31,8 +32,16 @@ export default class ProjectDetail extends Component {
   //
   // -----------------------------------------
   handleProjectModifyComponents = () => {
-
+    this.props.history.push(`/materialboard/${this.state.project._id}`);
   }
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  handleProjectMoodboard = () => {
+    this.props.history.push(`/moodboard/${this.state.project._id}`);
+  }
+
 
   // -----------------------------------------
   //
@@ -99,7 +108,7 @@ export default class ProjectDetail extends Component {
         this.props.history.push("/projectboard");
       })
       .catch(err => {
-        //console.log(err);
+        console.log(err);
       });
   };
 
@@ -116,7 +125,7 @@ export default class ProjectDetail extends Component {
         this.props.history.push("/projectboard")
       })
       .catch(err => {
-        //console.log(err);
+        console.log(err);
       });  
   };
 
@@ -130,7 +139,7 @@ export default class ProjectDetail extends Component {
         this.props.history.push("/projectboard");
       })
       .catch(err => {
-        //console.log(err);
+        console.log(err);
       })
   };
 
@@ -140,7 +149,7 @@ export default class ProjectDetail extends Component {
   handleProjectGetOne = (idx) => {
     //console.log( "[PD] handleProjectGetOne", idx)
     axios
-      .get(`/api/projects/${idx}`)
+      .get(`/api/projects/pop/${idx}`)
       .then(response => {
         this.setState({
             project: response.data,
@@ -149,7 +158,7 @@ export default class ProjectDetail extends Component {
           });
       })
       .catch(err => {
-        //console.log(err);
+        console.log(err);
       });
   };
 
@@ -208,14 +217,26 @@ export default class ProjectDetail extends Component {
         </Container>        
       )
     } else {
+      let materialCards = [];
+      this.state.project.materials.forEach( (material, index) => {
+          let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
+          materialCards.push( 
+              <ObjectCard key={`project_m_card_${material._id}`} 
+                          idx={material._id}
+                          typ={"mb"}
+                          title={material.name}
+                          imgUrl = {materialImage}
+                          info='Assigned Material'
+                          {...this.props}
+              />
+            )
+        });
+
       //console.log( "===========================================================================" );
       return (
         <>
+          <SiteHeader ico="project" title={pageTitle} />
           <Form onSubmit={this.handleProjectSubmit}>
-            <Form.Row>
-              <IconSvg ico="project" cls="svg-nav svg-sw10 svg-cw50"/>
-              <h2 className="dib">{pageTitle}</h2>
-            </Form.Row>
             <Form.Row className="frm-alpha-w10">
               <Form.Group as={Col} sm="6" md="4" lg="2">
                 <div className="card-single">
@@ -224,6 +245,7 @@ export default class ProjectDetail extends Component {
                               typ={"pb"}
                               title={this.state.project.name}
                               imgUrl = {this.state.project.imageUrl}
+                              handleObjectOverview={this.handleProjectMoodboard}
                               {...this.props}/>
                 </div>
               </Form.Group>
@@ -280,12 +302,15 @@ export default class ProjectDetail extends Component {
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} sm="12">
-                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/projectboard") }}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button>
+                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/projectboard") }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
                 {btnList}
-                <Button className="mr-2 mb-1" variant="green" onClick={this.handleProjectModifyComponents}><IconSvg ico="plus" cls="svg-btn svg-cw90 svg-mr"/>Assign/Remove Component</Button>
+                <Button className="mr-2 mb-1" variant="green" onClick={this.handleProjectModifyComponents}><IconSvg ico="change" cls="svg-btn svg-cw90 svg-mr"/>Assign/Remove Material</Button>
               </Form.Group>
             </Form.Row>
           </Form>
+          <CardColumns>
+            {materialCards}
+          </CardColumns>  
           <ConfirmDelete show={this.state.showConfirm} close={this.handleProjectDeleteConfirmationState} info={delProject} />
         </>
       )

@@ -34,6 +34,7 @@ import {ReactComponent as IconNew} from './SVG/new.svg';
 import {ReactComponent as IconDash} from './SVG/dash.svg';
 import {ReactComponent as IconVLine} from './SVG/vline.svg';
 import {ReactComponent as IconVLineS} from './SVG/vlines.svg';
+import {ReactComponent as IconChange} from './SVG/change.svg';
 
 export default class IconSvg extends Component {
   constructor() {
@@ -42,7 +43,7 @@ export default class IconSvg extends Component {
       "home","project","moodboard","material","template","signup","edit","settings","login",
       "logout","info","plus","minus","cancel","save","delete","sad","diff",
       "up","down","left","right","error","checked","freepik","minimize","expand",
-      "menu","doc","dot","dash","vline","vlines","new"
+      "menu","doc","dot","dash","vline","vlines","new","change"
     ]
   }
   
@@ -91,6 +92,7 @@ export default class IconSvg extends Component {
         case "vline":      icoComponent = <IconVLine key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
         case "vlines":     icoComponent = <IconVLineS key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
         case "new":        icoComponent = <IconNew key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
+        case "change":     icoComponent = <IconChange key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
         default:           icoComponent = <IconSad key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
       }
       icoList.push( icoComponent );

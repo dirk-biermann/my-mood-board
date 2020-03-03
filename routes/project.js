@@ -36,6 +36,23 @@ router.get("/:id", async (req, res) => {
 });
 
 // --------------------------------------------------
+// GET /api/projects/pop/:id
+// --------------------------------------------------
+router.get("/pop/:id", async (req, res) => {
+  // return 1 project with a given id
+  const projectId = req.params.id;
+  try {
+    // create one project
+    const project = await Project.findById(projectId).populate( "materials" );    
+    if (!project) {
+      res.status(404).json({ message: "Project not found" });
+    } else res.json(project);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// --------------------------------------------------
 // POST api/projects
 // --------------------------------------------------
 router.post("/create", async (req, res) => {
@@ -69,6 +86,9 @@ router.delete("/:id", async (req, res) => {
 // --------------------------------------------------
 router.put("/:id", (req, res) => {
   const { info, data } = req.body;
+  console.log( "P-PUT:  ", info );
+  console.log( "  data: ", data );
+  console.log( "   mat: ", data.materials );
   Project.findByIdAndUpdate(
       req.params.id,
       data,

@@ -15,7 +15,7 @@ export default class AppFooter extends Component {
     return(
       <Navbar className="foot" bg="dark" variant="dark" fixed="bottom" style={{textAlign: "left"}}>
         <Navbar.Brand style={{fontSize: "0.9rem", color:"rgb(255,255,255,0.5)", padding:"0rem"}}>
-          (C)2020 by SU'JU'DI'KA
+          (C)2020 by <img src="/crw.png" alt="crw" height="25px"/>
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="footer-text">

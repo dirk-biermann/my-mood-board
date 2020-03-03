@@ -15,6 +15,37 @@ import Login from "./components/Login";
 import Distance from "./components/Distance";
 import Footer from "./components/Footer";
 
+// ----------------------------------------------------------
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return (
+    React.createElement(component, finalProps)
+  );
+}
+
+const PublicRoute = ({ component, ...rest }) => {
+  return (
+    <Route {...rest} render={routeProps => {
+      return renderMergedProps(component, routeProps, rest);
+    }}/>
+  );
+}
+
+const PrivateRoute = ({ component, redirectTo, ...rest }) => {
+  return (
+    <Route {...rest} render={routeProps => {
+      return rest.user ? (
+        renderMergedProps(component, routeProps, rest)
+      ) : (
+        <Redirect to={{
+          pathname: redirectTo,
+          state: { from: routeProps.location }
+        }}/>
+      );
+    }}/>
+  );
+};
+
 class App extends React.Component {
   state = {
     user: this.props.user
@@ -30,91 +61,29 @@ class App extends React.Component {
 
   // ----------------------------------------------------------
   
-  routeProjectBoard = (props) => {  
-    if (this.state.user) {
-      return <ProjectBoard user={this.state.user} {...props} />;
-    } else {
-      return <Redirect to="/" />;
-    }
-  }
-  
-  routeMaterialBoard = (props) => {  
-    if (this.state.user) {
-      return <MaterialBoard user={this.state.user} {...props} />;
-    } else {
-      return <Redirect to="/" />;
-    }
-  }
-
-  routeTemplateBoard = (props) => {  
-    if (this.state.user) {
-      return <TemplateBoard user={this.state.user} {...props} />;
-    } else {
-      return <Redirect to="/" />;
-    }
-  }
-
-  // ----------------------------------------------------------
-  
-  routeMoodBoard = (props) => {  
-    if (this.state.user) {
-      return <MoodBoard user={this.state.user} {...props} />;
-    } else {
-      return <Redirect to="/" />;
-    }
-  }
-
-  // ----------------------------------------------------------
-  
-  routeProjectDetail = (props) => {  
-    if (this.state.user) {
-      return <ProjectDetail user={this.state.user} {...props} />;
-    } else {
-      return <Redirect to="/" />;
-    }
-  }
-
-  routeMaterialDetail = (props) => {  
-    if (this.state.user) {
-      return <MaterialDetail user={this.state.user} {...props} />;
-    } else {
-      return <Redirect to="/" />;
-    }
-  }
-
-  routeTemplateDetail = (props) => {  
-    if (this.state.user) {
-      return <TemplateDetail user={this.state.user} {...props} />;
-    } else {
-      return <Redirect to="/" />;
-    }
-  }
-
-  // ----------------------------------------------------------
-  
   render() {
     return (
       <div className="App">
         <Distance/>
         <Navbar user={this.state.user} clearUser={this.setUser} />
           <div className="dist-horz">
-            <Route exact path="/" render={props => <Startpage user={this.state.user} {...props} /> }/>
-            
-            <Route exact path="/signup" render={props => <Signup {...props} setUser={this.setUser} />} />
-            <Route exact path="/login" render={props => <Login {...props} setUser={this.setUser} />} />
-            
-            <Route exact path="/projectboard" render={this.routeProjectBoard} />
-            <Route exact path="/projectdetail/:id" render={this.routeProjectDetail} />
-            <Route exact path="/projectcreate" render={this.routeProjectDetail} />
+            <PublicRoute exact path='/' component={Startpage} user={this.state.user} />
+            <PublicRoute exact path='/signup' component={Signup} setUser={this.setUser} />
+            <PublicRoute exact path='/login' component={Login} setUser={this.setUser} />
 
-            <Route exact path="/materialboard" render={this.routeMaterialBoard} />
-            <Route exact path="/materialdetail/:id" render={this.routeMaterialDetail} />
-            <Route exact path="/materialcreate" render={this.routeMaterialDetail} />
-            
-            <Route exact path="/templateboard" render={this.routeTemplateBoard} />
-            <Route exact path="/templatedetail/:id" render={this.routeTemplateDetail} />
+            <PrivateRoute exact path='/projectboard' component={ProjectBoard} redirectTo="/" user={this.state.user} />
+            <PrivateRoute exact path='/projectdetail/:id' component={ProjectDetail} redirectTo="/" user={this.state.user} />
+            <PrivateRoute exact path='/projectcreate' component={ProjectDetail} redirectTo="/" user={this.state.user} />
 
-            <Route exact path="/moodboard/:id" render={this.routeMoodBoard} />
+            <PrivateRoute exact path='/materialboard/:id' component={MaterialBoard} redirectTo="/" assignMode={true} user={this.state.user} />
+            <PrivateRoute exact path='/materialboard' component={MaterialBoard} redirectTo="/" user={this.state.user} />
+            <PrivateRoute exact path='/materialdetail/:id' component={MaterialDetail} redirectTo="/" user={this.state.user} />
+            <PrivateRoute exact path='/materialcreate' component={MaterialDetail} redirectTo="/" user={this.state.user} />
+
+            <PrivateRoute exact path='/templateboard' component={TemplateBoard} redirectTo="/" user={this.state.user} />
+            <PrivateRoute exact path='/templatedetail/:id' component={TemplateDetail} redirectTo="/" user={this.state.user} />
+
+            <PrivateRoute exact path='/moodboard/:id' component={MoodBoard} redirectTo="/" user={this.state.user} />
           </div>
         <Distance/>
         <Footer user={this.state.user}/>

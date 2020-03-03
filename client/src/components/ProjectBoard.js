@@ -102,6 +102,8 @@ export default class ProjectBoard extends Component {
   //
   // -----------------------------------------
   render() {   
+    console.log("PB-CONST render");
+    
     let delProject = '';
     if( this.state.projectDeleteIdx ){
       delProject = [ 'Project', this.state.projects.find( (project)=>{
@@ -115,14 +117,14 @@ export default class ProjectBoard extends Component {
           { this.state.projects.map( (project, index) => {
               let projectImage = project.imageUrl === "" ? "/project.png" : project.imageUrl;
               return <ObjectCard key={`project_card_${project._id}`} 
-                                  idx={project._id} 
-                                  typ={"pb"}
-                                  title={project.name}
-                                  imgUrl = {projectImage}
-                                  handleObjectOverview={this.handleProjectMoodboard}
-                                  handleObjectDetails={this.handleProjectDetails}
-                                  handleObjectDelete={this.handleProjectDeleteConfirmation}
-                                  {...this.props}/>
+                                 idx={project._id} 
+                                 typ={"pb"}
+                                 title={project.name}
+                                 imgUrl = {projectImage}
+                                 handleObjectOverview={this.handleProjectMoodboard}
+                                 handleObjectDetails={this.handleProjectDetails}
+                                 handleObjectDelete={this.handleProjectDeleteConfirmation}
+                                 {...this.props}/>
             }) 
           }
           <ObjectCard key={`project_card_0`} 

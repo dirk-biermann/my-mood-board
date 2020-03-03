@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from "axios";
 import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
 import ConfirmDelete from "./ConfirmDelete";
+import SiteHeader from "./SiteHeader";
 import ObjectCard from "./ObjectCard";
 import IconSvg from "./Icons/IconSvg";
 import { cloneObject } from "../services/init";
@@ -194,7 +195,7 @@ export default class MaterialDetail extends Component {
           <Row className="justify-content-md-center" style={{textAlign:"center"}}>
             <Col xs={12} md={8} lg={4}>
               <Alert variant={'warning'}>
-                <h2>Loading ...</h2>
+                <h3>Loading ...</h3>
               </Alert>
             </Col>
           </Row>
@@ -204,17 +205,14 @@ export default class MaterialDetail extends Component {
       //console.log( "===========================================================================" );
       return (
         <>
+          <SiteHeader ico="material" title={pageTitle} />
           <Form onSubmit={this.handleMaterialSubmit}>
-            <Form.Row>
-              <IconSvg ico="material" cls="svg-nav svg-sw10 svg-cw50"/>
-              <h2 className="dib">{pageTitle}</h2>
-            </Form.Row>
             <Form.Row className="frm-alpha-w10">
               <Form.Group as={Col} sm="6" md="4" lg="2">
                 <div className="card-single">
                   <ObjectCard key={`material_card_${this.state.material._id}`} 
                               idx={this.state.material._id} 
-                              typ={"mm"}
+                              typ={"mb"}
                               title={this.state.material.name}
                               imgUrl = {this.state.material.imageUrl}
                               {...this.props}/>
@@ -261,7 +259,7 @@ export default class MaterialDetail extends Component {
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} sm="12">
-                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/materialboard") }}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button>
+                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/materialboard") }}><IconSvg ico="material" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
                 {btnList}
               </Form.Group>
             </Form.Row>

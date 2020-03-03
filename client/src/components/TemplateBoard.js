@@ -25,7 +25,7 @@ export default class TemplateBoard extends Component {
     for( let i=0; i<14; i++ ){
       objList.push( <ObjectCard key={`template_card_${i}`} 
                                 idx={i} 
-                                typ={"tm"}
+                                typ={"tb"}
                                 title={`Title T${i}`}
                                 imgUrl = {"./template.png"}
                                 handleObjectDetails={this.handleTemplateDetails}
