@@ -31,7 +31,7 @@ export default class DetailDisp extends Component {
       >
         <Modal.Header className="bg-dark text-light" style={{borderBottom: "none", justifyContent: "space-between"}}>
           <h3>{this.props.dispInfo.name}</h3>
-          <Button className="" size="sm" variant="red" onClick={this.closeDetailDisp}><IconSvg ico="close" cls="svg-btn svg-big svg-cw90"/></Button>
+          <Button className="" size="sm" variant="red" onClick={this.closeDetailDisp}><IconSvg ico="close" cls="svg-btn svg-cw90"/></Button>
         </Modal.Header>
         <Modal.Body className="bg-light text-dark">
           <Form>
@@ -42,7 +42,7 @@ export default class DetailDisp extends Component {
                   as="input"
                   type="text"
                   name="name"
-                  readonly
+                  readOnly
                   value={this.props.dispInfo.name || ''}
                 />
               </Col>
@@ -54,7 +54,7 @@ export default class DetailDisp extends Component {
                   as="input"
                   type="text"
                   name="imageUrl"
-                  readonly
+                  readOnly
                   value={this.props.dispInfo.imageUrl || ''}
                 />
               </Col>
@@ -67,7 +67,7 @@ export default class DetailDisp extends Component {
                     as="input"
                     type="text"
                     name="status"
-                    readonly
+                    readOnly
                     value={this.props.dispInfo.status || ''}
                   />
                 </Col>
@@ -80,7 +80,7 @@ export default class DetailDisp extends Component {
                   rows="7"
                   as="textarea"
                   name="description"
-                  readonly
+                  readOnly
                   value={this.props.dispInfo.description || ''}
                 />
               </Col>
@@ -92,7 +92,7 @@ export default class DetailDisp extends Component {
                   rows="7"
                   as="textarea"
                   name="notes"
-                  readonly
+                  readOnly
                   value={this.props.dispInfo.notes || ''}
                 />
               </Col>

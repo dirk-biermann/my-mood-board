@@ -26,7 +26,6 @@ export default class ObjectCard extends Component {
   };
 
   showDetailDisp = () => {
-    console.log( "[2] showDetailDisp: ", this.state.showDetail );
     this.setState({ showDetail: true });
   };
 
@@ -38,7 +37,6 @@ export default class ObjectCard extends Component {
   };
 
   hideDetailDisp = () => {
-    console.log( "[3] showDetailDisp: ", this.state.showDetail );
     this.setState({ showDetail: false });
   };
 
@@ -127,7 +125,6 @@ export default class ObjectCard extends Component {
     let hasInfo = this.state.infoText ? true : false;
     let hasDisp = this.props.dispDetail ? true : false;
 
-    console.log( "[1] hasDisp: ", hasDisp );
     let icoMain;
     let icoOverview;
     let txtOverview;
