@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { CardColumns } from "react-bootstrap";
-import ObjectCard from "./ObjectCard";
+import { Alert, Col } from "react-bootstrap";
+import SiteHeader from "./SiteHeader";
 
 export default class TemplateBoard extends Component {
   constructor(){
@@ -20,22 +20,24 @@ export default class TemplateBoard extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
-  render() {
-    let objList = [];
-    for( let i=0; i<14; i++ ){
-      objList.push( <ObjectCard key={`template_card_${i}`} 
-                                idx={i} 
-                                typ={"tb"}
-                                title={`Title T${i}`}
-                                imgUrl = {"./template.png"}
-                                handleObjectDetails={this.handleTemplateDetails}
-                                {...this.props}/> )
-    }
-    
+  render() {  
+    let pageTitle = 'Template Board';
+  
     return (
-      <CardColumns>
-        { objList }
-      </CardColumns>
+      <>
+        <SiteHeader ico="template" title={pageTitle} />
+        <Col sm="3">
+          <Alert variant="info">
+            <Alert.Heading>Information</Alert.Heading>
+            <p><i>This functionality is currently not implemented!</i></p>
+            <hr />
+            <p className="mb-0">
+              The main functionality of <b>My-Mood-Board</b> is not not affected.
+              Projects and Materials can be created, assigned and maintained.
+            </p>
+          </Alert>
+        </Col>
+      </>      
     )
   }
 }
