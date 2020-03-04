@@ -46,8 +46,8 @@ export default class AppAbout extends Component {
                 <p></p>
               </Col>
               <Col sm={8}>
-                <p>This tool can administrate all materials as components for your craft projects and the projects themselves.</p>
-                <p>Components can be created and configured by using generic templates, that also can be build by your own, to be more flexible!</p>
+                <p>This tool can administrate all components as materials for your craft projects and the projects themselves.</p>
+                <p>Materials can be created and configured by using generic templates, that also can be build by your own, to be more flexible!</p>
               </Col>
             </Row>
           </Container>

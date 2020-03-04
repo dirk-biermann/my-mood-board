@@ -187,6 +187,7 @@ export default class MaterialBoard extends Component {
                                                 imgUrl = {materialImage}
                                                 handleObjectAssign = {this.handleMaterialAssign}
                                                 assignCheck = {this.state.assignStatus[index]} 
+                                                dispDetail = {material}
                                                 {...this.props}/>                            
                           }
                         }); 

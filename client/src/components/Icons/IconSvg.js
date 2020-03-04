@@ -35,6 +35,7 @@ import {ReactComponent as IconDash} from './SVG/dash.svg';
 import {ReactComponent as IconVLine} from './SVG/vline.svg';
 import {ReactComponent as IconVLineS} from './SVG/vlines.svg';
 import {ReactComponent as IconChange} from './SVG/change.svg';
+import {ReactComponent as IconDocEdit} from './SVG/docedit.svg';
 
 export default class IconSvg extends Component {
   constructor() {
@@ -43,7 +44,7 @@ export default class IconSvg extends Component {
       "home","project","moodboard","material","template","signup","edit","settings","login",
       "logout","info","plus","minus","cancel","save","delete","sad","diff",
       "up","down","left","right","error","checked","freepik","minimize","expand",
-      "menu","doc","dot","dash","vline","vlines","new","change"
+      "menu","doc","dot","dash","vline","vlines","new","change","close","docedit"
     ]
   }
   
@@ -62,6 +63,7 @@ export default class IconSvg extends Component {
         case "menu":       icoComponent = <IconMenu key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "diff":       icoComponent = <IconDiff key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "doc":        icoComponent = <IconDoc key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
+        case "docedit":    icoComponent = <IconDocEdit key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         case "home":       icoComponent = <IconHome key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "project":    icoComponent = <IconProject key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         case "moodboard":  icoComponent = <IconBoard key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
@@ -76,6 +78,7 @@ export default class IconSvg extends Component {
         case "plus":       icoComponent = <IconPlus key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "minus":      icoComponent = <IconMinus key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
         case "cancel":     icoComponent = <IconCancel key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
+        case "close":      icoComponent = <IconCancel key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
         case "save":       icoComponent = <IconSave key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "delete":     icoComponent = <IconDelete key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
         case "up":         icoComponent = <IconUp key={`SVG_Icon_${i}`} className='svg__icon'/>;        break;

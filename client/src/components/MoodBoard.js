@@ -79,7 +79,9 @@ export default class MoodBoard extends Component {
                                     typ={"mm"}
                                     title={material.name}
                                     imgUrl = {materialImage}
-                                    {...this.props}/>
+                                    dispDetail = {material}
+                                    {...this.props}
+                        />
               }); 
     }
 
@@ -104,8 +106,8 @@ export default class MoodBoard extends Component {
                       title={this.state.project.name}
                       imgUrl = {this.state.project.imageUrl}
                       handleObjectOverview={this.handleMoodBoardOverview}
-                      handleObjectDetails={this.handleMoodBoardDetails}
-                      {...this.props}s
+                      dispDetail = {this.state.project}
+                      {...this.props}
           />
           { objList }
         </CardColumns>
@@ -113,3 +115,4 @@ export default class MoodBoard extends Component {
     }
   }
 }
+//                      handleObjectDetails={this.handleMoodBoardDetails}

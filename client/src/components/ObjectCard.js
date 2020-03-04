@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import IconSvg from "./Icons/IconSvg";
 import ImageDisp from "./ImageDisp";
+import DetailDisp from "./DetailDisp";
 
 export default class ObjectCard extends Component {
   constructor(props){
@@ -9,6 +10,7 @@ export default class ObjectCard extends Component {
 
     this.state = {
       showImage: false,
+      showDetail: false,
       infoText: props.info,
       infoTextSik: props.info,
       dispImage: props.imgUrl,
@@ -23,11 +25,21 @@ export default class ObjectCard extends Component {
     this.setState({ showImage: true });
   };
 
+  showDetailDisp = () => {
+    console.log( "[2] showDetailDisp: ", this.state.showDetail );
+    this.setState({ showDetail: true });
+  };
+
   // -----------------------------------------
   //
   // -----------------------------------------
   hideImageDisp = () => {
     this.setState({ showImage: false });
+  };
+
+  hideDetailDisp = () => {
+    console.log( "[3] showDetailDisp: ", this.state.showDetail );
+    this.setState({ showDetail: false });
   };
 
   // -----------------------------------------
@@ -113,7 +125,9 @@ export default class ObjectCard extends Component {
     let hasCreate = this.props.handleObjectCreate ? true : false;
     let hasAssign = this.props.handleObjectAssign ? true : false;
     let hasInfo = this.state.infoText ? true : false;
+    let hasDisp = this.props.dispDetail ? true : false;
 
+    console.log( "[1] hasDisp: ", hasDisp );
     let icoMain;
     let icoOverview;
     let txtOverview;
@@ -181,9 +195,9 @@ export default class ObjectCard extends Component {
     let assignState = ( <></> ); 
     if( hasAssign ) {
       if( this.props.assignCheck === true ) {
-        assignState = <IconSvg ico="checked" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/>
+        assignState = <IconSvg ico="checked" cls="svg-nav svg-sw10 svg-cw50-h svg-ml"/>
       } else {
-        assignState = <IconSvg ico="material" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/>
+        assignState = <IconSvg ico="material" cls="svg-nav svg-sw10 svg-cw50-h svg-ml"/>
       }
     }
 
@@ -201,9 +215,15 @@ export default class ObjectCard extends Component {
                     </OverlayTrigger>
                   )
                 }
-                { hasDetails && !hasAssign && (
+                { hasDetails && (
+                    <OverlayTrigger overlay={this.showTooltip(['Edit','Details'])}>
+                      <div className="f-item acb-a-svg" onClick={this.handleThisDetails}><IconSvg ico="edit" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
+                    </OverlayTrigger>
+                  )
+                }
+                { hasDisp && (
                     <OverlayTrigger overlay={this.showTooltip(['Show','Details'])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisDetails}><IconSvg ico="doc" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
+                      <div className="f-item acb-a-svg" onClick={this.showDetailDisp}><IconSvg ico="doc" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
@@ -213,7 +233,7 @@ export default class ObjectCard extends Component {
                     </OverlayTrigger>
                   )
                 }
-                { hasAssign && (
+                { hasAssign && false && (
                     <OverlayTrigger overlay={this.showTooltip(['Assign','Material'])}>
                       <div className="f-item acb-a-svg" onClick={this.handleThisAssign}>
                         <span>Assign</span>
@@ -236,10 +256,23 @@ export default class ObjectCard extends Component {
                 }
               </div>
             </Card.Title>
-            { hasInfo && ( <h4 className="svg-chk" style={{textShadow: "2px 2px 5px black"}}>{this.state.infoText}</h4> ) }
+            { ( hasInfo || hasAssign ) && (
+              <Card.Footer style={{textAlign: "right"}}>
+                <>
+                  { hasInfo && ( <span style={{textShadow: "2px 2px 5px black"}}>{this.state.infoText}</span> ) }
+                  { hasAssign && (
+                    <div className="f-item acb-a-svg" onClick={this.handleThisAssign}>
+                      <span style={{textShadow: "2px 2px 2px black"}}>Assigned</span>
+                      {assignState}
+                    </div>
+                  )}
+                </>
+              </Card.Footer>
+            )}
           </Card.ImgOverlay>
         </Card>
-        <ImageDisp show={this.state.showImage} img={imgDispname} title={this.props.title} close={this.hideImageDisp} />
+        { this.state.showDetail && ( <DetailDisp show={this.state.showDetail} dispInfo={this.props.dispDetail} close={this.hideDetailDisp} /> ) }
+        { this.state.showImage && ( <ImageDisp show={this.state.showImage} img={imgDispname} title={this.props.title} close={this.hideImageDisp} /> ) }
       </>
     )
   }

@@ -226,6 +226,7 @@ export default class ProjectDetail extends Component {
                           typ={"mb"}
                           title={material.name}
                           imgUrl = {materialImage}
+                          dispDetail = {material}
                           info='Assigned Material'
                           {...this.props}
               />
