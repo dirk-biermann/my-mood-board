@@ -71,55 +71,19 @@ router.delete("/:id", async (req, res) => {
 // --------------------------------------------------
 // PUT /api/materials/:id
 // --------------------------------------------------
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   const { info, data } = req.body;
-  Material.findByIdAndUpdate(
+  try {
+    // create one project
+    const result = await Material.findByIdAndUpdate(
       req.params.id,
       data,
       { new: true }
-    )
-    .then(material => {
-      res.json(material);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+    );    
+    res.json( result );
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
-
-
-/*
-  name:          { type: String, required: true },
-  description:   { type: String, required: false},
-  imageUrl:      { type: String, required: true, default: ""},
-  imagePublicID:  { type: String, required: false  },
-  
-  owner:         { type: Schema.Types.ObjectId, ref: 'User'},
-  template:      { type: Schema.Types.ObjectId, ref: 'Template'},
-  projects:    [ { type: Schema.Types.ObjectId, ref: 'Project'} ]
-  },
-
-// --------------------------------------------------
-// PUT /api/materials/:id
-// --------------------------------------------------
-router.put("/:id", (req, res) => {
-  Material.findByIdAndUpdate(
-    req.params.id,
-    {
-      title: req.body.title,
-      description: req.body.description,
-      imageURL: req.body.imageURL,
-      publicID: req.body.publicID
-    },
-    { new: true }
-  )
-    .then(material => {
-      res.json(material);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
-});
-
-*/
 
 module.exports = router;

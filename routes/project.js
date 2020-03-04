@@ -84,59 +84,19 @@ router.delete("/:id", async (req, res) => {
 // --------------------------------------------------
 // PUT /api/projects/:id
 // --------------------------------------------------
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   const { info, data } = req.body;
-  console.log( "P-PUT:  ", info );
-  console.log( "  data: ", data );
-  console.log( "   mat: ", data.materials );
-  Project.findByIdAndUpdate(
+  try {
+    // create one project
+    const result = await Project.findByIdAndUpdate(
       req.params.id,
       data,
       { new: true }
-    )
-    .then(project => {
-      res.json(project);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+    );    
+    res.json( result );
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
-
-
-/*
-  	  {
-        name: data.name,
-        description: data.description,
-        notes: data.notes,
-        status: data.status,
-        imageUrl: data.imageUrl,
-        imagePublicID: data.imagePublicID,
-        owner: data.owner,
-        materials: data.materials
-      },
-
-// --------------------------------------------------
-// PUT /api/projects/:id
-// --------------------------------------------------
-router.put("/:id", (req, res) => {
-  Project.findByIdAndUpdate(
-    req.params.id,
-    {
-      title: req.body.title,
-      description: req.body.description,
-      imageURL: req.body.imageURL,
-      publicID: req.body.publicID
-    },
-    { new: true }
-  )
-    .then(project => {
-      res.json(project);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
-});
-
-*/
 
 module.exports = router;

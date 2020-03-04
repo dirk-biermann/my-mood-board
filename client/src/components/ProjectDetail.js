@@ -258,6 +258,7 @@ export default class ProjectDetail extends Component {
                   name="name"
                   value={this.state.project.name || ''}
                   onChange={this.handleChangeInput}
+                  autoFocus={true}
                 />
                 <Form.Label>Image Url:</Form.Label>
                 <Form.Control 
@@ -267,6 +268,30 @@ export default class ProjectDetail extends Component {
                   value={this.state.project.imageUrl || ''}
                   onChange={this.handleChangeInput}
                 />
+              </Form.Group>
+              <Form.Group as={Col} sm="12" md="6" lg="3">
+                <Form.Label>Description: </Form.Label>
+                <Form.Control style={{ minHeight: "160px" }}
+                  rows="6"
+                  as="textarea"
+                  name="description"
+                  value={this.state.project.description || ''}
+                  onChange={this.handleChangeInput}
+                />
+              </Form.Group>
+              <Form.Group as={Col} sm="12" md="6" lg="3">
+                <Form.Label>Notes: </Form.Label>
+                <Form.Control style={{ minHeight: "160px" }}
+                  rows="6"
+                  as="textarea"
+                  name="notes"
+                  value={this.state.project.notes || ''}
+                  onChange={this.handleChangeInput}
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row className="frm-alpha-w10">
+              <Form.Group as={Col} sm="12" md="6" lg="3">
                 <Form.Label>Status:</Form.Label>
                 <Form.Control
                     as="select"
@@ -279,26 +304,6 @@ export default class ProjectDetail extends Component {
                   <option value="Completed">Completed</option>
                   <option value="Planned">Planned</option>
                 </Form.Control>              
-              </Form.Group>
-              <Form.Group as={Col} sm="12" md="6" lg="3">
-                <Form.Label>Description: </Form.Label>
-                <Form.Control style={{ minHeight: "140px" }}
-                  rows="7"
-                  as="textarea"
-                  name="description"
-                  value={this.state.project.description || ''}
-                  onChange={this.handleChangeInput}
-                />
-              </Form.Group>
-              <Form.Group as={Col} sm="12" md="6" lg="3">
-                <Form.Label>Notes: </Form.Label>
-                <Form.Control style={{ minHeight: "140px" }}
-                  rows="7"
-                  as="textarea"
-                  name="notes"
-                  value={this.state.project.notes || ''}
-                  onChange={this.handleChangeInput}
-                />
               </Form.Group>
             </Form.Row>
             <Form.Row>

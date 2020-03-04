@@ -72,6 +72,7 @@ export default class Login extends Component {
                 id="username"
                 value={this.state.username}
                 onChange={this.handleChange}
+                autoFocus={true}
               />
             </Form.Group>
             <Form.Group>

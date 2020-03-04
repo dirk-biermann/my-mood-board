@@ -226,6 +226,7 @@ export default class MaterialDetail extends Component {
                   name="name"
                   value={this.state.material.name || ''}
                   onChange={this.handleChangeInput}
+                  autoFocus={true}
                 />
                 <Form.Label>Image Url:</Form.Label>
                 <Form.Control 
@@ -238,8 +239,8 @@ export default class MaterialDetail extends Component {
               </Form.Group>
               <Form.Group as={Col} sm="12" md="6" lg="3">
                 <Form.Label>Description: </Form.Label>
-                <Form.Control style={{ minHeight: "140px" }}
-                  rows="7"
+                <Form.Control style={{ minHeight: "160px" }}
+                  rows="6"
                   as="textarea"
                   name="description"
                   value={this.state.material.description || ''}
@@ -248,8 +249,8 @@ export default class MaterialDetail extends Component {
               </Form.Group>
               <Form.Group as={Col} sm="12" md="6" lg="3">
                 <Form.Label>Notes: </Form.Label>
-                <Form.Control style={{ minHeight: "140px" }}
-                  rows="7"
+                <Form.Control style={{ minHeight: "160px" }}
+                  rows="6"
                   as="textarea"
                   name="notes"
                   value={this.state.material.notes || ''}
