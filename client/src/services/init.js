@@ -34,7 +34,6 @@ const cloneObject = (obj) => {
 
 const imageExists = (path) =>
   new Promise(resolve => {
-    console.log("imageExists: ", path );
     const img = new Image();
     img.onload = () => resolve(true);
     img.onerror = () => resolve(false);

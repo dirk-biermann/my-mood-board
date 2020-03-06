@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
-import ConfirmDelete from "./ConfirmDelete";
+import { Form, Button, Col } from "react-bootstrap";
+import MessageBox from "./MessageBox";
 import SiteHeader from "./SiteHeader";
 import ObjectCard from "./ObjectCard";
+import Loading from "./Loading";
 import IconSvg from "./Icons/IconSvg";
 import { cloneObject } from "../services/init";
 
@@ -11,7 +12,7 @@ export default class MaterialDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        showConfirm: false,
+        showDeleteAction: false,
         material: {
           name: '',
           description: '',
@@ -33,7 +34,7 @@ export default class MaterialDetail extends Component {
   // -----------------------------------------
   handleMaterialDeleteConfirmation = () => {
     this.setState({ 
-        showConfirm: true,
+        showDeleteAction: true,
         loadMaterial: false
       });
   }
@@ -46,7 +47,7 @@ export default class MaterialDetail extends Component {
       this.handleMaterialDeletet( this.state.material._id );
     }
     this.setState({
-        showConfirm: false,
+        showDeleteAction: false,
         loadMaterial: false
       });
   };
@@ -184,23 +185,28 @@ export default class MaterialDetail extends Component {
       btnList.push( <Button key={'material_detail_btn_02'} className="mr-2 mb-1" variant="red" onClick={this.handleMaterialDeleteConfirmation}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button> );
     }
     
-    const delMaterial = [ 'Material', this.state.material.name ];
     //console.log( "[PD] REN img:", this.state.material.imageUrl );
+
+    const delMaterialName = this.state.material.name;
+    let confirmActionInfo = { showAction: false };
+
+    if( this.state.showDeleteAction ){
+      confirmActionInfo = { showAction: true,
+                          fktConfirm: this.handleMaterialDeleteConfirmationState,
+                          info: { title: 'Delete Material',
+                                  message: `Do you want to delete material \n'${delMaterialName}'`,
+                                  icon: 'question',
+                                  btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                        { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
+                                      ]
+                                }
+                        };
+    }
 
     if( this.state.loadMaterial === true ) {
       //console.log( "[PD] Alert" );
       //console.log( "===========================================================================" );
-      return (
-        <Container>
-          <Row className="justify-content-md-center" style={{textAlign:"center"}}>
-            <Col xs={12} md={8} lg={4}>
-              <Alert variant={'warning'}>
-                <h3>Loading ...</h3>
-              </Alert>
-            </Col>
-          </Row>
-        </Container>        
-      )
+      return ( <Loading /> )
     } else {
       //console.log( "===========================================================================" );
       return (
@@ -265,7 +271,7 @@ export default class MaterialDetail extends Component {
               </Form.Group>
             </Form.Row>
           </Form>
-          <ConfirmDelete show={this.state.showConfirm} close={this.handleMaterialDeleteConfirmationState} info={delMaterial} />
+          <MessageBox show={confirmActionInfo.showAction} close={confirmActionInfo.fktConfirm} info={confirmActionInfo.info} />  
         </>
       )
     }

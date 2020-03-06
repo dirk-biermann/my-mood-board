@@ -13,7 +13,6 @@ export default class TemplateBoard extends Component {
   //
   // -----------------------------------------
   handleTemplateDetails = (idx) =>{
-    console.log( "D-PRJ:", idx );
     this.props.history.push(`/templatedetail/${idx}`);
   }
 

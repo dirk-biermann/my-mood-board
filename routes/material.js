@@ -21,6 +21,28 @@ router.get("/", async (req, res, next) => {
 });
 
 // --------------------------------------------------
+// GET /api/materials/usr/:id
+// --------------------------------------------------
+router.get("/usr/:id", async (req, res) => {
+  // return 1 material with a given id
+  const userId = req.params.id;
+
+  try {
+    // return all materials
+    let allMaterials;
+    if( req.user.role === 'admin') {
+      allMaterials = await Material.find({owner: userId}).populate('owner');
+      res.json( allMaterials );
+    } else {
+      res.status(404).json({ message: "Invalid credentials" });
+    }
+  } catch (err) {
+    console.log( err );
+    res.status(500).json(err);
+  }
+});
+
+// --------------------------------------------------
 // GET /api/materials/:id
 // --------------------------------------------------
 router.get("/:id", async (req, res) => {
@@ -42,7 +64,6 @@ router.get("/:id", async (req, res) => {
 // --------------------------------------------------
 router.post("/create", async (req, res) => {
   const { info, data } = req.body;
-  console.log( "CRM:" , data );
   try {
     // create one material
     const result = await Material.create(data);    

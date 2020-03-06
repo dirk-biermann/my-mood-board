@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import axios from "axios";
 import { CardColumns } from "react-bootstrap";
 import ObjectCard from "./ObjectCard";
-import ConfirmDelete from "./ConfirmDelete";
+import MessageBox from "./MessageBox";
+import SiteHeader from "./SiteHeader";
 
 export default class ProjectBoard extends Component {
   constructor(){
     super();
     this.state = {
-      showConfirm: false,
+      showDeleteAction: false,
       projects: []
     }
   }
@@ -17,15 +18,17 @@ export default class ProjectBoard extends Component {
   //
   // -----------------------------------------
   handleProjectMoodboard = (idx) =>{
-    console.log( "MB-PRJ:", idx );
-    this.props.history.push(`/moodboard/${idx}`);
+    if( this.props.prv ) {
+      this.props.history.push(`/userlist/mb/${idx}`);
+    } else {
+      this.props.history.push(`/moodboard/${idx}`);     
+    }
   };
 
   // -----------------------------------------
   //
   // -----------------------------------------
   handleProjectDetails = (idx) =>{
-    console.log( "D-PRJ:", idx );
     this.props.history.push(`/projectdetail/${idx}`);
   };
 
@@ -33,7 +36,6 @@ export default class ProjectBoard extends Component {
   //
   // -----------------------------------------
   handleProjectCreate = (idx) =>{
-    console.log( "C-PRJ:", idx );
     this.props.history.push(`/projectcreate`);
   };
 
@@ -43,7 +45,7 @@ export default class ProjectBoard extends Component {
   handleProjectDeleteConfirmation = (idx) => {
     this.setState({ 
         projectDeleteIdx: idx,
-        showConfirm: true
+        showDeleteAction: true
       });
   }
 
@@ -56,7 +58,7 @@ export default class ProjectBoard extends Component {
     }
     this.setState({
         projectDeleteIdx: undefined, 
-        showConfirm: false
+        showDeleteAction: false
       });
   };
 
@@ -64,7 +66,6 @@ export default class ProjectBoard extends Component {
   //
   // -----------------------------------------
   handleProjectDelete = (idx) =>{
-    console.log( "DEL-PRJ:", idx );
     axios
       .delete(`/api/projects/${idx}`)
       .then(() => {
@@ -77,17 +78,17 @@ export default class ProjectBoard extends Component {
 
   // -----------------------------------------
   //
-  // -----------------------------------------
-  handleProjectGetAll = () => {
-    axios
-      .get("/api/projects")
-      .then(response => {
-        this.setState({
-          projects: response.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
+  // ----------------------------------------- 
+  handleProjectGetAll = async () => {
+    console.log( "PB-PRV", this.props.prv );
+    const route = this.props.prv ? `/api/projects/usr/${this.props.match.params.id}` : '/api/projects';
+
+    let [projectData] = await Promise.all([
+        axios.get(route)
+    ]);
+  
+    this.setState({
+        projects: projectData.data
       });
   };
 
@@ -95,49 +96,93 @@ export default class ProjectBoard extends Component {
   //
   // -----------------------------------------
   componentDidMount() {
-    this.handleProjectGetAll();
+    this.handleProjectGetAll()
+        .catch(err => { 
+          this.props.history.push(`/`);
+        });
   }
 
   // -----------------------------------------
   //
   // -----------------------------------------
-  render() {   
-    console.log("PB-CONST render");
-    
-    let delProject = '';
-    if( this.state.projectDeleteIdx ){
-      delProject = [ 'Project', this.state.projects.find( (project)=>{
-                                    return project._id === this.state.projectDeleteIdx;
-                                  }).name ];
+  render() {       
+    let pageTitle = "";
+    if( this.props.prv ) {
+      if( this.state.projects[0] ) {
+        pageTitle = `Projects of user: '${this.state.projects[0].owner.username}'`;
+      }
     }
- 
+
+    let delProjectName = "";
+    let confirmActionInfo = { showAction: false };
+
+    if( this.state.projectDeleteIdx ){
+      delProjectName = this.state.projects.find( (project)=>{ return project._id === this.state.projectDeleteIdx; }).name;
+    }
+
+    if( this.state.showDeleteAction ){
+      confirmActionInfo = { showAction: true,
+                          fktConfirm: this.handleProjectDeleteConfirmationState,
+                          info: { title: 'Delete Project',
+                                  message: `Do you want to delete project\n'${delProjectName}'`,
+                                  icon: 'question',
+                                  btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                        { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
+                                      ]
+                                }
+                        };
+    }
+
     return (
       <>
+        { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }
         <CardColumns>
           { this.state.projects.map( (project, index) => {
               let projectImage = project.imageUrl === "" ? "/project.png" : project.imageUrl;
-              return <ObjectCard key={`project_card_${project._id}`} 
-                                 idx={project._id} 
-                                 typ={"pb"}
-                                 title={project.name}
-                                 imgUrl = {projectImage}
-                                 handleObjectOverview={this.handleProjectMoodboard}
-                                 handleObjectDetails={this.handleProjectDetails}
-                                 handleObjectDelete={this.handleProjectDeleteConfirmation}
-                                 {...this.props}/>
+              if( this.props.prv ) {
+                return <ObjectCard key={`project_card_${project._id}`} 
+                                  idx={project._id} 
+                                  typ={"pb"}
+                                  title={project.name}
+                                  imgUrl = {projectImage}
+                                  handleObjectOverview={this.handleProjectMoodboard}
+                                  dispDetail = {project}
+                                  {...this.props}/>
+              } else {
+                return <ObjectCard key={`project_card_${project._id}`} 
+                                  idx={project._id} 
+                                  typ={"pb"}
+                                  title={project.name}
+                                  imgUrl = {projectImage}
+                                  handleObjectOverview={this.handleProjectMoodboard}
+                                  handleObjectDetails={this.handleProjectDetails}
+                                  handleObjectDelete={this.handleProjectDeleteConfirmation}
+                                  {...this.props}/>
+              }
             }) 
           }
-          <ObjectCard key={`project_card_0`} 
-                      idx={'0'} 
-                      typ={"pb"}
-                      title={'New Project'}
-                      imgUrl = {'/newobject.png'}
-                      handleObjectCreate={this.handleProjectCreate}
-                      info='New Project'
-                      {...this.props}/>
+          { !this.props.prv && (
+            <ObjectCard key={`project_card_0`} 
+                        idx={'0'} 
+                        typ={"pb"}
+                        title={'New Project'}
+                        imgUrl = {'/newobject.png'}
+                        handleObjectCreate={this.handleProjectCreate}
+                        info='New Project'
+                        {...this.props}/>
+
+            )
+          }
         </CardColumns>
-        <ConfirmDelete show={this.state.showConfirm} close={this.handleProjectDeleteConfirmationState} info={delProject} />
+        <MessageBox show={confirmActionInfo.showAction} close={confirmActionInfo.fktConfirm} info={confirmActionInfo.info} />  
       </>
     )
   }
 }
+
+/*
+                                  handleObjectOverview={this.handleProjectMoodboard}
+                                  handleObjectDetails={this.handleProjectDetails}
+                                  handleObjectDelete={this.handleProjectDeleteConfirmation}
+
+*/

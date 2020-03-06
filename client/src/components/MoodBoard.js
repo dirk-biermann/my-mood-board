@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { CardColumns, Alert, Container, Row, Col } from "react-bootstrap";
+import { CardColumns, Button } from "react-bootstrap";
 import ObjectCard from "./ObjectCard";
+import SiteHeader from "./SiteHeader";
+import Loading from "./Loading";
+import IconSvg from "./Icons/IconSvg";
 
 export default class MoodBoard extends Component {
   constructor(props){
@@ -16,7 +19,6 @@ export default class MoodBoard extends Component {
   //
   // -----------------------------------------
   handleMoodBoardOverview = (idx,typ) =>{
-    console.log( "O-MB:", idx );
     if( typ === "pm" ) { this.props.history.push(`/projectboard`); } 
     if( typ === "mb" ) { this.props.history.push(`/materialboard`); } 
   }
@@ -25,7 +27,6 @@ export default class MoodBoard extends Component {
   //
   // -----------------------------------------
   handleMoodBoardDetails = (idx,typ) =>{
-    console.log( "D-MB:", idx );
     if( typ === "pm" ) { this.props.history.push(`/projectdetail/${idx}`); }
     if( typ === "mb" ) { this.props.history.push(`/materialdetail/${idx}`); }
   }
@@ -38,6 +39,7 @@ export default class MoodBoard extends Component {
     axios
       .get(`/api/projects/pop/${idx}`)
       .then(response => {
+        console.log( "MB-PRJ:", response.data);
         this.setState({
             project: response.data,
             loadProject: false
@@ -53,7 +55,6 @@ export default class MoodBoard extends Component {
   // -----------------------------------------
   componentDidMount() {
     const projectId = this.props.match.params.id;
-    console.log( "[MOB] componentDidMount", projectId)
     if( projectId ) {
       this.handleProjectGetOne(projectId);
     } else { 
@@ -70,7 +71,6 @@ export default class MoodBoard extends Component {
   // -----------------------------------------
   render() {
     let objList = [];
-
     if( this.state.project.materials ) {
       objList = this.state.project.materials.map( (material) => {
                 let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
@@ -86,31 +86,44 @@ export default class MoodBoard extends Component {
     }
 
     if( this.state.loadProject === true ) {
-      return (
-        <Container>
-          <Row className="justify-content-md-center" style={{textAlign:"center"}}>
-            <Col xs={12} md={8} lg={4}>
-              <Alert variant={'warning'}>
-                <h2>Loading ...</h2>
-              </Alert>
-            </Col>
-          </Row>
-        </Container>        
-      )
+      return ( <Loading /> )
     } else {
+      let pageTitle = "";
+      if( this.props.prv ) {
+        if( this.state.project ) {
+          pageTitle = `MoodBoard '${this.state.project.name}' [${this.state.project.owner.username}]`;
+        }
+      }
+
       return (
-        <CardColumns>
-          <ObjectCard key={`project_card_${this.state.project._id}`} 
-                      idx={this.state.project._id} 
-                      typ={"pm"}
-                      title={this.state.project.name}
-                      imgUrl = {this.state.project.imageUrl}
-                      handleObjectOverview={this.handleMoodBoardOverview}
-                      dispDetail = {this.state.project}
-                      {...this.props}
-          />
-          { objList }
-        </CardColumns>
+        <>
+          { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }
+          <CardColumns className="frm-mb-12">
+            { this.props.prv ? (
+                <ObjectCard key={`project_card_${this.state.project._id}`} 
+                            idx={this.state.project._id} 
+                            typ={"pm"}
+                            title={this.state.project.name}
+                            imgUrl = {this.state.project.imageUrl}
+                            dispDetail = {this.state.project}
+                            {...this.props}
+                />
+              ):(
+                <ObjectCard key={`project_card_${this.state.project._id}`} 
+                            idx={this.state.project._id} 
+                            typ={"pm"}
+                            title={this.state.project.name}
+                            imgUrl = {this.state.project.imageUrl}
+                            handleObjectOverview={this.handleMoodBoardOverview}
+                            dispDetail = {this.state.project}
+                            {...this.props}
+                />
+              )          
+            }
+            { objList }
+          </CardColumns>
+          { this.props.prv && ( <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push(`/userlist/prj/${this.state.project.owner._id}`) }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button> ) }
+        </>
       )
     }
   }

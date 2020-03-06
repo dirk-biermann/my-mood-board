@@ -3,7 +3,7 @@ import axios from "axios";
 import { CardColumns, Form, Col, Button } from "react-bootstrap";
 import ObjectCard from "./ObjectCard";
 import SiteHeader from "./SiteHeader";
-import ConfirmDelete from "./ConfirmDelete";
+import MessageBox from "./MessageBox";
 import IconSvg from "./Icons/IconSvg";
 import { cloneObject } from "../services/init";
 
@@ -11,7 +11,7 @@ export default class MaterialBoard extends Component {
   constructor(){
     super();
     this.state = {
-      showConfirm: false,
+      showDeleteAction: false,
       materials: [],
       assignStatus:[]
     }
@@ -81,7 +81,7 @@ export default class MaterialBoard extends Component {
   handleMaterialDeleteConfirmation = (idx) => {
     this.setState({ 
         materialDeleteIdx: idx,
-        showConfirm: true
+        showDeleteAction: true
       });
   }
 
@@ -94,7 +94,7 @@ export default class MaterialBoard extends Component {
     }
     this.setState({
         materialDeleteIdx: undefined, 
-        showConfirm: false
+        showDeleteAction: false
       });
   };
 
@@ -116,9 +116,8 @@ export default class MaterialBoard extends Component {
   //
   // -----------------------------------------
   handleMaterialGetAll = async () => {
-    const projectId = this.props.match.params.id;
-
-    if( this.props.assignMode ) {
+    if( this.props.assignMode && !this.props.prv ) {
+      const projectId = this.props.match.params.id;
       let [projectData, materialData] = await Promise.all([
           axios.get(`/api/projects/${projectId}`),
           axios.get("/api/materials")
@@ -136,49 +135,67 @@ export default class MaterialBoard extends Component {
         idxPrj: projectId
       });
     } else {
-      axios
-        .get("/api/materials")
-        .then(response => {
-          this.setState({
-            materials: response.data,
-            idxPrj: projectId
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      }
+      const route = this.props.prv ? `/api/materials/usr/${this.props.match.params.id}` : '/api/materials';
+
+      let [materialData] = await Promise.all([
+          axios.get(route)
+      ]);
+      this.setState({
+        materials: materialData.data,
+        idxPrj: 0
+      });
+    }
   };
 
   // -----------------------------------------
   //
   // -----------------------------------------
   componentDidMount() {
-    this.handleMaterialGetAll();
+    this.handleMaterialGetAll().catch(err => { console.log('handleMaterialGetAll failed!', err ); });
   }
 
   // -----------------------------------------
   //
   // -----------------------------------------
   render() {   
-    let delMaterial = '';
+    let delMaterialName = '';
+    let confirmActionInfo = { showAction: false };
+
     if( this.state.materialDeleteIdx ){
-      delMaterial = [ 'Material', this.state.materials.find( (material)=>{
-                                    return material._id === this.state.materialDeleteIdx;
-                                  }).name ];
+      delMaterialName = this.state.materials.find( (material)=>{ return material._id === this.state.materialDeleteIdx; }).name;
+      confirmActionInfo = { showAction: true,
+                          fktConfirm: this.handleMaterialDeleteConfirmationState,
+                          info: { title: 'Delete Material',
+                                  message: `Do you want to delete material \n'${delMaterialName}'`,
+                                  icon: 'material',
+                                  btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                        { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
+                                      ]
+                                }
+                        };
     }
- 
+
     const materialCards = this.state.materials.map( (material, index) => {
                           let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
                           if( this.props.assignMode === undefined ) {
-                            return <ObjectCard key={`material_card_${material._id}`} 
-                                                idx={material._id} 
-                                                typ={"mb"}
-                                                title={material.name}
-                                                imgUrl = {materialImage}
-                                                handleObjectDetails={this.handleMaterialDetails}
-                                                handleObjectDelete={this.handleMaterialDeleteConfirmation}
-                                                {...this.props}/>
+                            if( this.props.prv ) {
+                              return <ObjectCard key={`material_card_${material._id}`} 
+                                                  idx={material._id} 
+                                                  typ={"mb"}
+                                                  title={material.name}
+                                                  imgUrl = {materialImage}
+                                                  dispDetail = {material}
+                                                  {...this.props}/>
+                            } else {
+                              return <ObjectCard key={`material_card_${material._id}`} 
+                                                  idx={material._id} 
+                                                  typ={"mb"}
+                                                  title={material.name}
+                                                  imgUrl = {materialImage}
+                                                  handleObjectDetails={this.handleMaterialDetails}
+                                                  handleObjectDelete={this.handleMaterialDeleteConfirmation}
+                                                  {...this.props}/>
+                            }
                           } else {
                             return <ObjectCard key={`material_card_${material._id}`} 
                                                 idx={material._id} 
@@ -192,7 +209,7 @@ export default class MaterialBoard extends Component {
                           }
                         }); 
 
-    if( this.props.assignMode === undefined ) {
+    if( ( this.props.assignMode === undefined ) && ( !this.props.prv ) ) {
       materialCards.push( 
           <ObjectCard key={`material_card_0`} 
                       idx={'0'} 
@@ -205,11 +222,19 @@ export default class MaterialBoard extends Component {
           />
         )
     }
+    let pageTitle = "";
+    if( this.props.prv ) {
+      if( this.state.materials[0] ) {
+        pageTitle = `Materials of user: '${this.state.materials[0].owner.username}'`;
+      }
+    }
+
     return (
       <>   
         {this.props.assignMode && (
           <SiteHeader ico="checked" title={'Material Assign'} />
-        )}     
+        )} 
+        { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }    
         <CardColumns style={{marginBottom: "1rem"}}>
           { materialCards }
         </CardColumns>
@@ -222,13 +247,12 @@ export default class MaterialBoard extends Component {
               </Form.Group>
             </Form.Row>
           </Form>
-        )}     
-        <ConfirmDelete show={this.state.showConfirm} close={this.handleMaterialDeleteConfirmationState} info={delMaterial} />
+        )}  
+        <MessageBox show={confirmActionInfo.showAction} close={confirmActionInfo.fktConfirm} info={confirmActionInfo.info} />  
       </>
     )
   }
 }
 /*
                                                 handleObjectDetails={this.handleProjectDetails}
-
 */

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { CardColumns, Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
-import ConfirmDelete from "./ConfirmDelete";
+import { CardColumns, Form, Button, Row, Col } from "react-bootstrap";
+import MessageBox from "./MessageBox";
 import SiteHeader from "./SiteHeader";
+import Loading from "./Loading";
 import ObjectCard from "./ObjectCard";
 import IconSvg from "./Icons/IconSvg";
 import { cloneObject } from "../services/init";
@@ -11,7 +12,8 @@ export default class ProjectDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        showConfirm: false,
+        showDeleteAction: false,
+        showSaveAction: false,
         project: {
           name: '',
           description: '',
@@ -22,6 +24,7 @@ export default class ProjectDetail extends Component {
           materials: [],
           owner: this.props.user._id
         },
+        newProject: true,
         editMode: false,
         createMode: false,
         loadProject: true
@@ -32,7 +35,11 @@ export default class ProjectDetail extends Component {
   //
   // -----------------------------------------
   handleProjectModifyComponents = () => {
-    this.props.history.push(`/materialboard/${this.state.project._id}`);
+    if( this.state.newProject === true ) {
+      this.setState( { showSaveAction: true } );
+    } else {
+      this.props.history.push(`/materialboard/${this.state.project._id}`);
+    }
   }
 
   // -----------------------------------------
@@ -42,13 +49,22 @@ export default class ProjectDetail extends Component {
     this.props.history.push(`/moodboard/${this.state.project._id}`);
   }
 
-
   // -----------------------------------------
   //
   // -----------------------------------------
   handleProjectDeleteConfirmation = () => {
     this.setState({ 
-        showConfirm: true,
+        showDeleteAction: true,
+        loadProject: false
+      });
+  }
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  handleProjectMessage = ( msg ) => {
+    this.setState({ 
+        showMessage: true,
         loadProject: false
       });
   }
@@ -58,10 +74,27 @@ export default class ProjectDetail extends Component {
   // -----------------------------------------
   handleProjectDeleteConfirmationState = (confirmDeleteState) => {
     if (confirmDeleteState === true) {
-      this.handleProjectDeletet( this.state.project._id );
+      this.handleProjectDelete( this.state.project._id );
     }
     this.setState({
-        showConfirm: false,
+        showDeleteAction: false,
+        loadProject: false
+      });
+  };
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  handleProjectSaveConfirmationState = (confirmActionState) => {
+    let prjState = this.state.newProject;
+    
+    if (confirmActionState === true) {
+      this.handleProjectCreate( false );
+      prjState = false;
+    }
+    this.setState({
+        newProject: prjState,
+        showSaveAction: false,
         loadProject: false
       });
   };
@@ -87,7 +120,7 @@ export default class ProjectDetail extends Component {
   handleProjectSubmit = (event) => {
     if (event) { event.preventDefault(); }
     if( this.state.createMode && this.state.editMode ) {
-      this.handleProjectCreate();
+      this.handleProjectCreate( true );
     } else {
       if( this.state.editMode ) {
         this.handleProjectUpdate(this.state.project._id);
@@ -98,14 +131,15 @@ export default class ProjectDetail extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
-  handleProjectCreate = () => {
+  handleProjectCreate = ( routeProjectBoard ) => {
     axios
       .post("/api/projects/create", {
           info: "Create Project",
           data: this.state.project
       })
       .then(response => {
-        this.props.history.push("/projectboard");
+        if( routeProjectBoard === true ){ this.props.history.push("/projectboard"); }
+        this.props.history.push(`/materialboard/${response.data._id}`);
       })
       .catch(err => {
         console.log(err);
@@ -122,7 +156,7 @@ export default class ProjectDetail extends Component {
           data: this.state.project  
       })
       .then(response => {
-        this.props.history.push("/projectboard")
+        if( this.state.newProject !== true ){ this.props.history.push("/projectboard"); }
       })
       .catch(err => {
         console.log(err);
@@ -154,7 +188,8 @@ export default class ProjectDetail extends Component {
         this.setState({
             project: response.data,
             editMode: true,
-            loadProject: false
+            loadProject: false,
+            newProject: false
           });
       })
       .catch(err => {
@@ -167,7 +202,6 @@ export default class ProjectDetail extends Component {
   // -----------------------------------------
   componentDidMount() {
     const projectId = this.props.match.params.id;
-    //console.log( "[PD] componentDidMount", projectId)
     if( projectId ) {
       this.handleProjectGetOne(projectId);
     } else { 
@@ -188,34 +222,61 @@ export default class ProjectDetail extends Component {
 
     if( this.state.editMode === true ) pageTitle = 'Project Update';
     if( this.state.createMode === true ) pageTitle = 'Project Create';
+    
+    let confirmActionInfo = { showAction: false };
+    let btnEnable = false;
+    if( this.state.project.name.length > 0 ) {
+      btnEnable = true;
+      if( this.state.showDeleteAction && (this.state.project.name.length > 0) ) {
+        confirmActionInfo = { showAction: true,
+                              fktConfirm: this.handleProjectDeleteConfirmationState,
+                              info: { title: 'Delete Project',
+                                      message: `Do you want to delete project \n'${this.state.project.name}'`,
+                                      icon: 'question',
+                                      btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                            { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
+                                          ]
+                                    }
+                            };
+      }
+      if( this.state.showSaveAction ) {
+        confirmActionInfo = { showAction: true,
+                              fktConfirm: this.handleProjectSaveConfirmationState,
+                              info: { title: 'Save Project',
+                                      message: `Do you want to save project \n'${this.state.project.name}'`,
+                                      icon: 'question',
+                                      btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                            { btnText: 'Save', iconName: 'save', retVal: true, btnColor: 'blue' }
+                                          ]
+                                    }
+                            };
+      }
+    }
 
+
+    btnList.push( <Button key={'project_detail_btn_00'} className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/projectboard") }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button> );
     if( this.state.createMode === true || this.state.editMode === true ) {
       let btnText = 'Update';
       if( this.state.createMode === true ) btnText = 'Save';
-
-      btnList.push( <Button key={'project_detail_btn_01'} className="mr-2 mb-1" variant="blue" type="submit"><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>{btnText}</Button> );
+      if( btnEnable ) {
+        btnList.push( <Button key={'project_detail_btn_01'} className="mr-2 mb-1" variant="blue" type="submit"><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>{btnText}</Button> );
+      } else {
+        btnList.push( <Button key={'project_detail_btn_01'} disabled className="mr-2 mb-1" variant="blue" type="submit"><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>{btnText}</Button> );
+      }
+    }
+    if( btnEnable ) {
+      btnList.push( <Button key={'project_detail_btn_02'} className="mr-2 mb-1" variant="green" onClick={this.handleProjectModifyComponents}><IconSvg ico="change" cls="svg-btn svg-cw90 svg-mr"/>Assign/Remove Material</Button> );
+    } else {
+      btnList.push( <Button key={'project_detail_btn_02'} disabled className="mr-2 mb-1" variant="green" onClick={this.handleProjectModifyComponents}><IconSvg ico="change" cls="svg-btn svg-cw90 svg-mr"/>Assign/Remove Material</Button> );
     }
     if( this.state.createMode === false && this.state.editMode === true ) {
-      btnList.push( <Button key={'project_detail_btn_02'} className="mr-2 mb-1" variant="red" onClick={this.handleProjectDeleteConfirmation}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button> );
+      btnList.push( <Button key={'project_detail_btn_03'} className="mr-2 mb-1" variant="red" onClick={this.handleProjectDeleteConfirmation}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button> );
     }
-    
-    const delProject = [ 'Project', this.state.project.name ];
+
     //console.log( "[PD] REN img:", this.state.project.imageUrl );
 
     if( this.state.loadProject === true ) {
-      //console.log( "[PD] Alert" );
-      //console.log( "===========================================================================" );
-      return (
-        <Container>
-          <Row className="justify-content-md-center" style={{textAlign:"center"}}>
-            <Col xs={12} md={8} lg={4}>
-              <Alert variant={'warning'}>
-                <h2>Loading ...</h2>
-              </Alert>
-            </Col>
-          </Row>
-        </Container>        
-      )
+      return ( <Loading /> )
     } else {
       let materialCards = [];
       this.state.project.materials.forEach( (material, index) => {
@@ -268,6 +329,23 @@ export default class ProjectDetail extends Component {
                   value={this.state.project.imageUrl || ''}
                   onChange={this.handleChangeInput}
                 />
+                { this.props.user.role==='admin' && (
+                    <Row style={{marginTop: "15px"}}>
+                      <Col sm="3">
+                        <Form.Label>Owner:</Form.Label>
+                      </Col>
+                      <Col sm="9">
+                        <Form.Control
+                          as="input"
+                          type="text"
+                          name="owner"
+                          readOnly
+                          value={this.state.project.owner.username || ''}
+                        />
+                      </Col>
+                    </Row>
+                  )
+                }
               </Form.Group>
               <Form.Group as={Col} sm="12" md="6" lg="3">
                 <Form.Label>Description: </Form.Label>
@@ -292,32 +370,36 @@ export default class ProjectDetail extends Component {
             </Form.Row>
             <Form.Row className="frm-alpha-w10">
               <Form.Group as={Col} sm="12" md="6" lg="3">
-                <Form.Label>Status:</Form.Label>
-                <Form.Control
-                    as="select"
-                    name="status"
-                    id="status"
-                    default={this.state.project.status || 'New'}
-                    onChange={this.handleChangeInput}
-                  >
-                  <option value="New">New</option>
-                  <option value="Completed">Completed</option>
-                  <option value="Planned">Planned</option>
-                </Form.Control>              
+                <Row>
+                  <Col sm="3">
+                    <Form.Label>Status:</Form.Label>
+                  </Col>
+                  <Col sm="9">
+                    <Form.Control
+                        as="select"
+                        name="status"
+                        id="status"
+                        default={this.state.project.status || 'New'}
+                        onChange={this.handleChangeInput}
+                      >
+                      <option value="New">New</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Planned">Planned</option>
+                    </Form.Control>              
+                  </Col>
+                </Row>
               </Form.Group>
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} sm="12">
-                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/projectboard") }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
                 {btnList}
-                <Button className="mr-2 mb-1" variant="green" onClick={this.handleProjectModifyComponents}><IconSvg ico="change" cls="svg-btn svg-cw90 svg-mr"/>Assign/Remove Material</Button>
               </Form.Group>
             </Form.Row>
           </Form>
           <CardColumns>
             {materialCards}
-          </CardColumns>  
-          <ConfirmDelete show={this.state.showConfirm} close={this.handleProjectDeleteConfirmationState} info={delProject} />
+          </CardColumns>
+          <MessageBox show={confirmActionInfo.showAction} close={confirmActionInfo.fktConfirm} info={confirmActionInfo.info} />  
         </>
       )
     }

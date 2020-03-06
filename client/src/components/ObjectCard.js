@@ -124,6 +124,11 @@ export default class ObjectCard extends Component {
     let hasAssign = this.props.handleObjectAssign ? true : false;
     let hasInfo = this.state.infoText ? true : false;
     let hasDisp = this.props.dispDetail ? true : false;
+    if( this.props.user.role === "admin" ) {
+      hasDelete = false;
+      hasCreate = false;
+      hasDetails = false;
+    }
 
     let icoMain;
     let icoOverview;
@@ -131,6 +136,7 @@ export default class ObjectCard extends Component {
     let txtDelete;
     let imgFilename;
     let imgDispname;
+    let imgInfo;
 
     //console.log( "[1] OC-render [", this.props.idx, ']' );    
     //console.log( "[1.1] Image [", this.props.idx, ']', this.props.imgUrl );    
@@ -181,11 +187,14 @@ export default class ObjectCard extends Component {
     // -----------------------
     // check imageUrl
     // -----------------------
+    imgInfo = this.state.infoText;
     if( this.props.imgUrl !== '' ) {
       imgFilename = this.props.imgUrl;
       imgDispname = this.state.dispImage;
     } else {
-      imgDispname = imgFilename;      
+      imgDispname = imgFilename;  
+      imgInfo = "Default Image";
+      hasInfo = true;
     }
     // -----------------------
 
@@ -256,7 +265,7 @@ export default class ObjectCard extends Component {
             { ( hasInfo || hasAssign ) && (
               <Card.Footer style={{textAlign: "right"}}>
                 <>
-                  { hasInfo && ( <span style={{textShadow: "2px 2px 5px black"}}>{this.state.infoText}</span> ) }
+                  { hasInfo && ( <span style={{textShadow: "2px 2px 5px black"}}>{imgInfo}</span> ) }
                   { hasAssign && (
                     <div className="f-item acb-a-svg" onClick={this.handleThisAssign}>
                       <span style={{textShadow: "2px 2px 2px black"}}>Assigned</span>

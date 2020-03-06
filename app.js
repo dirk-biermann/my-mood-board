@@ -94,8 +94,14 @@ app.use("/api/projects", projectRoutes);
 const materialRoutes = require("./routes/material");
 app.use("/api/materials", materialRoutes);
 
+const userRoutes = require("./routes/user");
+app.use("/api/users", userRoutes);
+
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
+
+const initSeeds = require("./routes/seeds");
+app.use("/api/init", initSeeds);
 
 //const uploadRoutes = require('./routes/file-upload');
 //app.use('/api/upload', uploadRoutes);

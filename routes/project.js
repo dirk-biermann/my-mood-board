@@ -11,9 +11,11 @@ const { cloudinary } = require('../configs/cloudinary');
 router.get("/", async (req, res, next) => {
   try {
     // return all projects
-    const allProjects = await Project.find({owner: req.user._id});
+    let allProjects;
+    allProjects = await Project.find({owner: req.user._id});
     res.json( allProjects );
   } catch (err) {
+    console.log( err );
     res.status(500).json(err);
   }
 });
@@ -24,13 +26,37 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res) => {
   // return 1 project with a given id
   const projectId = req.params.id;
+
   try {
     // create one project
-    const project = await Project.findById(projectId);    
+    let project;
+    project = await Project.findById(projectId);    
     if (!project) {
       res.status(404).json({ message: "Project not found" });
     } else res.json(project);
   } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// --------------------------------------------------
+// GET /api/projects/usr/:id
+// --------------------------------------------------
+router.get("/usr/:id", async (req, res) => {
+  // return 1 project with a given id
+  const userId = req.params.id;
+
+  try {
+    // return all projects
+    let allProjects;
+    if( req.user.role === 'admin') {
+      allProjects = await Project.find({owner: userId}).populate('owner');
+      res.json( allProjects );
+    } else {
+      res.status(404).json({ message: "Invalid credentials" });
+    }
+  } catch (err) {
+    console.log( err );
     res.status(500).json(err);
   }
 });
@@ -43,7 +69,13 @@ router.get("/pop/:id", async (req, res) => {
   const projectId = req.params.id;
   try {
     // create one project
-    const project = await Project.findById(projectId).populate( "materials" );    
+    let project;
+
+    if( req.user.role === 'admin') {
+      project = await Project.findById(projectId).populate( "materials" ).populate("owner");    
+    } else {
+      project = await Project.findById(projectId).populate( "materials" );    
+    }
     if (!project) {
       res.status(404).json({ message: "Project not found" });
     } else res.json(project);

@@ -36,6 +36,10 @@ import {ReactComponent as IconVLine} from './SVG/vline.svg';
 import {ReactComponent as IconVLineS} from './SVG/vlines.svg';
 import {ReactComponent as IconChange} from './SVG/change.svg';
 import {ReactComponent as IconDocEdit} from './SVG/docedit.svg';
+import {ReactComponent as IconUser} from './SVG/user.svg';
+import {ReactComponent as IconOk} from './SVG/check.svg';
+import {ReactComponent as IconQuestion} from './SVG/question.svg';
+import {ReactComponent as IconSpeach} from './SVG/speach.svg';
 
 export default class IconSvg extends Component {
   constructor() {
@@ -44,7 +48,8 @@ export default class IconSvg extends Component {
       "home","project","moodboard","material","template","signup","edit","settings","login",
       "logout","info","plus","minus","cancel","save","delete","sad","diff",
       "up","down","left","right","error","checked","freepik","minimize","expand",
-      "menu","doc","dot","dash","vline","vlines","new","change","close","docedit"
+      "menu","doc","dot","dash","vline","vlines","new","change","close","docedit","user","ok",
+      "question","speach"
     ]
   }
   
@@ -60,6 +65,8 @@ export default class IconSvg extends Component {
     for( let i=0; i < cnt; i++ ) {
       switch( icoName )
       {
+        case "ok":         icoComponent = <IconOk key={`SVG_Icon_${i}`} className='svg__icon'/>;        break;
+        case "user":       icoComponent = <IconUser key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "menu":       icoComponent = <IconMenu key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "diff":       icoComponent = <IconDiff key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "doc":        icoComponent = <IconDoc key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
@@ -96,6 +103,8 @@ export default class IconSvg extends Component {
         case "vlines":     icoComponent = <IconVLineS key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
         case "new":        icoComponent = <IconNew key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
         case "change":     icoComponent = <IconChange key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
+        case "question":   icoComponent = <IconQuestion key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
+        case "speach":     icoComponent = <IconSpeach key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
         default:           icoComponent = <IconSad key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
       }
       icoList.push( icoComponent );
