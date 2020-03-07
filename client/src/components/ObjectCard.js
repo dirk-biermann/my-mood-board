@@ -188,13 +188,15 @@ export default class ObjectCard extends Component {
     // check imageUrl
     // -----------------------
     imgInfo = this.state.infoText;
-    if( this.props.imgUrl !== '' ) {
+    if( this.props.imgUrl !== "" ) {
       imgFilename = this.props.imgUrl;
       imgDispname = this.state.dispImage;
+      console.log( "REG-IMG:", imgInfo, imgFilename, `[${this.props.imgUrl}]` );
     } else {
       imgDispname = imgFilename;  
       imgInfo = "Default Image";
       hasInfo = true;
+      console.log( "DEFIMG:", imgInfo, imgFilename, `[${this.props.imgUrl}]` );
     }
     // -----------------------
 
@@ -203,7 +205,7 @@ export default class ObjectCard extends Component {
       if( this.props.assignCheck === true ) {
         assignState = <IconSvg ico="checked" cls="svg-nav svg-sw10 svg-cw50-h svg-ml"/>
       } else {
-        assignState = <IconSvg ico="material" cls="svg-nav svg-sw10 svg-cw50-h svg-ml"/>
+        assignState = <IconSvg ico="unchecked" cls="svg-nav svg-sw10 svg-cw50-h svg-ml"/>
       }
     }
 

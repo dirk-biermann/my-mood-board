@@ -138,13 +138,13 @@ export default class ProjectBoard extends Component {
         { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }
         <CardColumns>
           { this.state.projects.map( (project, index) => {
-              let projectImage = project.imageUrl === "" ? "/project.png" : project.imageUrl;
+              //let projectImage = project.imageUrl === "" ? "/project.png" : project.imageUrl;
               if( this.props.prv ) {
                 return <ObjectCard key={`project_card_${project._id}`} 
                                   idx={project._id} 
                                   typ={"pb"}
                                   title={project.name}
-                                  imgUrl = {projectImage}
+                                  imgUrl = {project.imageUrl}
                                   handleObjectOverview={this.handleProjectMoodboard}
                                   dispDetail = {project}
                                   {...this.props}/>
@@ -153,7 +153,7 @@ export default class ProjectBoard extends Component {
                                   idx={project._id} 
                                   typ={"pb"}
                                   title={project.name}
-                                  imgUrl = {projectImage}
+                                  imgUrl = {project.imageUrl}
                                   handleObjectOverview={this.handleProjectMoodboard}
                                   handleObjectDetails={this.handleProjectDetails}
                                   handleObjectDelete={this.handleProjectDeleteConfirmation}
@@ -179,10 +179,3 @@ export default class ProjectBoard extends Component {
     )
   }
 }
-
-/*
-                                  handleObjectOverview={this.handleProjectMoodboard}
-                                  handleObjectDetails={this.handleProjectDetails}
-                                  handleObjectDelete={this.handleProjectDeleteConfirmation}
-
-*/

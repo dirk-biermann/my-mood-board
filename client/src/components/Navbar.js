@@ -77,7 +77,7 @@ export default class Navbar extends Component {
               </>
             )}
             <IconSvg ico="vlines" cls="svg-dot svg-sw5 svg-cw25"/>
-            <div className="acb-a-svg" onClick={this.showAbout}><IconSvg ico="info" cls="svg-nav svg-sw10 svg-cw50-h"/></div>
+            <div className="acb-a-svg" onClick={this.showAbout}><IconSvg ico="speach" cls="svg-nav svg-sw10 svg-cw50-h"/></div>
           </Navmenu.Collapse>
         </Navmenu>
         <About show={this.state.showAbout} close={this.hideAbout} />

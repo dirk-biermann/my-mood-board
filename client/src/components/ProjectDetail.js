@@ -280,13 +280,13 @@ export default class ProjectDetail extends Component {
     } else {
       let materialCards = [];
       this.state.project.materials.forEach( (material, index) => {
-          let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
+          //let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
           materialCards.push( 
               <ObjectCard key={`project_m_card_${material._id}`} 
                           idx={material._id}
                           typ={"mb"}
                           title={material.name}
-                          imgUrl = {materialImage}
+                          imgUrl = {material.imageUrl}
                           dispDetail = {material}
                           info='Assigned Material'
                           {...this.props}

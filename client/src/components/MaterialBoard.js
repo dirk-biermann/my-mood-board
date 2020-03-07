@@ -176,14 +176,14 @@ export default class MaterialBoard extends Component {
     }
 
     const materialCards = this.state.materials.map( (material, index) => {
-                          let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
+                         // let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
                           if( this.props.assignMode === undefined ) {
                             if( this.props.prv ) {
                               return <ObjectCard key={`material_card_${material._id}`} 
                                                   idx={material._id} 
                                                   typ={"mb"}
                                                   title={material.name}
-                                                  imgUrl = {materialImage}
+                                                  imgUrl = {material.imageUrl}
                                                   dispDetail = {material}
                                                   {...this.props}/>
                             } else {
@@ -191,7 +191,7 @@ export default class MaterialBoard extends Component {
                                                   idx={material._id} 
                                                   typ={"mb"}
                                                   title={material.name}
-                                                  imgUrl = {materialImage}
+                                                  imgUrl = {material.imageUrl}
                                                   handleObjectDetails={this.handleMaterialDetails}
                                                   handleObjectDelete={this.handleMaterialDeleteConfirmation}
                                                   {...this.props}/>
@@ -201,7 +201,7 @@ export default class MaterialBoard extends Component {
                                                 idx={material._id} 
                                                 typ={"mb"}
                                                 title={material.name}
-                                                imgUrl = {materialImage}
+                                                imgUrl = {material.imageUrl}
                                                 handleObjectAssign = {this.handleMaterialAssign}
                                                 assignCheck = {this.state.assignStatus[index]} 
                                                 dispDetail = {material}
@@ -253,6 +253,3 @@ export default class MaterialBoard extends Component {
     )
   }
 }
-/*
-                                                handleObjectDetails={this.handleProjectDetails}
-*/

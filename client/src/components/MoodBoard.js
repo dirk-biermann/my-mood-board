@@ -73,12 +73,12 @@ export default class MoodBoard extends Component {
     let objList = [];
     if( this.state.project.materials ) {
       objList = this.state.project.materials.map( (material) => {
-                let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
+                //let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
                 return <ObjectCard key={`material_card_${material._id}`} 
                                     idx={material._id} 
                                     typ={"mm"}
                                     title={material.name}
-                                    imgUrl = {materialImage}
+                                    imgUrl = {material.imageUrl}
                                     dispDetail = {material}
                                     {...this.props}
                         />

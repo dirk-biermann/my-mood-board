@@ -174,7 +174,7 @@
 .site-header span { margin-bottom: 0.5rem;}
 
 .info-box h1.title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   letter-spacing: 2px;
   width: 100%;
   text-shadow: 4px 4px 4px black;
@@ -187,9 +187,10 @@
 .fc-y { color: rgb(128, 128, 0); }
 .fc-o { color: rgb(128,64,0); }
 .fc-p { color: rgb(128,0,128); }
+.fc-x { color: rgb(160, 160, 160); }
 
-@media screen and (min-width: 400px) { .info-box h1.title { font-size: 3.5rem; letter-spacing: 3px; } }
-@media screen and (min-width: 600px) { .info-box h1.title { font-size: 5rem; letter-spacing: 5px; } }
+@media screen and (min-width: 400px) { .info-box h1.title { font-size: 3rem; letter-spacing: 3px; } }
+@media screen and (min-width: 600px) { .info-box h1.title { font-size: 4rem; letter-spacing: 5px; } }
 
 .txt-box > :first-child::after {
   content: '';

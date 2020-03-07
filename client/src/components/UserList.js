@@ -117,7 +117,7 @@ export default class UserList extends Component {
             <Form.Row className="frm-alpha-w10">
               <Form.Group as={Col} sm="12">
                 <Table responsive striped borderless hover size="sm" variant="dark" className="tab-vcenter">
-                  <thead className="btn-blue">
+                  <thead style={{backgroundColor: "black"}}>
                     <tr>
                       <th>#</th>
                       <th>Name</th>
@@ -125,8 +125,10 @@ export default class UserList extends Component {
                       <th>Role</th>
                       <th>Created at</th>
                       <th>User</th>
-                      <th colSpan="2"># Projects</th>
-                      <th colSpan="2"># Materials</th>
+                      <th>#</th>
+                      <th>Projects</th>
+                      <th>#</th>
+                      <th>Materials</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -145,10 +147,12 @@ export default class UserList extends Component {
                           <td>{user.pCnt}</td>
                           <td>
                             <Button className="mr-2" disabled={user.pCnt===0} variant="green" onClick={()=>{this.handleUserProjectBoard(user._id)}}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
+                            <Button className="mr-2" disabled={user.pCnt===0} variant="blue" onClick={()=>{this.handleUserProjectCopy(user._id)}}><IconSvg ico="move" cls="svg-btn svg-cw90 svg-mr"/>Move</Button>
                           </td>
                           <td>{user.mCnt}</td>
                           <td>
-                            <Button className="mr-2" disabled={user.mCnt===0}variant="green" onClick={()=>{this.handleUserMaterialBoard(user._id)}}><IconSvg ico="material" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
+                            <Button className="mr-2" disabled={user.mCnt===0} variant="green" onClick={()=>{this.handleUserMaterialBoard(user._id)}}><IconSvg ico="material" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
+                            <Button className="mr-2" disabled={user.pCnt===0} variant="blue" onClick={()=>{this.handleUserProjectCopy(user._id)}}><IconSvg ico="move" cls="svg-btn svg-cw90 svg-mr"/>Move</Button>
                           </td>
                         </tr>
                       )

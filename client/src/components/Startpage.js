@@ -31,7 +31,7 @@ export default class Startpage extends Component {
             <img className="acb-img" src="./acb.png" alt="acb" width="400px"/>
           </div>
           <div className="f-item f-col txt-box">
-            <h1 className="b-item title"><span className="fc-r">M</span>y-<span className="fc-g">M</span>ood-<span className="fc-b">B</span>oard</h1>
+            <h1 className="b-item title"><span className="fc-x">M</span>y-<span className="fc-x">M</span>ood-<span className="fc-x">B</span>oard</h1>
             <div className="b-item desc">
               <p><IconSvg ico="dot" cls="svg-mr svg-sw5 svg-cw90"/>Administration of materials and craft projects.</p>
               <p><IconSvg ico="dot" cls="svg-mr svg-sw5 svg-cw90"/>Visualization with a Mood-Board.</p>
