@@ -114,6 +114,25 @@ router.delete("/:id", async (req, res) => {
 });
 
 // --------------------------------------------------
+// PUT /api/projects/move
+// --------------------------------------------------
+router.put("/move", async (req, res) => {
+  const { info, data } = req.body;
+  try {
+    // move all projects
+    const result = await Project.updateMany(
+      { owner: data.src_id },
+      { $set: { "owner": data.dst_id } }
+    );    
+    res.json( result );
+  } catch (err) {
+    console.log( "ERR-T", err );
+    res.status(500).json(err);
+  }
+
+});
+
+// --------------------------------------------------
 // PUT /api/projects/:id
 // --------------------------------------------------
 router.put("/:id", async (req, res) => {

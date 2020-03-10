@@ -31,7 +31,7 @@ export default class ImageDisp extends Component {
       >
         <Modal.Header className="bg-dark text-light" style={{borderBottom: "none", justifyContent: "space-between"}}>
           <h3>{this.props.title ? this.props.title : ""}</h3>
-          {/* <div className="bg-danger acb-a-svg" onClick={this.closeImageDisp}><IconSvg ico="cancel" cls="svg-cls svg-sw-10 svg-cw90"/></div> */}
+          {/* <div className="bg-danger mmb-a-svg" onClick={this.closeImageDisp}><IconSvg ico="cancel" cls="svg-cls svg-sw-10 svg-cw90"/></div> */}
           <Button className="" size="sm" variant="red" onClick={this.closeImageDisp}><IconSvg ico="minimize" cls="svg-btn svg-big svg-cw90"/></Button>
         </Modal.Header>
         <Modal.Body className="bg-dark" style={{padding: "0"}}>

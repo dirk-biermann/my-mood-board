@@ -42,6 +42,8 @@ import {ReactComponent as IconQuestion} from './SVG/question.svg';
 import {ReactComponent as IconSpeach} from './SVG/speach.svg';
 import {ReactComponent as IconCopy} from './SVG/copy.svg';
 import {ReactComponent as IconMove} from './SVG/move.svg';
+import {ReactComponent as IconFollower} from './SVG/followers.svg';
+import {ReactComponent as IconRefresh} from './SVG/refresh.svg';
 
 export default class IconSvg extends Component {
   constructor() {
@@ -51,7 +53,7 @@ export default class IconSvg extends Component {
       "logout","info","plus","minus","cancel","save","delete","sad","diff",
       "up","down","left","right","error","checked","unchecked","freepik","minimize","expand",
       "menu","doc","dot","dash","vline","vlines","new","change","close","docedit","user","ok",
-      "question","speach","copy","move"
+      "question","speach","copy","move","follower","refresh"
     ]
   }
   
@@ -110,6 +112,8 @@ export default class IconSvg extends Component {
         case "speach":     icoComponent = <IconSpeach key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
         case "copy":       icoComponent = <IconCopy key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "move":       icoComponent = <IconMove key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
+        case "follower":   icoComponent = <IconFollower key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
+        case "refresh":    icoComponent = <IconRefresh key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         default:           icoComponent = <IconSad key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
       }
       icoList.push( icoComponent );

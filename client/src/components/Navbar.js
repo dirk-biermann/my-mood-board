@@ -45,7 +45,7 @@ export default class Navbar extends Component {
       <>
         <Navmenu className="nav" bg="dark" fixed="top">
           <Navmenu.Brand>
-            <Link to="/"><img alt="acb-logo" src="/arts_craft_base_logo.svg" width="35" height="35"/></Link>
+            <Link to="/"><img alt="mmb-logo" src="/arts_craft_base_logo.svg" width="35" height="35"/></Link>
           </Navmenu.Brand>
           <Navmenu.Text className="shw-acb navbar-caption">My-Mood-Board</Navmenu.Text>
             
@@ -65,7 +65,7 @@ export default class Navbar extends Component {
                   )
                 }
                 { this.props.user.role==='admin' && (
-                      <Link to="/userlist"><IconSvg ico="user" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                      <Link to="/userlist"><IconSvg ico="follower" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
                   )
                 }
                 <Link to="/" onClick={this.handleLogout}><IconSvg ico="logout" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
@@ -77,7 +77,7 @@ export default class Navbar extends Component {
               </>
             )}
             <IconSvg ico="vlines" cls="svg-dot svg-sw5 svg-cw25"/>
-            <div className="acb-a-svg" onClick={this.showAbout}><IconSvg ico="speach" cls="svg-nav svg-sw10 svg-cw50-h"/></div>
+            <div className="mmb-a-svg" onClick={this.showAbout}><IconSvg ico="speach" cls="svg-nav svg-sw10 svg-cw50-h"/></div>
           </Navmenu.Collapse>
         </Navmenu>
         <About show={this.state.showAbout} close={this.hideAbout} />

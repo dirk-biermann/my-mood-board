@@ -90,6 +90,28 @@ router.delete("/:id", async (req, res) => {
 });
 
 // --------------------------------------------------
+// PUT /api/materials/move
+// --------------------------------------------------
+router.put("/move", async (req, res) => {
+  const { info, data } = req.body;
+  console.log( "UPD", data.src_id, data.dst_id );
+
+  try {
+    // move all materials
+    const result = await Material.updateMany(
+      { owner: data.src_id },
+      { $set: { "owner": data.dst_id } }
+    );    
+    res.json( result );
+  } catch (err) {
+    console.log( "ERR-T", err );
+    res.status(500).json(err);
+  }
+
+});
+
+
+// --------------------------------------------------
 // PUT /api/materials/:id
 // --------------------------------------------------
 router.put("/:id", async (req, res) => {

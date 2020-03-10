@@ -80,7 +80,6 @@ export default class ProjectBoard extends Component {
   //
   // ----------------------------------------- 
   handleProjectGetAll = async () => {
-    console.log( "PB-PRV", this.props.prv );
     const route = this.props.prv ? `/api/projects/usr/${this.props.match.params.id}` : '/api/projects';
 
     let [projectData] = await Promise.all([

@@ -191,12 +191,12 @@ export default class ObjectCard extends Component {
     if( this.props.imgUrl !== "" ) {
       imgFilename = this.props.imgUrl;
       imgDispname = this.state.dispImage;
-      console.log( "REG-IMG:", imgInfo, imgFilename, `[${this.props.imgUrl}]` );
+      //console.log( "REG-IMG:", imgInfo, imgFilename, `[${this.props.imgUrl}]` );
     } else {
       imgDispname = imgFilename;  
       imgInfo = "Default Image";
       hasInfo = true;
-      console.log( "DEFIMG:", imgInfo, imgFilename, `[${this.props.imgUrl}]` );
+      //console.log( "DEFIMG:", imgInfo, imgFilename, `[${this.props.imgUrl}]` );
     }
     // -----------------------
 
@@ -219,31 +219,31 @@ export default class ObjectCard extends Component {
               <div>
                 { hasOverviewBoard && (
                     <OverlayTrigger overlay={this.showTooltip(['Show',`${txtOverview}`])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisOverview}><IconSvg ico={icoOverview} cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
+                      <div className="f-item mmb-a-svg" onClick={this.handleThisOverview}><IconSvg ico={icoOverview} cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
                 { hasDetails && (
                     <OverlayTrigger overlay={this.showTooltip(['Edit','Details'])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisDetails}><IconSvg ico="edit" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
+                      <div className="f-item mmb-a-svg" onClick={this.handleThisDetails}><IconSvg ico="edit" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
                 { hasDisp && (
                     <OverlayTrigger overlay={this.showTooltip(['Show','Details'])}>
-                      <div className="f-item acb-a-svg" onClick={this.showDetailDisp}><IconSvg ico="doc" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
+                      <div className="f-item mmb-a-svg" onClick={this.showDetailDisp}><IconSvg ico="doc" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
                 { hasDelete && (
                     <OverlayTrigger overlay={this.showTooltip(['Delete',`${txtDelete}`])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisDelete}><IconSvg ico="delete" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
+                      <div className="f-item mmb-a-svg" onClick={this.handleThisDelete}><IconSvg ico="delete" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
                 { hasAssign && false && (
                     <OverlayTrigger overlay={this.showTooltip(['Assign','Material'])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisAssign}>
+                      <div className="f-item mmb-a-svg" onClick={this.handleThisAssign}>
                         <span>Assign</span>
                         {assignState}
                       </div>
@@ -252,13 +252,13 @@ export default class ObjectCard extends Component {
                 }
                 { hasCreate && (
                     <OverlayTrigger overlay={this.showTooltip(['Create',`${txtDelete}`])}>
-                      <div className="f-item acb-a-svg" onClick={this.handleThisCreate}><IconSvg ico="new" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
+                      <div className="f-item mmb-a-svg" onClick={this.handleThisCreate}><IconSvg ico="new" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
                 { !hasCreate && (
                     <OverlayTrigger overlay={this.showTooltip(['Expand','Image'])}>
-                      <div className="f-item acb-a-svg" onClick={this.showImageDisp}><IconSvg ico="expand" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
+                      <div className="f-item mmb-a-svg" onClick={this.showImageDisp}><IconSvg ico="expand" cls="svg-crd svg-sw10 svg-cw50-h svg-ml"/></div>
                     </OverlayTrigger>
                   )
                 }
@@ -269,7 +269,7 @@ export default class ObjectCard extends Component {
                 <>
                   { hasInfo && ( <span style={{textShadow: "2px 2px 5px black"}}>{imgInfo}</span> ) }
                   { hasAssign && (
-                    <div className="f-item acb-a-svg" onClick={this.handleThisAssign}>
+                    <div className="f-item mmb-a-svg" onClick={this.handleThisAssign}>
                       <span style={{textShadow: "2px 2px 2px black"}}>Assigned</span>
                       {assignState}
                     </div>

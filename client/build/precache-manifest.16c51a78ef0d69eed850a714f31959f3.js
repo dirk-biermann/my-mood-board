@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "01989975ced1aaf2bc268dd357dc3411",
+    "revision": "99e847981019796bff9fd232014f4e68",
     "url": "/index.html"
   },
   {
-    "revision": "71575d409e501473139f",
+    "revision": "4fc3c4397f601c2ec712",
     "url": "/static/css/2.64a99b10.chunk.css"
   },
   {
-    "revision": "42af3de439c86ba8cdb3",
-    "url": "/static/css/main.139f419a.chunk.css"
+    "revision": "531487540b084d5c4f55",
+    "url": "/static/css/main.a955a5b4.chunk.css"
   },
   {
-    "revision": "71575d409e501473139f",
-    "url": "/static/js/2.319801f9.chunk.js"
+    "revision": "4fc3c4397f601c2ec712",
+    "url": "/static/js/2.5c1cc34f.chunk.js"
   },
   {
-    "revision": "42af3de439c86ba8cdb3",
-    "url": "/static/js/main.ef103527.chunk.js"
+    "revision": "531487540b084d5c4f55",
+    "url": "/static/js/main.26a37bdd.chunk.js"
   },
   {
     "revision": "18ceee0904d39392a2a3",
@@ -84,6 +84,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/expand.dd75a11d.svg"
   },
   {
+    "revision": "770ccbc466518445be0cbbdc5a6188fd",
+    "url": "/static/media/followers.770ccbc4.svg"
+  },
+  {
     "revision": "bed8b2a191f5dab3cb5bb57c9ebe3cb6",
     "url": "/static/media/freepik.bed8b2a1.svg"
   },
@@ -128,8 +132,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/moodboard.12c6f3c1.svg"
   },
   {
-    "revision": "afe8f31a9588ebc65d848e1a6ad8da9c",
-    "url": "/static/media/move.afe8f31a.svg"
+    "revision": "2f5cef9c9f949d8ab0a710659cceb19f",
+    "url": "/static/media/move.2f5cef9c.svg"
   },
   {
     "revision": "1706bc7923d37b5b214ca829bf2ee71f",
@@ -146,6 +150,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "cc4e696704f83f333ee3e4caa26ff3d5",
     "url": "/static/media/question.cc4e6967.svg"
+  },
+  {
+    "revision": "fd6ac952a0d1c8d16921be50f42ff0ad",
+    "url": "/static/media/refresh.fd6ac952.svg"
   },
   {
     "revision": "5e9ee4e45652bc9f4e727b137dc8e220",

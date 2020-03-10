@@ -76,16 +76,17 @@
 }
 */
 
+.mmb-btn-s { font-size: 1rem; }
 .tab-vcenter td, .tab-vcenter th { vertical-align: middle; }
 
-.acb-btn { margin: 0 5px 5px 0px; letter-spacing: 4px;}
-.acb-btn:last-child{ margin: 0 0 5px 0; }
+.mmb-btn { margin: 0 5px 5px 0px; letter-spacing: 4px;}
+.mmb-btn:last-child{ margin: 0 0 5px 0; }
 
-.acb-a-svg { cursor: pointer; display: inline-block; }
+.mmb-a-svg { cursor: pointer; display: inline-block; }
 
-.acb-img { width: 200px; background-color: rgba( 255,255,255,0.10); }
-@media screen and (min-width: 400px) { .acb-img { width: 300px; } }
-@media screen and (min-width: 1000px) { .acb-img { width: 400px; } }
+.mmb-img { width: 200px; background-color: rgba( 255,255,255,0.10); }
+@media screen and (min-width: 400px) { .mmb-img { width: 300px; } }
+@media screen and (min-width: 1000px) { .mmb-img { width: 400px; } }
 
 /* -------------------------------------------------------------- */
 
@@ -260,7 +261,8 @@
   background-color: transparent;
 }
 
-.card-detail .card { width: 9.99999%; }
+.card-detail .card { width: 14.99999%; }
+.card-detail .card-s { width: 9.99999%; }
 .card-single .card { width: 100%; }
 
 .cardImage {
@@ -274,22 +276,30 @@
 
 @media (max-width: 599px) {
   .card-columns .card { width: 49.99999%; }
-  .card-detail .card { width: 24.99999%; }
+  .card-detail .card { width: 37.49999%; }
+  .card-detail-s .card { width: 24.99999%; }
   .shw-acb { display: none; }
 }
 @media (min-width: 600px) and (max-width: 799px) {
   .card-columns .card { width: 33.33333%; }
-  .card-detail .card { width: 16.66666%; }
+  .card-detail .card { width: 24.99999%; }
+  .card-detail-s .card { width: 16.66666%; }
 }
 @media (min-width: 800px) and (max-width: 999px) {
   .card-columns .card { width: 24.99999%; }
-  .card-detail .card { width: 12.49999%; }
+  .card-detail .card { width: 18.74999%; }
+  .card-detail-s .card { width: 12.49999%; }
 }
 @media (min-width: 1000px) and (max-width:1199px) {
   .card-columns .card { width: 19.99999%; }
-  .card-detail .card { width: 9.99999%; }
+  .card-detail .card { width: 14.99999%; }
+  .card-detail-s .card { width: 9.99999%; }
 }
 @media (min-width: 1200px) {
   .card-columns .card { width: 16.66666%; }
-  .card-detail .card { width: 8.33333%; }
+  .card-detail .card { width: 12.49999%; }
+  .card-detail-s .card { width: 8.33333%; }
 }
+
+.card-detail .cardImage { min-height: 150px !important; max-height: 150px !important; }
+.card-detail-s .cardImage { min-height: 100px !important; max-height: 100px !important; }

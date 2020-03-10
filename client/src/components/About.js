@@ -32,7 +32,7 @@ export default class AppAbout extends Component {
       >
         <Modal.Header className="bg-dark text-light" style={{borderBottom: "none", justifyContent: "space-between"}}>
           <>
-            <img alt="acb-logo" src="../../arts_craft_base_logo.svg" width="40" height="40" />
+            <img alt="mmb-logo" src="../../arts_craft_base_logo.svg" width="40" height="40" />
             <h3>My-Mood-Board</h3>
           </>
           <Button className="" size="sm" variant="red" onClick={this.closeAbout}><IconSvg ico="cancel" cls="svg-btn svg-cw90"/></Button>

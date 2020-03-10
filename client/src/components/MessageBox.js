@@ -46,7 +46,7 @@ export default class MessageBox extends Component {
       >
         <Modal.Header className="bg-dark text-light" style={{borderBottom: "none", justifyContent: "space-between"}}>
           <>
-            <img alt="acb-logo" src="../../arts_craft_base_logo.svg" width="40" height="40" />
+            <img alt="mmb-logo" src="../../arts_craft_base_logo.svg" width="40" height="40" />
             <h3>{mbCap}</h3>
           </>
         </Modal.Header>

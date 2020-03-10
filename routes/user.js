@@ -48,7 +48,7 @@ router.get("/", async (req, res, next) => {
 router.delete("/:id", async (req, res) => {
   const userId = req.params.id;
   try {
-    // create one project
+    // delete one user
     let result;
     if( req.user.role === 'admin') {
       result = await User.findByIdAndDelete(userId);    

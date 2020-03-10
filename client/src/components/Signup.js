@@ -59,7 +59,7 @@ export default class Signup extends Component {
     return (
       <div className="info-box f-row">
         <div className="f-item">
-          <img className="acb-img" src="./acb.png" alt="acb" width="200px"/>
+          <img className="mmb-img" src="./acb.png" alt="acb" width="200px"/>
         </div>
         <div className="f-item f-col txt-box">
           <h1 className="b-item title"><span className="fc-p">S</span>ignup</h1>
@@ -89,8 +89,8 @@ export default class Signup extends Component {
               <Alert variant="danger"><IconSvg ico="error" cls="svg-btn svg-cw90 svg-mr"/>{this.state.error}</Alert>
             )}
             <ButtonToolbar>
-              <Button className="acb-btn" variant="red" onClick={this.handleClose}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Close</Button>
-              <Button className="acb-btn" variant="dark" type="submit"><IconSvg ico="signup" cls="svg-btn svg-cw90 svg-mr"/>Sign up</Button>
+              <Button className="mmb-btn" variant="red" onClick={this.handleClose}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Close</Button>
+              <Button className="mmb-btn" variant="dark" type="submit"><IconSvg ico="signup" cls="svg-btn svg-cw90 svg-mr"/>Sign up</Button>
             </ButtonToolbar>
           </Form>
         </div>
