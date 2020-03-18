@@ -39,7 +39,6 @@ export default class MoodBoard extends Component {
     axios
       .get(`/api/projects/pop/${idx}`)
       .then(response => {
-        console.log( "MB-PRJ:", response.data);
         this.setState({
             project: response.data,
             loadProject: false
@@ -122,7 +121,13 @@ export default class MoodBoard extends Component {
             }
             { objList }
           </CardColumns>
-          { this.props.prv && ( <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push(`/userlist/prj/${this.state.project.owner._id}`) }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button> ) }
+          { this.props.prv && (
+              <>
+                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push(`/userboard/prj/${this.state.project.owner._id}`) }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
+                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
+              </>
+            )
+          }
         </>
       )
     }

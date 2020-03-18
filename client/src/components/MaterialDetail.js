@@ -193,14 +193,13 @@ export default class MaterialDetail extends Component {
     if( this.state.showDeleteAction ){
       confirmActionInfo = { showAction: true,
                           fktConfirm: this.handleMaterialDeleteConfirmationState,
-                          info: { title: 'Delete Material',
-                                  message: `Do you want to delete material \n'${delMaterialName}'`,
-                                  icon: 'question',
-                                  btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
-                                        { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
-                                      ]
-                                }
-                        };
+                          title: 'Delete Material',
+                          message: `Do you want to delete material \n'${delMaterialName}'`,
+                          icon: 'question',
+                          btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                 { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
+                               ]
+                          };
     }
 
     if( this.state.loadMaterial === true ) {
@@ -271,7 +270,7 @@ export default class MaterialDetail extends Component {
               </Form.Group>
             </Form.Row>
           </Form>
-          <MessageBox show={confirmActionInfo.showAction} close={confirmActionInfo.fktConfirm} info={confirmActionInfo.info} />  
+          <MessageBox option={confirmActionInfo} />  
         </>
       )
     }

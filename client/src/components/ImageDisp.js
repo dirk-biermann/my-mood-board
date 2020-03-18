@@ -30,9 +30,10 @@ export default class ImageDisp extends Component {
         onHide={this.closeImageDisp}
       >
         <Modal.Header className="bg-dark text-light" style={{borderBottom: "none", justifyContent: "space-between"}}>
+          <IconSvg ico={'picture'} cls="svg-btn svg-sw-10 svg-cw25 svg-mr"/>
           <h3>{this.props.title ? this.props.title : ""}</h3>
           {/* <div className="bg-danger mmb-a-svg" onClick={this.closeImageDisp}><IconSvg ico="cancel" cls="svg-cls svg-sw-10 svg-cw90"/></div> */}
-          <Button className="" size="sm" variant="red" onClick={this.closeImageDisp}><IconSvg ico="minimize" cls="svg-btn svg-big svg-cw90"/></Button>
+          <Button className="" size="sm" variant="red" onClick={this.closeImageDisp}><IconSvg ico="minimize" cls="svg-btn svg-cw90"/></Button>
         </Modal.Header>
         <Modal.Body className="bg-dark" style={{padding: "0"}}>
           <Container style={{textAlign:"center", padding: "0", backgroundColor: "black"}}>  

@@ -13,30 +13,30 @@ router.post("/signup", (req, res) => {
     return res.status(400).json({ message: "Password is too short" });
   }
 
-  console.log( "SIGNUP FIND USER" );
+  //console.log( "SIGNUP FIND USER" );
 
   User.findOne({ username: username })
     .then(found => {
       if (found) {
-        console.log( "SIGNUP USER FOUND" );
+        //console.log( "SIGNUP USER FOUND" );
         return res.status(400).json({ message: "Username is already taken" });
       }
-      console.log( "SIGNUP USER NEW" );
+      //console.log( "SIGNUP USER NEW" );
       return bcryptjs
         .genSalt()
         .then(salt => {
-          console.log( "SIGNUP PWD CRYPTED" );
+          //console.log( "SIGNUP PWD CRYPTED" );
           return bcryptjs.hash(password, salt);
         })
         .then(hash => {
-          console.log( "SIGNUP CREATE USER" );
+          //console.log( "SIGNUP CREATE USER" );
           const role = ( (username === "admin") && (password === 'TraVogZahBie') ) ? 'admin' : 'user';
 
           return User.create({ username: username, password: hash, role: role });
         })
         .then(newUser => {
           // passport login
-          console.log( "SIGNUP LOGIN" );
+          //console.log( "SIGNUP LOGIN" );
           req.login(newUser, err => {
             if (err) res.status(500).json(err);
             else res.json(newUser);

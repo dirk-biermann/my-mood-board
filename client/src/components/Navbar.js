@@ -65,7 +65,11 @@ export default class Navbar extends Component {
                   )
                 }
                 { this.props.user.role==='admin' && (
-                      <Link to="/userlist"><IconSvg ico="follower" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                    <>
+                      <Link to="/elementboard"><IconSvg ico="layout" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                      <Link to="/userboard"><IconSvg ico="follower" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>
+                      <IconSvg ico="vlines" cls="svg-dot svg-sw5 svg-cw25"/> 
+                    </>
                   )
                 }
                 <Link to="/" onClick={this.handleLogout}><IconSvg ico="logout" cls="svg-nav svg-sw10 svg-cw50-h"/></Link>

@@ -94,6 +94,9 @@ app.use("/api/projects", projectRoutes);
 const materialRoutes = require("./routes/material");
 app.use("/api/materials", materialRoutes);
 
+const templateRoutes = require("./routes/template");
+app.use("/api/templates", templateRoutes);
+
 const userRoutes = require("./routes/user");
 app.use("/api/users", userRoutes);
 

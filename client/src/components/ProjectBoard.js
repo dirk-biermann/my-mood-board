@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { CardColumns } from "react-bootstrap";
+import { CardColumns, Button } from "react-bootstrap";
 import ObjectCard from "./ObjectCard";
 import MessageBox from "./MessageBox";
 import SiteHeader from "./SiteHeader";
+import IconSvg from "./Icons/IconSvg";
 
 export default class ProjectBoard extends Component {
   constructor(){
@@ -19,7 +20,7 @@ export default class ProjectBoard extends Component {
   // -----------------------------------------
   handleProjectMoodboard = (idx) =>{
     if( this.props.prv ) {
-      this.props.history.push(`/userlist/mb/${idx}`);
+      this.props.history.push(`/userboard/mb/${idx}`);
     } else {
       this.props.history.push(`/moodboard/${idx}`);     
     }
@@ -108,7 +109,7 @@ export default class ProjectBoard extends Component {
     let pageTitle = "";
     if( this.props.prv ) {
       if( this.state.projects[0] ) {
-        pageTitle = `Projects of user: '${this.state.projects[0].owner.username}'`;
+        pageTitle = `Projects of user: '${this.state.projects[0].owner!==null?this.state.projects[0].owner.username:'<unknown>'}'`;
       }
     }
 
@@ -122,20 +123,19 @@ export default class ProjectBoard extends Component {
     if( this.state.showDeleteAction ){
       confirmActionInfo = { showAction: true,
                           fktConfirm: this.handleProjectDeleteConfirmationState,
-                          info: { title: 'Delete Project',
-                                  message: `Do you want to delete project\n'${delProjectName}'`,
-                                  icon: 'question',
-                                  btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
-                                        { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
-                                      ]
-                                }
-                        };
+                          title: 'Delete Project',
+                          message: `Do you want to delete project\n'${delProjectName}'`,
+                          icon: 'question',
+                          btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                 { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
+                               ]
+                          };
     }
 
     return (
       <>
         { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }
-        <CardColumns>
+        <CardColumns className="frm-mb-12">
           { this.state.projects.map( (project, index) => {
               //let projectImage = project.imageUrl === "" ? "/project.png" : project.imageUrl;
               if( this.props.prv ) {
@@ -167,13 +167,17 @@ export default class ProjectBoard extends Component {
                         title={'New Project'}
                         imgUrl = {'/newobject.png'}
                         handleObjectCreate={this.handleProjectCreate}
-                        info='New Project'
                         {...this.props}/>
 
             )
           }
         </CardColumns>
-        <MessageBox show={confirmActionInfo.showAction} close={confirmActionInfo.fktConfirm} info={confirmActionInfo.info} />  
+        { this.props.prv && (
+          <>
+            <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
+          </>
+        )}    
+        <MessageBox option={confirmActionInfo} />  
       </>
     )
   }

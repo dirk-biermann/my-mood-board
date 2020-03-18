@@ -12,9 +12,9 @@ export default class ObjectCard extends Component {
       showImage: false,
       showDetail: false,
       infoText: props.info,
-      infoTextSik: props.info,
       dispImage: props.imgUrl,
-      errLoadImg: false  
+      errLoadImg: false,  
+      imgLoadIcon: [ 'picture','load success' ]
     };
   };
 
@@ -100,8 +100,8 @@ export default class ObjectCard extends Component {
   onLoadImage = (event) => {
     //console.log( `[4] OC-onLoadImage [`, this.props.idx, '] img:', this.props.imgUrl );
     this.setState({ 
-        infoText: this.state.errLoadImg ? "Can't load Image" : this.state.infoTextSik,
         dispImage: this.state.errLoadImg ? "/errobject.png" : this.props.imgUrl,
+        imgLoadIcon: this.state.errLoadImg ? [ 'error','load error'] : [ 'picture','load success'],
         errLoadImg: false
       });
   }
@@ -122,7 +122,7 @@ export default class ObjectCard extends Component {
     let hasDelete = this.props.handleObjectDelete ? true : false;
     let hasCreate = this.props.handleObjectCreate ? true : false;
     let hasAssign = this.props.handleObjectAssign ? true : false;
-    let hasInfo = this.state.infoText ? true : false;
+    let hasInfo = this.state.infoText !== undefined ? true : false;
     let hasDisp = this.props.dispDetail ? true : false;
     if( this.props.user.role === "admin" ) {
       hasDelete = false;
@@ -131,12 +131,14 @@ export default class ObjectCard extends Component {
     }
 
     let icoMain;
+    let icoDetail;
     let icoOverview;
     let txtOverview;
     let txtDelete;
     let imgFilename;
     let imgDispname;
     let imgInfo;
+    let imgLoadIcon = this.state.imgLoadIcon;
 
     //console.log( "[1] OC-render [", this.props.idx, ']' );    
     //console.log( "[1.1] Image [", this.props.idx, ']', this.props.imgUrl );    
@@ -145,6 +147,7 @@ export default class ObjectCard extends Component {
     switch (this.props.typ) {
       case "pb":
           icoMain = "project";
+          icoDetail = "project";
           icoOverview = "moodboard";
           txtOverview = "Moodboard";
           txtDelete = "Project";
@@ -153,6 +156,7 @@ export default class ObjectCard extends Component {
 
       case "pm":
           icoMain = "moodboard";
+          icoDetail = "project";
           icoOverview = "project";
           txtOverview = "Projects";
           txtDelete = "Project";
@@ -161,6 +165,7 @@ export default class ObjectCard extends Component {
 
       case "mb":
           icoMain = "material";
+          icoDetail = "material";
           icoOverview = "material";
           txtOverview = "Materials";
           txtDelete = "Material";
@@ -169,6 +174,7 @@ export default class ObjectCard extends Component {
 
       case "mm":
           icoMain = "moodboard";
+          icoDetail = "material";
           icoOverview = "material";
           txtOverview = "Materials";
           txtDelete = "Material";
@@ -177,6 +183,7 @@ export default class ObjectCard extends Component {
 
       default:
           icoMain = "template";
+          icoDetail = "template";
           icoOverview = "template";
           txtOverview = "Templates";
           txtDelete = "Template";
@@ -194,10 +201,11 @@ export default class ObjectCard extends Component {
       //console.log( "REG-IMG:", imgInfo, imgFilename, `[${this.props.imgUrl}]` );
     } else {
       imgDispname = imgFilename;  
-      imgInfo = "Default Image";
-      hasInfo = true;
+      imgLoadIcon = ['question','use default'];
+      //hasInfo = true;
       //console.log( "DEFIMG:", imgInfo, imgFilename, `[${this.props.imgUrl}]` );
     }
+    if( this.props.idx === '0' ){ imgLoadIcon = ['','']; }
     // -----------------------
 
     let assignState = ( <></> ); 
@@ -209,13 +217,25 @@ export default class ObjectCard extends Component {
       }
     }
 
+    const icoMainText = icoMain.charAt(0).toUpperCase() + icoMain.substr(1).toLowerCase();
+    
     return (
       <>
         <Card border="dark">
           <Card.Img onError={this.onErrorImage} onLoad={this.onLoadImage} className="cardImage" src={imgFilename} alt="Image"/>
           <Card.ImgOverlay>
             <Card.Title className="ico-row" style={{justifyContent: "space-between"}}>
-              <div className="f-item"><IconSvg ico={icoMain} cls="svg-crd svg-sw-10 svg-cw25 svg-mr"/></div>
+              <div>
+                <OverlayTrigger overlay={this.showTooltip(['Cardview',`${icoMainText}`])}>
+                  <div className="f-item mmb-d-svg"><IconSvg ico={icoMain} cls="svg-crd svg-sw-10 svg-cw25 svg-mr"/></div>
+                </OverlayTrigger>
+                { (imgLoadIcon[0] !== '') && (
+                    <OverlayTrigger overlay={this.showTooltip(['Image',`${imgLoadIcon[1]}`])}>
+                      <div className="f-item mmb-d-svg"><IconSvg ico={imgLoadIcon[0]} cls="svg-crd svg-sw-10 svg-cw25 svg-mr"/></div>
+                    </OverlayTrigger>
+                )
+                }
+              </div>
               <div>
                 { hasOverviewBoard && (
                     <OverlayTrigger overlay={this.showTooltip(['Show',`${txtOverview}`])}>
@@ -267,7 +287,8 @@ export default class ObjectCard extends Component {
             { ( hasInfo || hasAssign ) && (
               <Card.Footer style={{textAlign: "right"}}>
                 <>
-                  { hasInfo && ( <span style={{textShadow: "2px 2px 5px black"}}>{imgInfo}</span> ) }
+                  { hasInfo && ( <span style={{textShadow: "2px 2px 2px black", fontSize: "0.9rem"}}>{imgInfo}</span> ) }
+                  { hasInfo && hasAssign && ( <br/> )}
                   { hasAssign && (
                     <div className="f-item mmb-a-svg" onClick={this.handleThisAssign}>
                       <span style={{textShadow: "2px 2px 2px black"}}>Assigned</span>
@@ -279,7 +300,7 @@ export default class ObjectCard extends Component {
             )}
           </Card.ImgOverlay>
         </Card>
-        { this.state.showDetail && ( <DetailDisp show={this.state.showDetail} dispInfo={this.props.dispDetail} close={this.hideDetailDisp} /> ) }
+        { this.state.showDetail && ( <DetailDisp show={this.state.showDetail} title={txtDelete} dispInfo={this.props.dispDetail} ico={icoDetail} close={this.hideDetailDisp} /> ) }
         { this.state.showImage && ( <ImageDisp show={this.state.showImage} img={imgDispname} title={this.props.title} close={this.hideImageDisp} /> ) }
       </>
     )

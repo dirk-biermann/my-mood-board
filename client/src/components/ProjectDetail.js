@@ -62,16 +62,6 @@ export default class ProjectDetail extends Component {
   // -----------------------------------------
   //
   // -----------------------------------------
-  handleProjectMessage = ( msg ) => {
-    this.setState({ 
-        showMessage: true,
-        loadProject: false
-      });
-  }
-
-  // -----------------------------------------
-  //
-  // -----------------------------------------
   handleProjectDeleteConfirmationState = (confirmDeleteState) => {
     if (confirmDeleteState === true) {
       this.handleProjectDelete( this.state.project._id );
@@ -228,27 +218,27 @@ export default class ProjectDetail extends Component {
     if( this.state.project.name.length > 0 ) {
       btnEnable = true;
       if( this.state.showDeleteAction && (this.state.project.name.length > 0) ) {
+        //console.log( "PJD", this.state.showDeleteAction );
         confirmActionInfo = { showAction: true,
                               fktConfirm: this.handleProjectDeleteConfirmationState,
-                              info: { title: 'Delete Project',
-                                      message: `Do you want to delete project \n'${this.state.project.name}'`,
-                                      icon: 'question',
-                                      btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
-                                            { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
-                                          ]
-                                    }
+                              title: 'Delete Project',
+                              message: `Do you want to delete project \n'${this.state.project.name}'`,
+                              icon: 'question',
+                              btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                     { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
+                                   ]
                             };
       }
       if( this.state.showSaveAction ) {
+        //console.log( "PJS", this.state.showDeleteAction );
         confirmActionInfo = { showAction: true,
                               fktConfirm: this.handleProjectSaveConfirmationState,
-                              info: { title: 'Save Project',
-                                      message: `Do you want to save project \n'${this.state.project.name}'`,
-                                      icon: 'question',
-                                      btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
-                                            { btnText: 'Save', iconName: 'save', retVal: true, btnColor: 'blue' }
-                                          ]
-                                    }
+                              title: 'Save Project',
+                              message: `Do you want to save project \n'${this.state.project.name}'`,
+                              icon: 'question',
+                              btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                     { btnText: 'Save', iconName: 'save', retVal: true, btnColor: 'blue' }
+                                   ]
                             };
       }
     }
@@ -258,17 +248,9 @@ export default class ProjectDetail extends Component {
     if( this.state.createMode === true || this.state.editMode === true ) {
       let btnText = 'Update';
       if( this.state.createMode === true ) btnText = 'Save';
-      if( btnEnable ) {
-        btnList.push( <Button key={'project_detail_btn_01'} className="mr-2 mb-1" variant="blue" type="submit"><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>{btnText}</Button> );
-      } else {
-        btnList.push( <Button key={'project_detail_btn_01'} disabled className="mr-2 mb-1" variant="blue" type="submit"><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>{btnText}</Button> );
-      }
+      btnList.push( <Button key={'project_detail_btn_01'} className="mr-2 mb-1" disabled={!btnEnable} variant="blue" type="submit"><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>{btnText}</Button> );
     }
-    if( btnEnable ) {
-      btnList.push( <Button key={'project_detail_btn_02'} className="mr-2 mb-1" variant="green" onClick={this.handleProjectModifyComponents}><IconSvg ico="change" cls="svg-btn svg-cw90 svg-mr"/>Assign/Remove Material</Button> );
-    } else {
-      btnList.push( <Button key={'project_detail_btn_02'} disabled className="mr-2 mb-1" variant="green" onClick={this.handleProjectModifyComponents}><IconSvg ico="change" cls="svg-btn svg-cw90 svg-mr"/>Assign/Remove Material</Button> );
-    }
+    btnList.push( <Button key={'project_detail_btn_02'} className="mr-2 mb-1" disabled={!btnEnable} variant="green" onClick={this.handleProjectModifyComponents}><IconSvg ico="pin" cls="svg-btn svg-cw90 svg-mr"/>Assign Material</Button> );
     if( this.state.createMode === false && this.state.editMode === true ) {
       btnList.push( <Button key={'project_detail_btn_03'} className="mr-2 mb-1" variant="red" onClick={this.handleProjectDeleteConfirmation}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button> );
     }
@@ -399,7 +381,7 @@ export default class ProjectDetail extends Component {
           <CardColumns>
             {materialCards}
           </CardColumns>
-          <MessageBox show={confirmActionInfo.showAction} close={confirmActionInfo.fktConfirm} info={confirmActionInfo.info} />  
+          <MessageBox option={confirmActionInfo} />  
         </>
       )
     }

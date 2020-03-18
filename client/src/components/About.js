@@ -31,10 +31,8 @@ export default class AppAbout extends Component {
         style={{color:"black"}}
       >
         <Modal.Header className="bg-dark text-light" style={{borderBottom: "none", justifyContent: "space-between"}}>
-          <>
-            <img alt="mmb-logo" src="../../arts_craft_base_logo.svg" width="40" height="40" />
-            <h3>My-Mood-Board</h3>
-          </>
+          <img style={{marginRight: "20px"}} alt="mmb-logo" src="../../arts_craft_base_logo.svg" width="34" height="34" />
+          <h3>My-Mood-Board</h3>
           <Button className="" size="sm" variant="red" onClick={this.closeAbout}><IconSvg ico="cancel" cls="svg-btn svg-cw90"/></Button>
         </Modal.Header>
 
@@ -52,11 +50,13 @@ export default class AppAbout extends Component {
             </Row>
           </Container>
           <hr />
-          <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank" rel="noopener noreferrer">Freepik</a><IconSvg ico="freepik" cls="svg-nav svg-cb90"/>&nbsp;
-             from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer">www.flaticon.com</a></div>
+          <div style={{fontSize: "1.2rem"}}>Icons made by&nbsp;
+            <a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank" rel="noopener noreferrer">Freepik</a> <IconSvg ico="freepik" cls="svg-nav svg-big svg-cb90"/> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer">www.flaticon.com</a> and <a href="https://www.dirk-biermann.de/" title="Flaticon" target="_blank" rel="noopener noreferrer">d.w.b</a><IconSvg ico="piranha" cls="svg-nav svg-big svg-cb90"/>
+          </div>
         </Modal.Body>
         <Modal.Footer className="bg-dark text-light" style={{justifyContent: "flex-start"}}>
-          <p className="abt-cr" >(c) 2020 by <img src="/crw.png" alt="crw" height="25px"/></p>
+          <IconSvg ico={'copyright'} cls="svg-btn svg-sw-10 svg-cw90 svg-mr"/>
+          <p className="abt-cr" >2020 by <img src="/crw.png" alt="crw" height="25px"/></p>
         </Modal.Footer>
       </Modal>
     )

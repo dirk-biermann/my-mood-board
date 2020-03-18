@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { CardColumns, Form, Col, Button } from "react-bootstrap";
+import { CardColumns, Button } from "react-bootstrap";
 import ObjectCard from "./ObjectCard";
 import SiteHeader from "./SiteHeader";
 import MessageBox from "./MessageBox";
@@ -165,13 +165,12 @@ export default class MaterialBoard extends Component {
       delMaterialName = this.state.materials.find( (material)=>{ return material._id === this.state.materialDeleteIdx; }).name;
       confirmActionInfo = { showAction: true,
                           fktConfirm: this.handleMaterialDeleteConfirmationState,
-                          info: { title: 'Delete Material',
-                                  message: `Do you want to delete material \n'${delMaterialName}'`,
-                                  icon: 'material',
-                                  btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
-                                        { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
-                                      ]
-                                }
+                          title: 'Delete Material',
+                          message: `Do you want to delete material \n'${delMaterialName}'`,
+                          icon: 'material',
+                          btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
+                                 { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
+                               ]
                         };
     }
 
@@ -217,7 +216,6 @@ export default class MaterialBoard extends Component {
                       title={'New Material'}
                       imgUrl = {'/newobject.png'}
                       handleObjectCreate={this.handleMaterialCreate}
-                      info='New Material'
                       {...this.props}
           />
         )
@@ -225,7 +223,7 @@ export default class MaterialBoard extends Component {
     let pageTitle = "";
     if( this.props.prv ) {
       if( this.state.materials[0] ) {
-        pageTitle = `Materials of user: '${this.state.materials[0].owner.username}'`;
+        pageTitle = `Materials of user: '${this.state.materials[0].owner!==null?this.state.materials[0].owner.username:'<unknown>'}'`;
       }
     }
 
@@ -235,20 +233,22 @@ export default class MaterialBoard extends Component {
           <SiteHeader ico="checked" title={'Material Assign'} />
         )} 
         { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }    
-        <CardColumns style={{marginBottom: "1rem"}}>
+        <CardColumns className="frm-mb-12">
           { materialCards }
         </CardColumns>
         {this.props.assignMode && (
-          <Form>
-            <Form.Row>
-              <Form.Group as={Col} sm="12">
-                <Button className="mr-2 mb-1" variant="dark" onClick={this.handleProjectDetails}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button>
-                <Button className="mr-2 mb-1" variant="blue" onClick={this.handleProjectUpdate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button>
-              </Form.Group>
-            </Form.Row>
-          </Form>
+          <>
+            <Button className="mr-2 mb-1" variant="dark" onClick={this.handleProjectDetails}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button>
+            <Button className="mr-2 mb-1" variant="blue" onClick={this.handleProjectUpdate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button>
+          </>
         )}  
-        <MessageBox show={confirmActionInfo.showAction} close={confirmActionInfo.fktConfirm} info={confirmActionInfo.info} />  
+        { this.props.prv && (
+          <>
+            <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
+          </>
+        )}    
+
+        <MessageBox option={confirmActionInfo} />  
       </>
     )
   }
