@@ -22,7 +22,7 @@ export default class AppFooter extends Component {
 
     return(
       <Navbar className="foot" bg="dark" variant="dark" fixed="bottom" style={{textAlign: "left"}}>
-        <Navbar.Brand className="navbar-cr" style={{fontSize: "0.9rem", color:"rgb(255,255,255,0.5)", padding:"0rem", display: "flex", justifyContent: "flex-start"}}>
+        <Navbar.Brand className="navbar-cr" style={{fontSize: "0.9rem", color:"rgb(255,255,255,0.5)", padding:"0rem", display: "flex", justifyContent: "flex-start", alignItems: "center"}}>
           <IconSvg ico={'copyright'} cls="svg-btn svg-sw-10 svg-cw75 svg-mr"/>
           <p className="abt-cr" >2020 by <img src="/crw.png" alt="crw" height="25px"/></p>
         </Navbar.Brand>
