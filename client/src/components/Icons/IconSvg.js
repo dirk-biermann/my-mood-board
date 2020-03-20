@@ -50,6 +50,8 @@ import {ReactComponent as IconPin} from './SVG/pin.svg';
 import {ReactComponent as IconPicture} from './SVG/picture.svg';
 import {ReactComponent as IconCopyRight} from './SVG/copyright.svg';
 import {ReactComponent as IconPiranha} from './SVG/piranha.svg';
+import {ReactComponent as IconPaint} from './SVG/paint.svg';
+import {ReactComponent as IconPallete} from './SVG/palette.svg';
 
 export default class IconSvg extends Component {
   constructor() {
@@ -57,7 +59,7 @@ export default class IconSvg extends Component {
     this.iconList = [
       "cancel","change","checked","close","copy","copyright","dash","delete","diff","doc","docedit","dot","down",
       "edit","erase","error","expand","follower","freepik","home","info","layout","left","login","logout",
-      "material","menu","minimize","minus","moodboard","move","new","ok","picture","pin","plus","project","piranha",
+      "material","menu","minimize","minus","moodboard","move","new","ok","paint","palette","picture","pin","plus","project","piranha",
       "question","refresh","right","sad","save","settings","signup","speach","template","unchecked","up","user",
       "vline","vlines"
     ]
@@ -108,6 +110,8 @@ export default class IconSvg extends Component {
         case "move":       icoComponent = <IconMove key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "new":        icoComponent = <IconNew key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
         case "ok":         icoComponent = <IconOk key={`SVG_Icon_${i}`} className='svg__icon'/>;        break;
+        case "paint":      icoComponent = <IconPaint key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
+        case "palette":    icoComponent = <IconPallete key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         case "project":    icoComponent = <IconProject key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         case "plus":       icoComponent = <IconPlus key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "pin":        icoComponent = <IconPin key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
