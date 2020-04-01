@@ -45,8 +45,8 @@ export default class DetailDisp extends Component {
       optionInfo.listName = 'elements';
     }
 
-    console.log( "DIDPINFO:", this.props.dispInfo );
-    console.log( "OPTINFO:", optionInfo );
+    //console.log( "DIDPINFO:", this.props.dispInfo );
+    //console.log( "OPTINFO:", optionInfo );
 
     return (
       <Modal

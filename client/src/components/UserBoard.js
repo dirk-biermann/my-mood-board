@@ -6,6 +6,7 @@ import Loading from "./Loading";
 import IconSvg from "./Icons/IconSvg";
 import ObjectCard from "./ObjectCard";
 import MessageBox from "./MessageBox";
+import CustomButtonRow from "./CustomButtonRow";
 
 export default class UserBoard extends Component {
   constructor(props) {
@@ -361,6 +362,9 @@ export default class UserBoard extends Component {
           });         
       }
     }
+
+    const btnList = [ <Button key="ub_01" className="mmb-btn-xs mr-2" variant="blue" onClick={this.handleUserGetAll}><IconSvg ico="refresh" cls="svg-btn svg-cw90 svg-mr"/>Refresh</Button> ];
+
     // ---------------------------------------------------------------------
     //console.log( "UsrBoard-RENDER", this.state.confirmActionInfo );
     // ---------------------------------------------------------------------
@@ -441,13 +445,9 @@ export default class UserBoard extends Component {
                 </tbody>
               </Table>
             </Form.Group>
-            { (this.state.transferState === undefined) && (
-                <Form.Group as={Col} sm="12" md="3">
-                  <Button className="mmb-btn-xs mr-2" variant="blue" onClick={this.handleUserGetAll}><IconSvg ico="refresh" cls="svg-btn svg-cw90 svg-mr"/>Refresh</Button>
-                </Form.Group>
-              )
-            }
           </Form.Row>
+
+          { (this.state.transferState === undefined) && ( <CustomButtonRow btnList={btnList} /> ) }
           { (['move','copy'].includes(this.state.transferState)) && (
               <Form.Row className="frm-alpha-w10">
                 <Form.Group as={Col} sm="12" md="3">

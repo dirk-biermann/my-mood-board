@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { CardColumns, Button, Form, Col } from "react-bootstrap";
+import { CardColumns, Button } from "react-bootstrap";
 import ObjectCard from "./ObjectCard";
 import SiteHeader from "./SiteHeader";
 import MessageBox from "./MessageBox";
 import IconSvg from "./Icons/IconSvg";
 import Loading from "./Loading";
+import CustomButtonRow from "./CustomButtonRow";
 
 export default class TemplateBoard extends Component {
   constructor(){
@@ -99,7 +100,9 @@ export default class TemplateBoard extends Component {
         pageTitle = `Templates of user: '${this.state.templates[0].owner!==null?this.state.templates[0].owner.username:'<unknown>'}'`;
       }
     }
-    
+        
+    const btnList = [<Button key="tb-0" className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button> ];
+
     return( 
       <>
         { this.props.prv && ( <SiteHeader ico="template" title={pageTitle} /> ) }    
@@ -107,17 +110,7 @@ export default class TemplateBoard extends Component {
           { templateCards }
         </CardColumns>
         <MessageBox option={this.state.confirmActionInfo} />  
-        <Form>
-          <Form.Row className="frm-btn-row">
-            <Form.Group as={Col} sm="12" >
-              { this.props.prv && (
-                <>
-                  <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
-                </>
-              )}    
-            </Form.Group>
-          </Form.Row>
-        </Form>
+        {(this.props.prv) && ( <CustomButtonRow btnList={btnList}/> ) }
       </>
     )
   }

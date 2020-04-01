@@ -9,6 +9,7 @@ import ObjectCard from "./ObjectCard";
 import Loading from "./Loading";
 import IconSvg from "./Icons/IconSvg";
 import { cloneObject } from "../services/init";
+import CustomButtonRow from "./CustomButtonRow";
 
 export default class MaterialDetail extends Component {
   constructor(props) {
@@ -191,6 +192,7 @@ export default class MaterialDetail extends Component {
     if( this.state.editMode === true ) pageTitle = 'Material Update';
     if( this.state.createMode === true ) pageTitle = 'Material Create';
 
+    btnList.push( <Button key={'material_detail_btn_00'} className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/materialboard") }}><IconSvg ico="material" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button> );
     if( this.state.createMode === true || this.state.editMode === true ) {
       let btnText = 'Update';
       if( this.state.createMode === true ) btnText = 'Save';
@@ -298,12 +300,7 @@ export default class MaterialDetail extends Component {
               <span>Template Fields</span>
             </Form.Group>
           </Form.Row>
-          <Form.Row>
-            <Form.Group as={Col} sm="12">
-              <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/materialboard") }}><IconSvg ico="material" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
-              {btnList}
-            </Form.Group>
-          </Form.Row>
+          <CustomButtonRow btnList={btnList}/>
         </Form>
         <MessageBox option={confirmActionInfo} />  
       </>

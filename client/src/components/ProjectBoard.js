@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { CardColumns, Button, Form, Col } from "react-bootstrap";
+import { CardColumns, Button } from "react-bootstrap";
 import ObjectCard from "./ObjectCard";
 import MessageBox from "./MessageBox";
 import SiteHeader from "./SiteHeader";
 import IconSvg from "./Icons/IconSvg";
 import Loading from "./Loading";
+import CustomButtonRow from "./CustomButtonRow";
 
 export default class ProjectBoard extends Component {
   constructor(){
@@ -190,6 +191,8 @@ export default class ProjectBoard extends Component {
           />
         );
     }
+    
+    const btnList = [<Button key="pb-0" className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button> ];
 
     return (
       <>
@@ -197,18 +200,7 @@ export default class ProjectBoard extends Component {
         <CardColumns className="frm-mb-12">
           { projectsCards }
         </CardColumns>
-        <Form>
-          <Form.Row className="frm-btn-row">
-            <Form.Group as={Col} sm="12" >
-              { this.props.prv && (
-                <>
-                  <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
-                </>
-              )}    
-            </Form.Group>
-          </Form.Row>
-        </Form>
-
+        {(this.props.prv) && ( <CustomButtonRow btnList={btnList}/> ) }
         <MessageBox option={confirmActionInfo} />  
       </>
     )

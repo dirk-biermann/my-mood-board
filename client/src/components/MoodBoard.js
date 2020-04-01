@@ -5,6 +5,7 @@ import ObjectCard from "./ObjectCard";
 import SiteHeader from "./SiteHeader";
 import Loading from "./Loading";
 import IconSvg from "./Icons/IconSvg";
+import CustomButtonRow from "./CustomButtonRow";
 
 export default class MoodBoard extends Component {
   constructor(props){
@@ -93,6 +94,11 @@ export default class MoodBoard extends Component {
       }
     }
 
+    const btnList = [
+        <Button key="mob_01" className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push(`/userboard/prj/${this.state.project.owner._id}`) }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>,
+        <Button key="mob_02" className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
+      ];
+    
     return (
       <>
         { this.props.prv && ( <SiteHeader ico="moodboard" title={pageTitle} /> ) }
@@ -120,13 +126,7 @@ export default class MoodBoard extends Component {
           }
           { objList }
         </CardColumns>
-        { this.props.prv && (
-            <>
-              <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push(`/userboard/prj/${this.state.project.owner._id}`) }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
-              <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
-            </>
-          )
-        }
+        { this.props.prv && ( <CustomButtonRow btnList={btnList}/> ) }
       </>
     )
   }

@@ -720,7 +720,7 @@ export default class TemplateDetail extends Component {
                 {this.state.template.elements.length===0 && (
                     <tr>
                       <td></td>
-                      <td colSpan="13">No Elements ...</td>
+                      <td colSpan="14">No Elements ...</td>
                     </tr>
                   )
                 }

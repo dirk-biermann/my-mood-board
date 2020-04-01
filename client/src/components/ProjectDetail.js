@@ -9,6 +9,7 @@ import Loading from "./Loading";
 import ObjectCard from "./ObjectCard";
 import IconSvg from "./Icons/IconSvg";
 import { cloneObject } from "../services/init";
+import CustomButtonRow from "./CustomButtonRow";
 
 export default class ProjectDetail extends Component {
   constructor(props) {
@@ -249,7 +250,6 @@ export default class ProjectDetail extends Component {
       }
     }
 
-
     btnList.push( <Button key={'project_detail_btn_00'} className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/projectboard") }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button> );
     if( this.state.createMode === true || this.state.editMode === true ) {
       let btnText = 'Update';
@@ -377,11 +377,8 @@ export default class ProjectDetail extends Component {
               </Row>
             </Form.Group>
           </Form.Row>
-          <Form.Row>
-            <Form.Group as={Col} sm="12">
-              {btnList}
-            </Form.Group>
-          </Form.Row>
+          <CustomButtonRow btnList={btnList}/>
+
         </Form>
         <CardColumns>
           {materialCards}

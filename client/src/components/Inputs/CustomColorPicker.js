@@ -44,7 +44,8 @@ export default class CustomColorPicker extends Component {
     const popover = {
       position: 'absolute',
       zIndex: '1000',
-      top: '0px'
+      top: '0px',
+      right: '0px'
     }
 
     const colorCard = { marginLeft: "5px", height: "100%", padding: "2px", fontSize: "12px" };

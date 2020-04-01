@@ -11,6 +11,7 @@ export default class CustomButton extends Component {
     let objIcon = "";
 
     const txt = this.props.txt ? this.props.txt : "";
+
     if( this.props.ico ) {
       const cls = this.props.ico.cls ? this.props.ico.cls : "";
       objIcon = <IconSvg ico={this.props.ico.name} cls={cls}/>
@@ -19,10 +20,14 @@ export default class CustomButton extends Component {
     return (
       <>
         { this.props.disabled ? (
+            <nobr>
               <Button disabled={this.props.disabled} className={this.props.cls} variant={this.props.color} onClick={this.props.onClick}>{objIcon}{txt}</Button>
+            </nobr>
           ):(
             <OverlayTrigger overlay={this.showTooltip(this.props.info)}>
-              <Button disabled={this.props.disabled} className={this.props.cls} variant={this.props.color} onClick={this.props.onClick}>{objIcon}{txt}</Button>
+              <nobr>
+                <Button disabled={this.props.disabled} className={this.props.cls} variant={this.props.color} onClick={this.props.onClick}>{objIcon}{txt}</Button>
+              </nobr>
             </OverlayTrigger>
           )
         }

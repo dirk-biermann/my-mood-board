@@ -239,11 +239,11 @@ export default class MaterialBoard extends Component {
     let btnList = [];
 
     if( this.props.assignMode ) {
-      btnList.push( <Button className="mr-2 mb-1" variant="dark" onClick={this.handleProjectDetails}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button> );
-      btnList.push( <Button className="mr-2 mb-1" variant="blue" onClick={this.handleProjectUpdate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button> );
+      btnList.push( <Button key="mb-0" className="mr-2 mb-1" variant="dark" onClick={this.handleProjectDetails}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button> );
+      btnList.push( <Button key="mb-1" className="mr-2 mb-1" variant="blue" onClick={this.handleProjectUpdate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button> );
     } else {
       if( this.props.prv ) {
-        btnList.push( <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button> );      
+        btnList.push( <Button key="mb-0" className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button> );      
       }
     }
     

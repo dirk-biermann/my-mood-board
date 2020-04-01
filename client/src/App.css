@@ -90,6 +90,8 @@ span.badge { color: #212529 !important; }
   cursor: default !important;
 }
 
+.cust-btn-toolbar { margin-bottom: 12px; }
+
 .table-dark .brd-vert {
   border-left: 2px solid #454d55;
   border-right: 2px solid #454d55;

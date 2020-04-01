@@ -19,7 +19,7 @@ export default class Loading extends Component {
     return (
       <Container>
         <Row className="justify-content-md-center">
-          <Col xs={6} md={4} lg={4} style={{textAlign:"center"}}>
+          <Col xs={12} md={6} lg={6} style={{textAlign:"center"}}>
             <Card
               bg={bkgColor}
               text={bkgColor === 'light' ? 'dark' : 'white'}
