@@ -84,53 +84,51 @@ export default class MoodBoard extends Component {
               }); 
     }
 
-    if( this.state.loadProject === true ) {
-      return ( <Loading /> )
-    } else {
-      let pageTitle = "";
-      if( this.props.prv ) {
-        if( this.state.project ) {
-          pageTitle = `MoodBoard '${this.state.project.name}' [${this.state.project.owner.username}]`;
-        }
-      }
+    if( this.state.loadProject === true ) { return ( <Loading variant="warning"/> ) }
 
-      return (
-        <>
-          { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }
-          <CardColumns className="frm-mb-12">
-            { this.props.prv ? (
-                <ObjectCard key={`project_card_${this.state.project._id}`} 
-                            idx={this.state.project._id} 
-                            typ={"pm"}
-                            title={this.state.project.name}
-                            imgUrl = {this.state.project.imageUrl}
-                            dispDetail = {this.state.project}
-                            {...this.props}
-                />
-              ):(
-                <ObjectCard key={`project_card_${this.state.project._id}`} 
-                            idx={this.state.project._id} 
-                            typ={"pm"}
-                            title={this.state.project.name}
-                            imgUrl = {this.state.project.imageUrl}
-                            handleObjectOverview={this.handleMoodBoardOverview}
-                            dispDetail = {this.state.project}
-                            {...this.props}
-                />
-              )          
-            }
-            { objList }
-          </CardColumns>
-          { this.props.prv && (
-              <>
-                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push(`/userboard/prj/${this.state.project.owner._id}`) }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
-                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
-              </>
-            )
-          }
-        </>
-      )
+    let pageTitle = "";
+    if( this.props.prv ) {
+      if( this.state.project ) {
+        pageTitle = `MoodBoard '${this.state.project.name}' [${this.state.project.owner.username}]`;
+      }
     }
+
+    return (
+      <>
+        { this.props.prv && ( <SiteHeader ico="moodboard" title={pageTitle} /> ) }
+        <CardColumns className="frm-mb-12">
+          { this.props.prv ? (
+              <ObjectCard key={`project_card_${this.state.project._id}`} 
+                          idx={this.state.project._id} 
+                          typ={"pm"}
+                          title={this.state.project.name}
+                          imgUrl = {this.state.project.imageUrl}
+                          dispDetail = {this.state.project}
+                          {...this.props}
+              />
+            ):(
+              <ObjectCard key={`project_card_${this.state.project._id}`} 
+                          idx={this.state.project._id} 
+                          typ={"pm"}
+                          title={this.state.project.name}
+                          imgUrl = {this.state.project.imageUrl}
+                          handleObjectOverview={this.handleMoodBoardOverview}
+                          dispDetail = {this.state.project}
+                          {...this.props}
+              />
+            )          
+          }
+          { objList }
+        </CardColumns>
+        { this.props.prv && (
+            <>
+              <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push(`/userboard/prj/${this.state.project.owner._id}`) }}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
+              <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
+            </>
+          )
+        }
+      </>
+    )
   }
 }
 //                      handleObjectDetails={this.handleMoodBoardDetails}

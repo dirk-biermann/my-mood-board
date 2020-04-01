@@ -84,7 +84,7 @@ const initSeeds =
 		"status": false 
 	},
 	{
-		"element":     "InputTextArea",
+		"element":     "InputInputTextArea",
 		"description": "FORM-INPUT of type textarea",
 		"eltype":      "textarea",
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { Form, Col, Table, Button, CardColumns } from "react-bootstrap";
+import { Form, Col, Table, Button, CardColumns, Badge } from "react-bootstrap";
 import SiteHeader from "./SiteHeader";
 import Loading from "./Loading";
 import IconSvg from "./Icons/IconSvg";
@@ -82,6 +82,8 @@ export default class UserBoard extends Component {
                         title: dispTitle,
                         message: dispMsg,
                         icon: 'question',
+                        iconColor: "blue",
+                        iconCW: true,
                         btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
                                { btnText: ucWord, iconName: lcWord, retVal: true, btnColor: 'red' }
                              ]
@@ -294,7 +296,7 @@ export default class UserBoard extends Component {
   // -----------------------------------------
   render() {
     let pageTitle = 'User List';
-    if( this.state.loadUser === true ) { return ( <Loading /> ) }
+    if( this.state.loadUser === true ) { return ( <Loading variant="warning"/> ) }
 
     // ---------------------------------------------------------------------
     // -- to user option 
@@ -365,7 +367,7 @@ export default class UserBoard extends Component {
 
     return (
       <>
-        <SiteHeader ico="user" title={pageTitle} />
+        <SiteHeader ico="follower" title={pageTitle} />
         <Form>
           <Form.Row className="frm-alpha-w10">
             <Form.Group as={Col} sm="12">
@@ -393,14 +395,14 @@ export default class UserBoard extends Component {
                   this.state.users.map( (user, id) => {
                     return (
                       <tr key={`user_row_${id}`}>
-                        <td>{id}</td>
+                        <td><Badge variant="light-l">{id}</Badge></td>
                         <td>{user.username}</td>
                         <td>{user._id}</td>
                         <td>{user.role}</td>
                         <td>{user.createdAt}</td>
                         <td className="brd-vert cell-center">
                           <nobr>
-                            <Button className="mmb-btn-s" disabled={(user.pCnt>0)||(user.mCnt>0)||(user.role!=='user')||(this.state.transferState !== undefined)} variant="red" onClick={()=>{this.handleUserAllDeleteUser(user._id)}}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button>
+                            <Button className="mmb-btn-s" disabled={(user.pCnt>0)||(user.mCnt>0)||(user.role!=='user')||(this.state.transferState !== undefined)} variant="red" onClick={()=>{this.handleUserAllDeleteUser(user._id)}}><IconSvg ico="del_user" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button>
                           </nobr>
                         </td>
                         <td>{user.pCnt}</td>
@@ -421,13 +423,13 @@ export default class UserBoard extends Component {
                             <Button className="mmb-btn-s" disabled={(user.tCnt===0)||(this.state.transferState !== undefined)} variant="green" onClick={()=>{this.handleUserTemplateBoard(user._id)}}><IconSvg ico="template" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
                           </nobr>
                         </td>
-                        <td className="brd-left">
+                        <td className="brd-left cell-center">
                           <nobr>
-                            <Button className="mmb-btn-s mr-2" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="blue" onClick={()=>{this.handleUserAllMove(user._id)}}><IconSvg ico="move" cls="svg-btn svg-cw90 svg-mr"/>Move</Button>
-                            <Button className="mmb-btn-s" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="blue" onClick={()=>{this.handleUserAllCopy(user._id)}}><IconSvg ico="copy" cls="svg-btn svg-cw90 svg-mr"/>Copy</Button>
+                            <Button className="mmb-btn-s mr-2" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="blue" onClick={()=>{this.handleUserAllMove(user._id)}}><IconSvg ico="move" cls="svg-btn svg-cw90 svg-mr"/>Move ...</Button>
+                            <Button className="mmb-btn-s" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="blue" onClick={()=>{this.handleUserAllCopy(user._id)}}><IconSvg ico="copy" cls="svg-btn svg-cw90 svg-mr"/>Copy ...</Button>
                           </nobr>
                         </td>
-                        <td className="brd-left">
+                        <td className="brd-left cell-center">
                           <nobr>
                             <Button className="mmb-btn-s" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="red" onClick={()=>{this.handleUserAllDeleteObject(user._id)}}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button>
                           </nobr>

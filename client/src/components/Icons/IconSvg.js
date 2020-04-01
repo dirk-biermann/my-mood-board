@@ -52,14 +52,16 @@ import {ReactComponent as IconCopyRight} from './SVG/copyright.svg';
 import {ReactComponent as IconPiranha} from './SVG/piranha.svg';
 import {ReactComponent as IconPaint} from './SVG/paint.svg';
 import {ReactComponent as IconPallete} from './SVG/palette.svg';
+import {ReactComponent as IconDelUser} from './SVG/del_user.svg';
+import {ReactComponent as IconMoveUser} from './SVG/move_user.svg';
 
 export default class IconSvg extends Component {
   constructor() {
     super();
     this.iconList = [
-      "cancel","change","checked","close","copy","copyright","dash","delete","diff","doc","docedit","dot","down",
+      "cancel","change","checked","close","copy","copyright","dash","delete","del_user","diff","doc","docedit","dot","down",
       "edit","erase","error","expand","follower","freepik","home","info","layout","left","login","logout",
-      "material","menu","minimize","minus","moodboard","move","new","ok","paint","palette","picture","pin","plus","project","piranha",
+      "material","menu","minimize","minus","moodboard","move","move_user","new","ok","paint","palette","picture","pin","plus","project","piranha",
       "question","refresh","right","sad","save","settings","signup","speach","template","unchecked","up","user",
       "vline","vlines"
     ]
@@ -87,6 +89,7 @@ export default class IconSvg extends Component {
         case "doc":        icoComponent = <IconDoc key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
         case "docedit":    icoComponent = <IconDocEdit key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         case "delete":     icoComponent = <IconDelete key={`SVG_Icon_${i}`} className='svg__icon'/>;    break;
+        case "del_user":   icoComponent = <IconDelUser key={`SVG_Icon_${i}`} className='svg__icon'/>;   break;
         case "down":       icoComponent = <IconDown key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
         case "dot":        icoComponent = <IconDot key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
         case "dash":       icoComponent = <IconDash key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
@@ -108,6 +111,7 @@ export default class IconSvg extends Component {
         case "minus":      icoComponent = <IconMinus key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;
         case "minimize":   icoComponent = <IconMinimize key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
         case "move":       icoComponent = <IconMove key={`SVG_Icon_${i}`} className='svg__icon'/>;      break;
+        case "move_user":  icoComponent = <IconMoveUser key={`SVG_Icon_${i}`} className='svg__icon'/>;  break;
         case "new":        icoComponent = <IconNew key={`SVG_Icon_${i}`} className='svg__icon'/>;       break;
         case "ok":         icoComponent = <IconOk key={`SVG_Icon_${i}`} className='svg__icon'/>;        break;
         case "paint":      icoComponent = <IconPaint key={`SVG_Icon_${i}`} className='svg__icon'/>;     break;

@@ -2,11 +2,14 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 const templateSchema = new Schema({
-  name:           { type: String },
-  owner:          { type: Schema.Types.ObjectId, ref: 'User'},
-  description:    { type: String },
-  imageUrl:       { type: String, default: ""},
-  elements:       [ {} ],
+  name:          { type: String, required: true },
+  description:   { type: String, required: false},
+  imageUrl:      { type: String, required: false, default: ""},
+  imagePublicID: { type: String, required: false  },
+  
+  owner:         { type: Schema.Types.ObjectId, ref: 'User' },
+  isPublic:      { type: Boolean, required: true },
+  elements:    [ {} ]
 },{
   timestamps: {
     createdAt: "created_at",

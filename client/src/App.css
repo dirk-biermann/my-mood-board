@@ -7,7 +7,9 @@
 
 .modal-content { box-Shadow: 0px 0px 30px #999 };
 
-span { color: #212529 !important; }
+.element-mb { margin-bottom: 0.5rem; }
+
+span.badge { color: #212529 !important; }
 
 /* -------------------------------------------------------------- */
 
@@ -70,12 +72,20 @@ span { color: #212529 !important; }
   border-color: #133D6A;
 }
 
+.btn-yellow:hover {
+  color: #fff;
+  background-color: #938000;
+  border-color: #766A00;
+}
+
+.btn-yellow {
+  color: #fff;
+  background-color: #CFB800;
+  border-color: #CFB800;
+}
+
 .btn:disabled {
   color: #fff;
-/*
-  background-color: #6c757d !important;
-  border-color: #6c757d !important;
-*/
   opacity: 0.33;
   cursor: default !important;
 }
@@ -87,6 +97,28 @@ span { color: #212529 !important; }
 .table-dark .brd-left {
   border-left: 2px solid #454d55;
 }
+
+.table-dark .brd-vert-dot {
+  border-left: 2px dotted #454d55;
+  border-right: 2px dotted #454d55;
+}
+.table-dark .brd-left-dot {
+  border-left: 2px dotted #454d55;
+}
+
+.table-dark .brd-vert-dash {
+  border-left: 2px dashed #454d55;
+  border-right: 2px dashed #454d55;
+}
+.table-dark .brd-left-dash {
+  border-left: 2px dashed #454d55;
+}
+
+.table-dark .label {
+  color: gray;
+}
+
+.table-dark th { color: darkgray; }
 
 .cell-center {
   text-align: center;
@@ -100,27 +132,35 @@ span { color: #212529 !important; }
 }
 */
 
-.badge-color {
+button.badge-color { width: calc( 100% - 40px )!important; }
+.badge.badge-color {
   font-size: 1.2rem;
   height: 100%;
   border: 1px solid darkslategray;
   width: 40px;
 }
-.badge-color:empty { display: inline-block !important; }
+.badge.badge-color:empty { display: inline-block !important; }
 
 .badge-color-td {
   font-size: 1.2rem;
   border: 1px solid darkslategray;
   display: inline !important;
-  margin-left: 5px; 
+  /* margin-left: 5px; */ 
 }
 .badge-color-td span { width: 40px; display: inline-block; }
 
 .badge-color-td:empty { display: inline !important; }
+
+.badge-light-l {
+  font-size: 1rem;
+  color: #212529;
+  background-color: #f8f9fa;
+}
 .va-top { vertical-align: top; }
 
 .mmb-btn-s { font-size: 1rem; }
 .mmb-50 { width:49%; min-width:49%; max-width: 49% }
+
 .tab-vcenter td, .tab-vcenter th { vertical-align: middle; }
 
 .mmb-btn { margin: 0 5px 5px 0px; letter-spacing: 4px;}
@@ -128,6 +168,8 @@ span { color: #212529 !important; }
 
 .mmb-a-svg { cursor: pointer; display: inline-block; }
 .mmb-d-svg { cursor: default; display: inline-block; }
+
+.mmb-move { padding-right: 0.15rem; padding-left: 0.15rem; }
 
 .mmb-img { width: 200px; background-color: rgba( 255,255,255,0.10); }
 @media screen and (min-width: 400px) { .mmb-img { width: 300px; } }
@@ -148,7 +190,7 @@ span { color: #212529 !important; }
 .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
 .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
 
-.svg-crd .svg__icon { width: 22px; }
+.svg-crd .svg__icon { width: 18px; }
 .svg-btn .svg__icon { width: 20px; }
 .svg-nav .svg__icon,
 .svg-big .svg__icon { width: 30px; }
@@ -266,11 +308,15 @@ span { color: #212529 !important; }
 
 .dist-top-bottom { height: 60px; }
 .dist-horz { margin: 0 0.5rem; }
+
 .frm-alpha-w10 { padding-top: 12px; background-color: rgba( 255, 255, 255, 0.1 ); margin-bottom: 12px; }
+.frm-btn-row { padding-top: 12px; text-align: left; }
+
 .frm-mb-12 { margin-bottom: 12px; }
 
 /* -------------------------------------------------------------- */
 
+/* .card-img.cardImage { filter: grayscale(10%); } */
 .card-img-overlay {
   display: flex;
   flex-direction: column;
@@ -297,9 +343,21 @@ span { color: #212529 !important; }
   column-gap: 0 !important;  
 }
 
-.card-single {
-  /* display: inline-block; */
+
+/* --------------- */
+.myRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
 }
+
+.myCol-25, .myCol-33 { text-align: right; padding-right: 5px; }
+.myCol-25 { width: 24.99999%; }
+.myCol-33 { width: 33.33333%; }
+.myCol-66 { width: 66.66666%; }
+.myCol-75 { width: 74.99999%; }
+/* --------------- */
 
 .card-columns .card, .card-single .card {
   display: inline-block;
@@ -317,6 +375,16 @@ span { color: #212529 !important; }
   max-height:200px;
   object-fit: cover;
   background-color: rgba( 0,0,0,0.1);
+}
+
+.card-small .cardImage {
+  max-height: 100px;
+  min-height: 100px;
+}
+
+.card-middle .cardImage {
+  max-height: 150px;
+  min-height: 150px;
 }
 
 .shw-acb, .dib { display: inline-block; }

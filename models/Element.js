@@ -2,13 +2,11 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 const elementSchema = new Schema({
-  element:        { type: String, enum: ['InputText','InputNumber', 'InputColor', 'InputCheckBox', 'InputTextArea']},
-  description:    { type: String },
-  eltype:         { type: String },
-
-  fixedProps:  [],
-  variableProps:  [],
-  status:         { type: Boolean}
+  elementType:         { type: String, required: true },
+  elementName:         { type: String, required: true },
+  elementLabel:        { type: String, required: true },
+  elementName:         { type: String, required: true },
+  elementProps:        []
 },{
   timestamps: {
     createdAt: "created_at",

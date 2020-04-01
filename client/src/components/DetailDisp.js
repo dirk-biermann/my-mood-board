@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
-import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import { Modal, Button, Form, Col } from "react-bootstrap";
 import IconSvg from "./Icons/IconSvg";
+import InputTextBox from "./Inputs/InputTextBox";
+import InputTextArea from "./Inputs/InputTextArea";
+//import InputTextNumeric from "./Inputs/InputTextNumeric";
+import InputTextSelect from "./Inputs/InputTextSelect";
+//import InputTextColor from "./Inputs/InputTextColor";
 
 export default class DetailDisp extends Component {
   constructor(){
@@ -21,14 +26,27 @@ export default class DetailDisp extends Component {
   // -----------------------------------------
   render() {
     if(!this.props.show){ return null; }
-    const hasMaterial = this.props.dispInfo.materials ? true : false;
-    let optionList = [];
-
+    const hasMaterial = this.props.dispInfo.materials ? ( this.props.dispInfo.materials.length > 0 ? true : false ) : false;
+    const hasElements = this.props.dispInfo.elements ? ( this.props.dispInfo.elements.length > 0 ? true : false ) : false;
+    let optionInfo = { list:[] };
+    
     if( hasMaterial ) {
-      optionList = this.props.dispInfo.materials.map( (material,i) => {
-          return( <option key={`disp_mat_${i}`} value={material.name}>{material.name}</option> );
+      optionInfo.list = this.props.dispInfo.materials.map( (material,i) => {
+          return( [ i, material.name ] );
         });
+      optionInfo.listTitle = 'Materials:';
+      optionInfo.listName = 'materials';
     }
+    if( hasElements ) {
+      optionInfo.list = this.props.dispInfo.elements.map( (element,i) => {
+          return( [ i, `${element.label} [${element.type}]` ] );
+        });
+      optionInfo.listTitle = 'Elements:';
+      optionInfo.listName = 'elements';
+    }
+
+    console.log( "DIDPINFO:", this.props.dispInfo );
+    console.log( "OPTINFO:", optionInfo );
 
     return (
       <Modal
@@ -45,83 +63,66 @@ export default class DetailDisp extends Component {
         </Modal.Header>
         <Modal.Body className="bg-light text-dark">
           <Form>
-            <Form.Group as={Row}>
-              <Form.Label column sm="2">Name: </Form.Label>
-              <Col sm="10">
-                <Form.Control
-                  as="input"
-                  type="text"
-                  name="name"
-                  readOnly
+            <Form.Row style={{width:"100%"}}>
+              <Form.Group as={Col} sm="12">
+                <InputTextBox
                   value={this.props.dispInfo.name || ''}
+                  label={"Name:"}
+                  name={"name"} 
+                  readOnly={true}
+                  margin={true}
                 />
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
-              <Form.Label column sm="2">Image Url:</Form.Label>
-              <Col sm="10">
-                <Form.Control 
-                  as="input"
-                  type="text"
-                  name="imageUrl"
-                  readOnly
+                <InputTextBox
                   value={this.props.dispInfo.imageUrl || ''}
+                  label={"ImageUrl:"}
+                  name={"imageUrl"} 
+                  readOnly={true}
+                  margin={true}
                 />
-              </Col>
-            </Form.Group>
-            { this.props.dispInfo.status && (
-              <Form.Group as={Row}>
-                <Form.Label column sm="2">Status:</Form.Label>
-                <Col sm="10">
-                  <Form.Control 
-                    as="input"
-                    type="text"
-                    name="status"
-                    readOnly
-                    value={this.props.dispInfo.status || ''}
-                  />
-                </Col>
-              </Form.Group>
-            )}
-            <Form.Group as={Row}>
-              <Form.Label column sm="2">Description:</Form.Label>
-              <Col sm="10">
-                <Form.Control style={{ minHeight: "100px" }}
-                  rows="4"
-                  as="textarea"
-                  name="description"
-                  readOnly
+                { this.props.dispInfo.status && (
+                    <InputTextBox
+                      value={this.props.dispInfo.status || ''}
+                      label={"Status:"}
+                      name={"status"} 
+                      readOnly={true}
+                      margin={true}
+                    />
+                  )                
+                }
+                <InputTextArea
                   value={this.props.dispInfo.description || ''}
+                  label={"Description:"}
+                  name={"description"} 
+                  readOnly={true}
+                  margin={true}
+                  minHeight={"55px"}
+                  rows={2}
                 />
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
-              <Form.Label column sm="2">Notes:</Form.Label>
-              <Col sm="10">
-                <Form.Control style={{ minHeight: "100px" }}
-                  rows="4"
-                  as="textarea"
-                  name="notes"
-                  readOnly
-                  value={this.props.dispInfo.notes || ''}
-                />
-              </Col>
-            </Form.Group>
-            { hasMaterial === true && (
-              <Form.Group as={Row}>
-                <Form.Label column sm="2">Materials:</Form.Label>
-                <Col sm="10">
-                  <Form.Control
-                      as="select"
-                      name="materials"
-                      readOnly
-                    >
-                    {optionList}
-                  </Form.Control>              
-                </Col>
+                { this.props.dispInfo.notes && (
+                    <InputTextArea
+                      value={this.props.dispInfo.notes || ''}
+                      label={"Notes:"}
+                      name={"notes"} 
+                      readOnly={true}
+                      margin={true}
+                      minHeight={"55px"}
+                      rows={2}
+                    />
+                  )
+                }
+                { optionInfo.listTitle && (
+                  <InputTextSelect 
+                      value={0}
+                      label={optionInfo.listTitle}
+                      name={optionInfo.listName}
+                      options={optionInfo.list} 
+                      readOnly={true}
+                  />
+                  
+                  )
+                }
               </Form.Group>
-              )
-            }
+            </Form.Row>
           </Form>
         </Modal.Body>
       </Modal>

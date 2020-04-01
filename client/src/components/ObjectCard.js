@@ -219,6 +219,8 @@ export default class ObjectCard extends Component {
 
     const icoMainText = icoMain.charAt(0).toUpperCase() + icoMain.substr(1).toLowerCase();
     
+    // console.log( "OBC", hasCreate );
+    // console.log( "DispInfo:", this.props.dispDetail );
     return (
       <>
         <Card border="dark">
@@ -233,7 +235,7 @@ export default class ObjectCard extends Component {
                     <OverlayTrigger overlay={this.showTooltip(['Image',`${imgLoadIcon[1]}`])}>
                       <div className="f-item mmb-d-svg"><IconSvg ico={imgLoadIcon[0]} cls="svg-crd svg-sw-10 svg-cw25 svg-mr"/></div>
                     </OverlayTrigger>
-                )
+                  )
                 }
               </div>
               <div>

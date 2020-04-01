@@ -15,15 +15,18 @@ export default class MessageBox extends Component {
 
   render() {
     //console.log( "MsgBox-RENDER", this.props.option );
-    if(this.props.option.showAction !== true ){ return null; }
     if(!this.props.option){ return null; }
     if(!this.props.option.fktConfirm){ return null; }
+    if(this.props.option.showAction !== true ){ return null; }
     //console.log( "MsgBox-GO [0]" );
 
   	const mbCap = this.props.option.title ? this.props.option.title : "";
     let mbMsg = this.props.option.message ? this.props.option.message.split("\n") : [];
     const mbIco = this.props.option.icon ? this.props.option.icon : ""; 
+    const mbIcoColor = this.props.option.iconColor ? this.props.option.iconColor : "#f6f6d5"; 
+    const mbIcoTC = this.props.option.iconCW ? "svg-cw90" : "svg-cb90";
     const mbBtn = this.props.option.btn ? this.props.option.btn : [ {btnText:"Ok", iconName:"ok", retVal:true, btnColor: "dark" }]; 
+    const icoStyle = { padding: "15px", backgroundColor: mbIcoColor, boxShadow: "2px 2px 5px black" };
 
     //console.log( "MsgBox-GO [1]" );
     let mbMsgOut = mbMsg.map( (msg,id) => {
@@ -42,7 +45,6 @@ export default class MessageBox extends Component {
     return (
       <Modal 
         size="md"
-        aria-labelledby="contained-modal-title-vcenter"
         centered
         show={this.props.option.showAction}
         style={{color:"black"}}
@@ -55,8 +57,8 @@ export default class MessageBox extends Component {
         <Modal.Body>
           <div className="f-row fj-spa xfa-cen"> 
             <div className="f-col fa-cen" style={{flexGrow: "1"}}>         
-              <div style={{padding: "15px", backgroundColor: "#f6f6d5", boxShadow: "2px 2px 5px black"}}>
-                <IconSvg ico={mbIco} cls="svg-big svg-cb90" />
+              <div style={icoStyle}>
+                <IconSvg ico={mbIco} cls={`svg-big ${mbIcoTC}`} />
               </div>
             </div>
             <div className="f-col" style={{flexGrow: "3"}}>                

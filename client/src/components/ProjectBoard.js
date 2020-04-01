@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { CardColumns, Button } from "react-bootstrap";
+import { CardColumns, Button, Form, Col } from "react-bootstrap";
 import ObjectCard from "./ObjectCard";
 import MessageBox from "./MessageBox";
 import SiteHeader from "./SiteHeader";
 import IconSvg from "./Icons/IconSvg";
+import Loading from "./Loading";
 
 export default class ProjectBoard extends Component {
   constructor(){
     super();
     this.state = {
       showDeleteAction: false,
-      projects: []
+      projects: [],
+      loadProject: true
     }
   }
 
@@ -70,6 +72,10 @@ export default class ProjectBoard extends Component {
     axios
       .delete(`/api/projects/${idx}`)
       .then(() => {
+        this.setState({
+            loadProject: true
+          });
+
         this.handleProjectGetAll();
       })
       .catch(err => {
@@ -88,7 +94,8 @@ export default class ProjectBoard extends Component {
     ]);
   
     this.setState({
-        projects: projectData.data
+        projects: projectData.data,
+        loadProject: false
       });
   };
 
@@ -107,6 +114,8 @@ export default class ProjectBoard extends Component {
   // -----------------------------------------
   render() {       
     let pageTitle = "";
+    if( this.state.loadProject === true ) { return ( <Loading variant="warning"/> ) }
+
     if( this.props.prv ) {
       if( this.state.projects[0] ) {
         pageTitle = `Projects of user: '${this.state.projects[0].owner!==null?this.state.projects[0].owner.username:'<unknown>'}'`;
@@ -126,18 +135,15 @@ export default class ProjectBoard extends Component {
                           title: 'Delete Project',
                           message: `Do you want to delete project\n'${delProjectName}'`,
                           icon: 'question',
+                          iconColor: "blue",
+                          iconCW: true,
                           btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
                                  { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
                                ]
                           };
     }
 
-    return (
-      <>
-        { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }
-        <CardColumns className="frm-mb-12">
-          { this.state.projects.map( (project, index) => {
-              //let projectImage = project.imageUrl === "" ? "/project.png" : project.imageUrl;
+    const projectsCards = this.state.projects.map( (project, index) => {
               if( this.props.prv ) {
                 return <ObjectCard key={`project_card_${project._id}`} 
                                   idx={project._id} 
@@ -149,34 +155,60 @@ export default class ProjectBoard extends Component {
                                   {...this.props}/>
               } else {
                 return <ObjectCard key={`project_card_${project._id}`} 
-                                  idx={project._id} 
-                                  typ={"pb"}
-                                  title={project.name}
-                                  imgUrl = {project.imageUrl}
-                                  handleObjectOverview={this.handleProjectMoodboard}
-                                  handleObjectDetails={this.handleProjectDetails}
-                                  handleObjectDelete={this.handleProjectDeleteConfirmation}
-                                  {...this.props}/>
+                                   idx={project._id} 
+                                   typ={"pb"}
+                                   title={project.name}
+                                   imgUrl = {project.imageUrl}
+                                   handleObjectOverview={this.handleProjectMoodboard}
+                                   handleObjectDetails={this.handleProjectDetails}
+                                   handleObjectDelete={this.handleProjectDeleteConfirmation}
+                                   dispDetail = {project}
+                                   {...this.props}
+                       />
               }
-            }) 
-          }
-          { !this.props.prv && (
-            <ObjectCard key={`project_card_0`} 
-                        idx={'0'} 
-                        typ={"pb"}
-                        title={'New Project'}
-                        imgUrl = {'/newobject.png'}
-                        handleObjectCreate={this.handleProjectCreate}
-                        {...this.props}/>
+          }); 
+    if( ( !this.props.prv ) && ( this.props.user.role === 'user') ) {
+      projectsCards.push(
+          <ObjectCard key={`project_card_0`} 
+                      idx={'0'} 
+                      typ={"pb"}
+                      title={'New Project'}
+                      imgUrl = {'/newobject.png'}
+                      handleObjectCreate={this.handleProjectCreate}
+                      {...this.props}
+          />
+        );
+    }
 
-            )
-          }
+    if( projectsCards.length === 0 ) {
+      projectsCards.push( 
+          <ObjectCard key={`project_card_0`} 
+                      typ={"pb"}
+                      title={'No Project'}
+                      imgUrl = {'/noobject.png'}
+                      {...this.props}
+          />
+        );
+    }
+
+    return (
+      <>
+        { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }
+        <CardColumns className="frm-mb-12">
+          { projectsCards }
         </CardColumns>
-        { this.props.prv && (
-          <>
-            <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
-          </>
-        )}    
+        <Form>
+          <Form.Row className="frm-btn-row">
+            <Form.Group as={Col} sm="12" >
+              { this.props.prv && (
+                <>
+                  <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
+                </>
+              )}    
+            </Form.Group>
+          </Form.Row>
+        </Form>
+
         <MessageBox option={confirmActionInfo} />  
       </>
     )

@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
   try {
     // return all projects
     let allProjects;
-    allProjects = await Project.find({owner: req.user._id});
+    allProjects = await Project.find({owner: req.user._id}).populate('materials');
     res.json( allProjects );
   } catch (err) {
     console.log( err );
@@ -44,9 +44,9 @@ router.get("/usr/:id", async (req, res) => {
       if( userId === "0" ) {
         allUser = await User.find();
         userList = allUser.map( (user) => { return user._id; });
-        allProjects = await Project.find( { owner: { $nin: userList } } ).populate('owner');
+        allProjects = await Project.find( { owner: { $nin: userList } } ).populate('materials').populate('owner');
       } else {
-        allProjects = await Project.find( { owner: userId } ).populate('owner');
+        allProjects = await Project.find( { owner: userId } ).populate('materials').populate('owner');
       }
       //console.log( "ALLP", allProjects );
       res.json( allProjects );

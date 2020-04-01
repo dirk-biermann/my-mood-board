@@ -10,7 +10,6 @@ import TemplateBoard from "./components/TemplateBoard";
 import TemplateDetail from "./components/TemplateDetail";
 import MoodBoard from "./components/MoodBoard";
 import UserBoard from "./components/UserBoard";
-import ElementBoard from "./components/ElementBoard";
 import Startpage from "./components/Startpage";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -84,14 +83,14 @@ class App extends React.Component {
 
             <PrivateRoute exact path='/templateboard' component={TemplateBoard} redirectTo="/" user={this.state.user} />
             <PrivateRoute exact path='/templatedetail/:id' component={TemplateDetail} redirectTo="/" user={this.state.user} />
+            <PrivateRoute exact path='/templatedetail' component={TemplateDetail} redirectTo="/" user={this.state.user} />
 
             <PrivateRoute exact path='/moodboard/:id' component={MoodBoard} redirectTo="/" user={this.state.user} />
-
-            <PrivateRoute exact path='/elementboard' component={ElementBoard} redirectTo="/" user={this.state.user} />
 
             <PrivateRoute exact path='/userboard' component={UserBoard} redirectTo="/" user={this.state.user} />
             <PrivateRoute exact path='/userboard/prj/:id' component={ProjectBoard} redirectTo="/" prv={true} user={this.state.user} />
             <PrivateRoute exact path='/userboard/mat/:id' component={MaterialBoard} redirectTo="/" prv={true} user={this.state.user} />
+            <PrivateRoute exact path='/userboard/tmp/:id' component={TemplateBoard} redirectTo="/" prv={true} user={this.state.user} />
             <PrivateRoute exact path='/userboard/mb/:id' component={MoodBoard} redirectTo="/" prv={true} user={this.state.user} />
           </div>
         <Distance/>

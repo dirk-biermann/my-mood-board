@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from "axios";
 import { CardColumns, Form, Button, Row, Col } from "react-bootstrap";
 import MessageBox from "./MessageBox";
+import InputTextBox from "./Inputs/InputTextBox";
+import InputTextArea from "./Inputs/InputTextArea";
 import SiteHeader from "./SiteHeader";
 import Loading from "./Loading";
 import ObjectCard from "./ObjectCard";
@@ -224,6 +226,8 @@ export default class ProjectDetail extends Component {
                               title: 'Delete Project',
                               message: `Do you want to delete project \n'${this.state.project.name}'`,
                               icon: 'question',
+                              iconColor: "blue",
+                              iconCW: true,
                               btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
                                      { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
                                    ]
@@ -236,6 +240,8 @@ export default class ProjectDetail extends Component {
                               title: 'Save Project',
                               message: `Do you want to save project \n'${this.state.project.name}'`,
                               icon: 'question',
+                              iconColor: "blue",
+                              iconCW: true,
                               btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
                                      { btnText: 'Save', iconName: 'save', retVal: true, btnColor: 'blue' }
                                    ]
@@ -257,133 +263,131 @@ export default class ProjectDetail extends Component {
 
     //console.log( "[PD] REN img:", this.state.project.imageUrl );
 
-    if( this.state.loadProject === true ) {
-      return ( <Loading /> )
-    } else {
-      let materialCards = [];
-      this.state.project.materials.forEach( (material, index) => {
-          //let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
-          materialCards.push( 
-              <ObjectCard key={`project_m_card_${material._id}`} 
-                          idx={material._id}
-                          typ={"mb"}
-                          title={material.name}
-                          imgUrl = {material.imageUrl}
-                          dispDetail = {material}
-                          info='Assigned Material'
-                          {...this.props}
-              />
-            )
-        });
+    if( this.state.loadProject === true ) { return ( <Loading variant="warning"/> ) }
 
-      //console.log( "===========================================================================" );
-      return (
-        <>
-          <SiteHeader ico="project" title={pageTitle} />
-          <Form onSubmit={this.handleProjectSubmit}>
-            <Form.Row className="frm-alpha-w10">
-              <Form.Group as={Col} sm="6" md="4" lg="2">
-                <div className="card-single">
-                  <ObjectCard key={`project_card_${this.state.project._id}`} 
-                              idx={this.state.project._id} 
-                              typ={"pb"}
-                              title={this.state.project.name}
-                              imgUrl = {this.state.project.imageUrl}
-                              handleObjectOverview={this.handleProjectMoodboard}
-                              {...this.props}/>
-                </div>
-              </Form.Group>
-              <Form.Group as={Col} sm="12" md="8" lg="4">
-                <Form.Label>Project Name: </Form.Label>
-                <Form.Control
-                  as="input"
-                  type="text"
-                  name="name"
-                  value={this.state.project.name || ''}
-                  onChange={this.handleChangeInput}
-                  autoFocus={true}
-                />
-                <Form.Label>Image Url:</Form.Label>
-                <Form.Control 
-                  as="input"
-                  type="text"
-                  name="imageUrl"
-                  value={this.state.project.imageUrl || ''}
-                  onChange={this.handleChangeInput}
-                />
-                { this.props.user.role==='admin' && (
-                    <Row style={{marginTop: "15px"}}>
-                      <Col sm="3">
-                        <Form.Label>Owner:</Form.Label>
-                      </Col>
-                      <Col sm="9">
-                        <Form.Control
-                          as="input"
-                          type="text"
-                          name="owner"
-                          readOnly
-                          value={this.state.project.owner.username || ''}
-                        />
-                      </Col>
-                    </Row>
-                  )
-                }
-              </Form.Group>
-              <Form.Group as={Col} sm="12" md="6" lg="3">
-                <Form.Label>Description: </Form.Label>
-                <Form.Control style={{ minHeight: "160px" }}
-                  rows="6"
-                  as="textarea"
-                  name="description"
-                  value={this.state.project.description || ''}
-                  onChange={this.handleChangeInput}
-                />
-              </Form.Group>
-              <Form.Group as={Col} sm="12" md="6" lg="3">
-                <Form.Label>Notes: </Form.Label>
-                <Form.Control style={{ minHeight: "160px" }}
-                  rows="6"
-                  as="textarea"
-                  name="notes"
-                  value={this.state.project.notes || ''}
-                  onChange={this.handleChangeInput}
-                />
-              </Form.Group>
-            </Form.Row>
-            <Form.Row className="frm-alpha-w10">
-              <Form.Group as={Col} sm="12" md="6" lg="3">
-                <Row>
-                  <Col sm="3">
-                    <Form.Label>Status:</Form.Label>
-                  </Col>
-                  <Col sm="9">
-                    <Form.Control
-                        as="select"
-                        name="status"
-                        id="status"
-                        default={this.state.project.status || 'New'}
-                        onChange={this.handleChangeInput}
-                      >
-                      <option value="New">New</option>
-                      <option value="Completed">Completed</option>
-                      <option value="Planned">Planned</option>
-                    </Form.Control>              
-                  </Col>
-                </Row>
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group as={Col} sm="12">
-                {btnList}
-              </Form.Group>
-            </Form.Row>
-          </Form>
-          <CardColumns>
-            {materialCards}
-          </CardColumns>
-          <MessageBox option={confirmActionInfo} />  
-        </>
-      )
-    }
+    let materialCards = [];
+    this.state.project.materials.forEach( (material, index) => {
+        //let materialImage = material.imageUrl === "" ? "/material.png" : material.imageUrl;
+        materialCards.push( 
+            <ObjectCard key={`project_m_card_${material._id}`} 
+                        idx={material._id}
+                        typ={"mb"}
+                        title={material.name}
+                        imgUrl = {material.imageUrl}
+                        dispDetail = {material}
+                        info='Assigned Material'
+                        {...this.props}
+            />
+          )
+      });
+
+    //console.log( "===========================================================================" );
+    return (
+      <>
+        <SiteHeader ico="project" title={pageTitle} />
+        <Form onSubmit={this.handleProjectSubmit}>
+
+          <Form.Row className="frm-alpha-w10">
+            <Form.Group as={Col} sm="12" md="3" lg="2">
+              <div className="card-middle">
+                <ObjectCard key={`project_card_${this.state.project._id}`} 
+                            idx={this.state.project._id} 
+                            typ={"pb"}
+                            title={this.state.project.name}
+                            imgUrl = {this.state.project.imageUrl}
+                            handleObjectOverview={this.handleProjectMoodboard}
+                            {...this.props}/>
+              </div>
+            </Form.Group>
+            <Form.Group as={Col} sm="12" md="3" lg="4">
+              <InputTextBox
+                value={this.state.project.name || ''}
+                placeholder={"Enter project name"}
+                label={"Name:"}
+                name={"name"} 
+                onChange={this.handleChangeInput}
+                autoFocus={true}
+                margin={true}
+              />
+              <InputTextBox
+                value={this.state.project.imageUrl || ''}
+                placeholder={"Enter image URL"}
+                label={"Image:"}
+                name={"imageUrl"} 
+                onChange={this.handleChangeInput}
+                margin={true}
+              />
+              { this.props.user.role==='admin' && (
+                  <InputTextBox
+                    value={this.state.project.owner.username || ''}
+                    placeholder={"Owner"}
+                    label={"Owner:"}
+                    name={"owner"} 
+                    onChange={this.handleChangeInput}
+                    readOnly={true}
+                  />
+                )
+              }
+            </Form.Group>
+
+            <Form.Group as={Col} sm="12" md="6" lg="3">
+              <InputTextArea
+                value={this.state.project.description || ''}
+                placeholder={"Enter project description"}
+                label={"Description:"}
+                name={"description"} 
+                minHeight={"140px"}
+                rows={5}
+                onChange={this.handleChangeInput}
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} sm="12" md="6" lg="3">
+              <InputTextArea
+                value={this.state.project.notes || ''}
+                placeholder={"Enter project notes"}
+                label={"Notes:"}
+                name={"notes"} 
+                minHeight={"140px"}
+                rows={5}
+                onChange={this.handleChangeInput}
+              />
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Row className="frm-alpha-w10">
+            <Form.Group as={Col} sm="12" md="6" lg="3">
+              <Row>
+                <Col sm="3">
+                  <Form.Label>Status:</Form.Label>
+                </Col>
+                <Col sm="9">
+                  <Form.Control
+                      as="select"
+                      name="status"
+                      id="status"
+                      default={this.state.project.status || 'New'}
+                      onChange={this.handleChangeInput}
+                    >
+                    <option value="New">New</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Planned">Planned</option>
+                  </Form.Control>              
+                </Col>
+              </Row>
+            </Form.Group>
+          </Form.Row>
+          <Form.Row>
+            <Form.Group as={Col} sm="12">
+              {btnList}
+            </Form.Group>
+          </Form.Row>
+        </Form>
+        <CardColumns>
+          {materialCards}
+        </CardColumns>
+        <MessageBox option={confirmActionInfo} />  
+      </>
+    )
   }
 }

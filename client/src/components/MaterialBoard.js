@@ -6,6 +6,8 @@ import SiteHeader from "./SiteHeader";
 import MessageBox from "./MessageBox";
 import IconSvg from "./Icons/IconSvg";
 import { cloneObject } from "../services/init";
+import Loading from "./Loading";
+import CustomButtonRow from "./CustomButtonRow";
 
 export default class MaterialBoard extends Component {
   constructor(){
@@ -13,7 +15,8 @@ export default class MaterialBoard extends Component {
     this.state = {
       showDeleteAction: false,
       materials: [],
-      assignStatus:[]
+      assignStatus:[],
+      loadMaterial: true
     }
   }
 
@@ -132,7 +135,8 @@ export default class MaterialBoard extends Component {
         materials: materialData.data,
         project: projectData.data,
         assignStatus: curAssignStatus,
-        idxPrj: projectId
+        idxPrj: projectId,
+        loadMaterial: false
       });
     } else {
       const route = this.props.prv ? `/api/materials/usr/${this.props.match.params.id}` : '/api/materials';
@@ -142,7 +146,8 @@ export default class MaterialBoard extends Component {
       ]);
       this.setState({
         materials: materialData.data,
-        idxPrj: 0
+        idxPrj: 0,
+        loadMaterial: false
       });
     }
   };
@@ -161,13 +166,17 @@ export default class MaterialBoard extends Component {
     let delMaterialName = '';
     let confirmActionInfo = { showAction: false };
 
+    if( this.state.loadMaterial === true ) { return ( <Loading variant="warning"/> ) }
+
     if( this.state.materialDeleteIdx ){
       delMaterialName = this.state.materials.find( (material)=>{ return material._id === this.state.materialDeleteIdx; }).name;
       confirmActionInfo = { showAction: true,
                           fktConfirm: this.handleMaterialDeleteConfirmationState,
                           title: 'Delete Material',
                           message: `Do you want to delete material \n'${delMaterialName}'`,
-                          icon: 'material',
+                          icon: 'question',
+                          iconColor: "blue",
+                          iconCW: true,
                           btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
                                  { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
                                ]
@@ -193,6 +202,7 @@ export default class MaterialBoard extends Component {
                                                   imgUrl = {material.imageUrl}
                                                   handleObjectDetails={this.handleMaterialDetails}
                                                   handleObjectDelete={this.handleMaterialDeleteConfirmation}
+                                                  dispDetail = {material}
                                                   {...this.props}/>
                             }
                           } else {
@@ -207,8 +217,7 @@ export default class MaterialBoard extends Component {
                                                 {...this.props}/>                            
                           }
                         }); 
-
-    if( ( this.props.assignMode === undefined ) && ( !this.props.prv ) ) {
+    if( ( this.props.assignMode === undefined ) && ( !this.props.prv ) && ( this.props.user.role === 'user')  ) {
       materialCards.push( 
           <ObjectCard key={`material_card_0`} 
                       idx={'0'} 
@@ -226,28 +235,27 @@ export default class MaterialBoard extends Component {
         pageTitle = `Materials of user: '${this.state.materials[0].owner!==null?this.state.materials[0].owner.username:'<unknown>'}'`;
       }
     }
+    
+    let btnList = [];
 
+    if( this.props.assignMode ) {
+      btnList.push( <Button className="mr-2 mb-1" variant="dark" onClick={this.handleProjectDetails}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button> );
+      btnList.push( <Button className="mr-2 mb-1" variant="blue" onClick={this.handleProjectUpdate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button> );
+    } else {
+      if( this.props.prv ) {
+        btnList.push( <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button> );      
+      }
+    }
+    
     return (
       <>   
-        {this.props.assignMode && (
-          <SiteHeader ico="checked" title={'Material Assign'} />
-        )} 
-        { this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> ) }    
+        {this.props.assignMode && ( <SiteHeader ico="checked" title={'Material Assign'} /> )} 
+        {this.props.prv && ( <SiteHeader ico="project" title={pageTitle} /> )}  
+
         <CardColumns className="frm-mb-12">
           { materialCards }
         </CardColumns>
-        {this.props.assignMode && (
-          <>
-            <Button className="mr-2 mb-1" variant="dark" onClick={this.handleProjectDetails}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button>
-            <Button className="mr-2 mb-1" variant="blue" onClick={this.handleProjectUpdate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button>
-          </>
-        )}  
-        { this.props.prv && (
-          <>
-            <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/userboard") }}><IconSvg ico="follower" cls="svg-btn svg-cw90 svg-mr"/>User List</Button>
-          </>
-        )}    
-
+        {(this.props.assignMode || this.props.prv) && ( <CustomButtonRow btnList={btnList}/> ) }
         <MessageBox option={confirmActionInfo} />  
       </>
     )

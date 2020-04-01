@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import { Form, Button, Col } from "react-bootstrap";
+import InputTextBox from "./Inputs/InputTextBox";
+import InputTextArea from "./Inputs/InputTextArea";
 import MessageBox from "./MessageBox";
 import SiteHeader from "./SiteHeader";
 import ObjectCard from "./ObjectCard";
@@ -23,6 +25,8 @@ export default class MaterialDetail extends Component {
           projects: [],
           owner: this.props.user._id
         },
+        tmp: '',
+        templates: [],
         editMode: false,
         createMode: false,
         loadMaterial: true
@@ -63,6 +67,18 @@ export default class MaterialDetail extends Component {
 
     this.setState({
         material: tmpMaterial,
+        loadMaterial: false
+      });
+  };
+
+  // -----------------------------------------
+  //
+  // -----------------------------------------
+  handleChangeTemplate = (event) => {
+    const { value } = event.target;
+    
+    this.setState({
+        tmp: value,
         loadMaterial: false
       });
   };
@@ -185,6 +201,8 @@ export default class MaterialDetail extends Component {
       btnList.push( <Button key={'material_detail_btn_02'} className="mr-2 mb-1" variant="red" onClick={this.handleMaterialDeleteConfirmation}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button> );
     }
     
+    const templateReadOnly = this.state.editMode;
+
     //console.log( "[PD] REN img:", this.state.material.imageUrl );
 
     const delMaterialName = this.state.material.name;
@@ -196,83 +214,99 @@ export default class MaterialDetail extends Component {
                           title: 'Delete Material',
                           message: `Do you want to delete material \n'${delMaterialName}'`,
                           icon: 'question',
+                          iconColor: "blue",
+                          iconCW: true,
                           btn: [ { btnText: 'Cancel', iconName: 'cancel', retVal: false, btnColor: 'dark' },
                                  { btnText: 'Delete', iconName: 'delete', retVal: true, btnColor: 'red' }
                                ]
                           };
     }
 
-    if( this.state.loadMaterial === true ) {
-      //console.log( "[PD] Alert" );
-      //console.log( "===========================================================================" );
-      return ( <Loading /> )
-    } else {
-      //console.log( "===========================================================================" );
-      return (
-        <>
-          <SiteHeader ico="material" title={pageTitle} />
-          <Form onSubmit={this.handleMaterialSubmit}>
-            <Form.Row className="frm-alpha-w10">
-              <Form.Group as={Col} sm="6" md="4" lg="2">
-                <div className="card-single">
-                  <ObjectCard key={`material_card_${this.state.material._id}`} 
-                              idx={this.state.material._id} 
-                              typ={"mb"}
-                              title={this.state.material.name}
-                              imgUrl = {this.state.material.imageUrl}
-                              {...this.props}/>
-                </div>
-              </Form.Group>
-              <Form.Group as={Col} sm="12" md="8" lg="4">
-                <Form.Label>Material Name: </Form.Label>
-                <Form.Control
-                  as="input"
-                  type="text"
-                  name="name"
-                  value={this.state.material.name || ''}
-                  onChange={this.handleChangeInput}
-                  autoFocus={true}
-                />
-                <Form.Label>Image Url:</Form.Label>
-                <Form.Control 
-                  as="input"
-                  type="text"
-                  name="imageUrl"
-                  value={this.state.material.imageUrl || ''}
-                  onChange={this.handleChangeInput}
-                />
-              </Form.Group>
-              <Form.Group as={Col} sm="12" md="6" lg="3">
-                <Form.Label>Description: </Form.Label>
-                <Form.Control style={{ minHeight: "160px" }}
-                  rows="6"
-                  as="textarea"
-                  name="description"
-                  value={this.state.material.description || ''}
-                  onChange={this.handleChangeInput}
-                />
-              </Form.Group>
-              <Form.Group as={Col} sm="12" md="6" lg="3">
-                <Form.Label>Notes: </Form.Label>
-                <Form.Control style={{ minHeight: "160px" }}
-                  rows="6"
-                  as="textarea"
-                  name="notes"
-                  value={this.state.material.notes || ''}
-                  onChange={this.handleChangeInput}
-                />
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group as={Col} sm="12">
-                <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/materialboard") }}><IconSvg ico="material" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
-                {btnList}
-              </Form.Group>
-            </Form.Row>
-          </Form>
-          <MessageBox option={confirmActionInfo} />  
-        </>
-      )
-    }
+    if( this.state.loadMaterial === true ) { return ( <Loading variant="warning"/> ) }
+    
+    return (
+      <>
+        <SiteHeader ico="material" title={pageTitle} />
+        <Form onSubmit={this.handleMaterialSubmit}>
+
+          <Form.Row className="frm-alpha-w10">
+            <Form.Group as={Col} sm="12" md="3" lg="2">
+              <div className="card-middle">
+                <ObjectCard key={`material_card_${this.state.material._id}`} 
+                            idx={this.state.material._id} 
+                            typ={"mb"}
+                            title={this.state.material.name}
+                            imgUrl = {this.state.material.imageUrl}
+                            {...this.props}/>
+              </div>
+            </Form.Group>
+            <Form.Group as={Col} sm="12" md="3" lg="4">
+              <InputTextBox
+                value={this.state.material.name || ''}
+                placeholder={"Enter material name"}
+                label={"Name:"}
+                name={"name"} 
+                onChange={this.handleChangeInput}
+                autoFocus={true}
+                margin={true}
+              />
+              <InputTextBox
+                value={this.state.material.imageUrl || ''}
+                placeholder={"Enter image URL"}
+                label={"Image:"}
+                name={"imageUrl"} 
+                onChange={this.handleChangeInput}
+                margin={true}
+              />
+              <InputTextBox
+                value={this.state.tmp || ''}
+                placeholder={"Enter template name"}
+                label={"Template:"}
+                name={"tmp"} 
+                readOnly={templateReadOnly}
+                onChange={this.handleChangeTemplate}
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} sm="12" md="6" lg="3">
+              <InputTextArea
+                value={this.state.material.description || ''}
+                placeholder={"Enter material description"}
+                label={"Description:"}
+                name={"description"} 
+                minHeight={"140px"}
+                rows={5}
+                onChange={this.handleChangeInput}
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} sm="12" md="6" lg="3">
+              <InputTextArea
+                value={this.state.material.notes || ''}
+                placeholder={"Enter material notes"}
+                label={"Notes:"}
+                name={"notes"} 
+                minHeight={"140px"}
+                rows={5}
+                onChange={this.handleChangeInput}
+              />
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Row className="frm-alpha-w10">
+            <Form.Group as={Col} sm="12">
+              <span>Template Fields</span>
+            </Form.Group>
+          </Form.Row>
+          <Form.Row>
+            <Form.Group as={Col} sm="12">
+              <Button className="mr-2 mb-1" variant="dark" onClick={() => { this.props.history.push("/materialboard") }}><IconSvg ico="material" cls="svg-btn svg-cw90 svg-mr"/>Overview</Button>
+              {btnList}
+            </Form.Group>
+          </Form.Row>
+        </Form>
+        <MessageBox option={confirmActionInfo} />  
+      </>
+    )
   }
 }

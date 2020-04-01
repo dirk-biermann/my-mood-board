@@ -31,7 +31,7 @@ router.get("/usr/:id", async (req, res) => {
   // return 1 project with a given id
   const userId = req.params.id;
 
-  //console.log( "TBUSR", `'${userId}'` );
+  console.log( "TBUSR", `'${userId}'` );
 
   try {
     // return all templates
