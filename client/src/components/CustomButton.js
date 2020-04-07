@@ -20,14 +20,10 @@ export default class CustomButton extends Component {
     return (
       <>
         { this.props.disabled ? (
-            <nobr>
-              <Button disabled={this.props.disabled} className={this.props.cls} variant={this.props.color} onClick={this.props.onClick}>{objIcon}{txt}</Button>
-            </nobr>
+            <Button disabled={this.props.disabled} className={this.props.cls} variant={this.props.color} onClick={this.props.onClick}><nobr>{objIcon}{txt}</nobr></Button>
           ):(
-            <OverlayTrigger overlay={this.showTooltip(this.props.info)}>
-              <nobr>
-                <Button disabled={this.props.disabled} className={this.props.cls} variant={this.props.color} onClick={this.props.onClick}>{objIcon}{txt}</Button>
-              </nobr>
+            <OverlayTrigger placement="left" overlay={this.showTooltip(this.props.info)}>
+              <Button disabled={this.props.disabled} className={this.props.cls} variant={this.props.color} onClick={this.props.onClick}><nobr>{objIcon}{txt}</nobr></Button>
             </OverlayTrigger>
           )
         }

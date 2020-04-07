@@ -189,6 +189,8 @@ export default class MaterialDetail extends Component {
     let pageTitle = '';
     let btnList = [];
 
+    let templateInfo = 'No template properties';
+
     if( this.state.editMode === true ) pageTitle = 'Material Update';
     if( this.state.createMode === true ) pageTitle = 'Material Create';
 
@@ -226,6 +228,11 @@ export default class MaterialDetail extends Component {
 
     if( this.state.loadMaterial === true ) { return ( <Loading variant="warning"/> ) }
     
+    if( this.state.material.template ){
+      if( this.material.template.length() > 0 ){
+        templateInfo = 'Template properties available';
+      }
+    }
     return (
       <>
         <SiteHeader ico="material" title={pageTitle} />
@@ -297,7 +304,7 @@ export default class MaterialDetail extends Component {
 
           <Form.Row className="frm-alpha-w10">
             <Form.Group as={Col} sm="12">
-              <span>Template Fields</span>
+              <span>{templateInfo}</span>
             </Form.Group>
           </Form.Row>
           <CustomButtonRow btnList={btnList}/>

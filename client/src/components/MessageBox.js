@@ -24,9 +24,9 @@ export default class MessageBox extends Component {
     let mbMsg = this.props.option.message ? this.props.option.message.split("\n") : [];
     const mbIco = this.props.option.icon ? this.props.option.icon : ""; 
     const mbIcoColor = this.props.option.iconColor ? this.props.option.iconColor : "#f6f6d5"; 
-    const mbIcoTC = this.props.option.iconCW ? "svg-cw90" : "svg-cb90";
+    const mbIcoTC = this.props.option.iconCW ? "svg-cw90" : "svg-cd90";
     const mbBtn = this.props.option.btn ? this.props.option.btn : [ {btnText:"Ok", iconName:"ok", retVal:true, btnColor: "dark" }]; 
-    const icoStyle = { padding: "15px", backgroundColor: mbIcoColor, boxShadow: "2px 2px 5px black" };
+    const icoStyle = { padding: "10px", margin: "5px 5px 5px 0px", backgroundColor: mbIcoColor }; //, boxShadow: "2px 2px 5px black" };
 
     //console.log( "MsgBox-GO [1]" );
     let mbMsgOut = mbMsg.map( (msg,id) => {
@@ -56,12 +56,12 @@ export default class MessageBox extends Component {
         </Modal.Header>
         <Modal.Body>
           <div className="f-row fj-spa xfa-cen"> 
-            <div className="f-col fa-cen" style={{flexGrow: "1"}}>         
+            <div className="f-col xfa-cen" style={{flexGrow: "1"}}>         
               <div style={icoStyle}>
                 <IconSvg ico={mbIco} cls={`svg-big ${mbIcoTC}`} />
               </div>
             </div>
-            <div className="f-col" style={{flexGrow: "3"}}>                
+            <div className="f-col" style={{flexGrow: "4"}}>                
               {mbMsgOut}
             </div>
           </div>

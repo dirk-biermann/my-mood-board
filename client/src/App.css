@@ -24,6 +24,8 @@ span.badge { color: #212529 !important; }
 .navbar-text { font-size: 2rem; line-height: 2rem; font-variant: small-caps;}
 .navbar-caption { text-shadow: -1px -1px 2px #000, 2px 2px 2px black; }
 
+.navbar-text em { color: rgba(245, 245, 245, 0.63) !important; font-style: normal !important;}
+
 .navbar-cr * { margin: 0; }
 .footer-text { font-size: 1rem; color: rgb(255,255,255,0.5); padding: 0rem; }
 .footer-text-si { font-size: 1.1rem; color: rgb(255,255,255,0.75); padding: 0rem; }
@@ -122,9 +124,9 @@ span.badge { color: #212529 !important; }
 
 .table-dark th { color: darkgray; }
 
-.cell-center {
-  text-align: center;
-}
+.cell-center { text-align: center; }
+.cell-left { text-align: left; }
+.cell-right { text-align: right; }
 
 /*
 .trunkText {
@@ -217,8 +219,16 @@ button.badge-color { width: calc( 100% - 40px )!important; }
 
 .svg-cw90 .svg__icon g { fill: rgba(245, 245, 245, 0.9) }
 .svg-cw90 .svg__icon path { stroke: rgba(245, 245, 245, 0.9) }
-.svg-cb90 .svg__icon g { fill: rgba(0, 0, 0, 0.9) }
-.svg-cb90 .svg__icon path { stroke: rgba(0, 0, 0, 0.9) }
+.svg-cd90 .svg__icon g { fill: rgba(0, 0, 0, 0.9) }
+.svg-cd90 .svg__icon path { stroke: rgba(0, 0, 0, 0.9) }
+.svg-cr90 .svg__icon g { fill: rgba(255, 50, 50, 0.9) }
+.svg-cr90 .svg__icon path { stroke: rgba(255, 50, 50, 0.9) }
+.svg-cg90 .svg__icon g { fill: rgba(50, 255, 50, 0.9) }
+.svg-cg90 .svg__icon path { stroke: rgba(50, 255, 50, 0.9) }
+.svg-cb90 .svg__icon g { fill: rgba(0, 100, 255, 0.9) }
+.svg-cb90 .svg__icon path { stroke: rgba(0, 100, 255, 0.9) }
+.svg-cy90 .svg__icon g { fill: rgba(255, 225, 50, 0.9) }
+.svg-cy90 .svg__icon path { stroke: rgba(255, 225, 50, 0.9) }
 
 .svg-cw25 .svg__icon g, .svg-cw25-h .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
 .svg-cw25 .svg__icon g, .svg-cw25-h .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
@@ -234,6 +244,81 @@ button.badge-color { width: calc( 100% - 40px )!important; }
 .svg-cw75 .svg__icon path, .svg-cw75-h .svg__icon path { stroke: rgba(245, 245, 245, 0.75) }
 .svg-cw75-h:hover .svg__icon g { fill: rgba(245, 245, 245, 0.90) }
 .svg-cw75-h:hover .svg__icon path { stroke: rgba(245, 245, 245, 0.90) }
+
+.svg-cd25 .svg__icon g, .svg-cd25-h .svg__icon g { fill: rgba(245, 245, 245, 0.25); }
+.svg-cd25 .svg__icon g, .svg-cd25-h .svg__icon path { stroke: rgba(245, 245, 245, 0.25); }
+.svg-cd25-h:hover .svg__icon g { fill: rgba(245, 245, 245, 0.75); }
+.svg-cd25-h:hover .svg__icon path { stroke: rgba(245, 245, 245, 0.75); }
+
+.svg-cd50 .svg__icon g, .svg-cd50-h .svg__icon g { fill: rgba(0, 0, 0, 0.50) }
+.svg-cd50 .svg__icon path, .svg-cd50-h .svg__icon path { stroke: rgba(0, 0, 0, 0.50) }
+.svg-cd50-h:hover .svg__icon g { fill: rgba(0, 0, 0, 0.90) }
+.svg-cd50-h:hover .svg__icon path { stroke: rgba(0, 0, 0, 0.90) }
+
+.svg-cd75 .svg__icon g, .svg-cd75-h .svg__icon g { fill: rgba(0, 0, 0, 0.75) }
+.svg-cd75 .svg__icon path, .svg-cd75-h .svg__icon path { stroke: rgba(0, 0, 0, 0.75) }
+.svg-cd75-h:hover .svg__icon g { fill: rgba(0, 0, 0, 0.90) }
+.svg-cd75-h:hover .svg__icon path { stroke: rgba(0, 0, 0, 0.90) }
+
+.svg-cr25 .svg__icon g, .svg-cr25-h .svg__icon g { fill: rgba(255, 50, 50, 0.25) }
+.svg-cr25 .svg__icon path, .svg-cr25-h .svg__icon path { stroke: rgba(255, 50, 50, 0.25) }
+.svg-cr25-h:hover .svg__icon g { fill: rgba(255, 50, 50, 0.75) }
+.svg-cr25-h:hover .svg__icon path { stroke: rgba(255, 50, 50, 0.75) }
+
+.svg-cr50 .svg__icon g, .svg-cr50-h .svg__icon g { fill: rgba(255, 50, 50, 0.50) }
+.svg-cr50 .svg__icon path, .svg-cr50-h .svg__icon path { stroke: rgba(255, 50, 50, 0.50) }
+.svg-cr50-h:hover .svg__icon g { fill: rgba(255, 50, 50, 0.90) }
+.svg-cr50-h:hover .svg__icon path { stroke: rgba(255, 50, 50, 0.90) }
+
+.svg-cr75 .svg__icon g, .svg-cr75-h .svg__icon g { fill: rgba(255, 50, 50, 0.75) }
+.svg-cr75 .svg__icon path, .svg-cr75-h .svg__icon path { stroke: rgba(255, 50, 50, 0.75) }
+.svg-cr75-h:hover .svg__icon g { fill: rgba(255, 50, 50, 0.90) }
+.svg-cr75-h:hover .svg__icon path { stroke: rgba(255, 50, 50, 0.90) }
+
+.svg-cg25 .svg__icon g, .svg-cg25-h .svg__icon g { fill: rgba(50, 255, 50, 0.25) }
+.svg-cg25 .svg__icon path, .svg-cg25-h .svg__icon path { stroke: rgba(50, 255, 50, 0.25) }
+.svg-cg25-h:hover .svg__icon g { fill: rgba(50, 255, 50, 0.75) }
+.svg-cg25-h:hover .svg__icon path { stroke: rgba(50, 255, 50, 0.75) }
+
+.svg-cg50 .svg__icon g, .svg-cg50-h .svg__icon g { fill: rgba(50, 255, 50, 0.50) }
+.svg-cg50 .svg__icon path, .svg-cg50-h .svg__icon path { stroke: rgba(50, 255, 50, 0.50) }
+.svg-cg50-h:hover .svg__icon g { fill: rgba(50, 255, 50, 0.90) }
+.svg-cg50-h:hover .svg__icon path { stroke: rgba(50, 255, 50, 0.90) }
+
+.svg-cg75 .svg__icon g, .svg-cg75-h .svg__icon g { fill: rgba(50, 255, 50, 0.75) }
+.svg-cg75 .svg__icon path, .svg-cg75-h .svg__icon path { stroke: rgba(50, 255, 50, 0.75) }
+.svg-cg75-h:hover .svg__icon g { fill: rgba(50, 255, 50, 0.90) }
+.svg-cg75-h:hover .svg__icon path { stroke: rgba(50, 255, 50, 0.90) }
+
+.svg-cb25 .svg__icon g, .svg-cb25-h .svg__icon g { fill: rgba(0, 100, 255, 0.25); }
+.svg-cb25 .svg__icon g, .svg-cb25-h .svg__icon path { stroke: rgba(0, 100, 255, 0.25); }
+.svg-cb25-h:hover .svg__icon g { fill: rgba(0, 100, 255, 0.75); }
+.svg-cb25-h:hover .svg__icon path { stroke: rgba(0, 100, 255, 0.75); }
+
+.svg-cb50 .svg__icon g, .svg-cb50-h .svg__icon g { fill: rgba(0, 100, 255, 0.50) }
+.svg-cb50 .svg__icon path, .svg-cb50-h .svg__icon path { stroke: rgba(0, 100, 255, 0.50) }
+.svg-cb50-h:hover .svg__icon g { fill: rgba(0, 100, 255, 0.90) }
+.svg-cb50-h:hover .svg__icon path { stroke: rgba(0, 100, 255, 0.90) }
+
+.svg-cb75 .svg__icon g, .svg-cb75-h .svg__icon g { fill: rgba(0, 100, 255, 0.75) }
+.svg-cb75 .svg__icon path, .svg-cb75-h .svg__icon path { stroke: rgba(0, 100, 255, 0.75) }
+.svg-cb75-h:hover .svg__icon g { fill: rgba(0, 100, 255, 0.90) }
+.svg-cb75-h:hover .svg__icon path { stroke: rgba(0, 100, 255, 0.90) }
+
+.svg-cy25 .svg__icon g, .svg-cy25-h .svg__icon g { fill: rgba(255, 225, 50, 0.25); }
+.svg-cy25 .svg__icon g, .svg-cy25-h .svg__icon path { stroke: rgba(255, 225, 50, 0.25); }
+.svg-cy25-h:hover .svg__icon g { fill: rgba(255, 225, 50, 0.75); }
+.svg-cy25-h:hover .svg__icon path { stroke: rgba(255, 225, 50, 0.75); }
+
+.svg-cy50 .svg__icon g, .svg-cy50-h .svg__icon g { fill: rgba(255, 225, 50, 0.50) }
+.svg-cy50 .svg__icon path, .svg-cy50-h .svg__icon path { stroke: rgba(255, 225, 50, 0.50) }
+.svg-cy50-h:hover .svg__icon g { fill: rgba(255, 225, 50, 0.90) }
+.svg-cy50-h:hover .svg__icon path { stroke: rgba(255, 225, 50, 0.90) }
+
+.svg-cy75 .svg__icon g, .svg-cy75-h .svg__icon g { fill: rgba(255, 225, 50, 0.75) }
+.svg-cy75 .svg__icon path, .svg-cy75-h .svg__icon path { stroke: rgba(255, 225, 50, 0.75) }
+.svg-cy75-h:hover .svg__icon g { fill: rgba(255, 225, 50, 0.90) }
+.svg-cy75-h:hover .svg__icon path { stroke: rgba(255, 225, 50, 0.90) }
 
 .alert-danger .svg__icon g { fill: #721c24 !important; }
 .alert-danger .svg__icon path { stroke: #721c24 !important; }

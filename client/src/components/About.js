@@ -51,7 +51,7 @@ export default class AppAbout extends Component {
           </Container>
           <hr />
           <div style={{fontSize: "1.2rem"}}>Icons made by&nbsp;
-            <a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank" rel="noopener noreferrer">Freepik</a> <IconSvg ico="freepik" cls="svg-nav svg-big svg-cb90"/> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer">www.flaticon.com</a> and <a href="https://www.dirk-biermann.de/" title="Flaticon" target="_blank" rel="noopener noreferrer">d.w.b</a><IconSvg ico="piranha" cls="svg-nav svg-big svg-cb90"/>
+            <a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank" rel="noopener noreferrer">Freepik</a> <IconSvg ico="freepik" cls="svg-nav svg-big svg-cd90"/> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer">www.flaticon.com</a> and <a href="https://www.dirk-biermann.de/" title="Flaticon" target="_blank" rel="noopener noreferrer">d.w.b</a><IconSvg ico="piranha" cls="svg-nav svg-big svg-cd90"/>
           </div>
         </Modal.Body>
         <Modal.Footer className="bg-dark text-light" style={{justifyContent: "flex-start"}}>

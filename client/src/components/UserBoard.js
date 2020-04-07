@@ -6,6 +6,7 @@ import Loading from "./Loading";
 import IconSvg from "./Icons/IconSvg";
 import ObjectCard from "./ObjectCard";
 import MessageBox from "./MessageBox";
+import CustomButton from "./CustomButton";
 import CustomButtonRow from "./CustomButtonRow";
 
 export default class UserBoard extends Component {
@@ -383,15 +384,14 @@ export default class UserBoard extends Component {
                     <th>Id</th>
                     <th>Role</th>
                     <th>Created at</th>
-                    <th className="brd-vert">User</th>
-                    <th>#</th>
-                    <th>Projects</th>
-                    <th>#</th>
-                    <th>Materials</th>
-                    <th>#</th>
-                    <th>Templates</th>
-                    <th className="brd-left">All Objects</th>
-                    <th></th>
+                    <th className="brd-vert cell-center">User</th>
+                    <th className="cell-right">#</th>
+                    <th className="cell-center">Projects</th>
+                    <th className="brd-left-dash cell-right">#</th>
+                    <th className="cell-center">Materials</th>
+                    <th className="brd-left-dash cell-right">#</th>
+                    <th className="cell-center">Templates</th>
+                    <th colSpan="2" className="brd-left cell-center">All Objects</th>
                   </tr>
                 </thead>
                 <tbody style={{fontSize: "1rem"}}>
@@ -405,38 +405,26 @@ export default class UserBoard extends Component {
                         <td>{user.role}</td>
                         <td>{user.createdAt}</td>
                         <td className="brd-vert cell-center">
-                          <nobr>
-                            <Button className="mmb-btn-s" disabled={(user.pCnt>0)||(user.mCnt>0)||(user.role!=='user')||(this.state.transferState !== undefined)} variant="red" onClick={()=>{this.handleUserAllDeleteUser(user._id)}}><IconSvg ico="del_user" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button>
-                          </nobr>
+                          <CustomButton disabled={(user.pCnt>0)||(user.mCnt>0)||(user.role!=='user')||(this.state.transferState !== undefined)} cls="mmb-btn-s" color="red" onClick={()=>{this.handleUserAllDeleteUser(user._id)}} ico={{ name:"del_user", cls:"svg-btn svg-cw90"}} info={['Delete','User']} />
                         </td>
-                        <td>{user.pCnt}</td>
-                        <td>
-                          <nobr>
-                            <Button className="mmb-btn-s mr-2" disabled={(user.pCnt===0)||(this.state.transferState !== undefined)} variant="green" onClick={()=>{this.handleUserProjectBoard(user._id)}}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
-                          </nobr>
+                        <td className="cell-right">{user.pCnt}</td>
+                        <td className="cell-center">
+                          <CustomButton disabled={(user.pCnt===0)||(this.state.transferState !== undefined)} cls="mmb-btn-s mr-2" color="green" onClick={()=>{this.handleUserProjectBoard(user._id)}} ico={{ name:"project", cls:"svg-btn svg-cw90"}} info={['Show','Projects']} />
                         </td>
-                        <td>{user.mCnt}</td>
-                        <td>
-                          <nobr>
-                            <Button className="mmb-btn-s mr-2" disabled={(user.mCnt===0)||(this.state.transferState !== undefined)} variant="green" onClick={()=>{this.handleUserMaterialBoard(user._id)}}><IconSvg ico="material" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
-                          </nobr>
+                        <td className="brd-left-dash cell-right">{user.mCnt}</td>
+                        <td className="cell-center">
+                          <CustomButton disabled={(user.mCnt===0)||(this.state.transferState !== undefined)} cls="mmb-btn-s mr-2" color="green" onClick={()=>{this.handleUserMaterialBoard(user._id)}} ico={{ name:"material", cls:"svg-btn svg-cw90"}} info={['Show','Materials']} />
                         </td>
-                        <td>{user.tCnt}</td>
-                        <td>
-                          <nobr>
-                            <Button className="mmb-btn-s" disabled={(user.tCnt===0)||(this.state.transferState !== undefined)} variant="green" onClick={()=>{this.handleUserTemplateBoard(user._id)}}><IconSvg ico="template" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
-                          </nobr>
+                        <td className="brd-left-dash cell-right">{user.tCnt}</td>
+                        <td className="cell-center">
+                          <CustomButton disabled={(user.tCnt===0)||(this.state.transferState !== undefined)} cls="mmb-btn-s" color="green" onClick={()=>{this.handleUserTemplateBoard(user._id)}} ico={{ name:"template", cls:"svg-btn svg-cw90"}} info={['Show','Templates']} />
                         </td>
                         <td className="brd-left cell-center">
-                          <nobr>
-                            <Button className="mmb-btn-s mr-2" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="blue" onClick={()=>{this.handleUserAllMove(user._id)}}><IconSvg ico="move" cls="svg-btn svg-cw90 svg-mr"/>Move ...</Button>
-                            <Button className="mmb-btn-s" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="blue" onClick={()=>{this.handleUserAllCopy(user._id)}}><IconSvg ico="copy" cls="svg-btn svg-cw90 svg-mr"/>Copy ...</Button>
-                          </nobr>
+                          <CustomButton disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} cls="mmb-btn-s mr-2" color="blue" onClick={()=>{this.handleUserAllMove(user._id)}} ico={{ name:"move", cls:"svg-btn svg-cw90"}} info={['Move','Objects']} />
+                          <CustomButton disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} cls="mmb-btn-s" color="blue" onClick={()=>{this.handleUserAllCopy(user._id)}} ico={{ name:"copy", cls:"svg-btn svg-cw90"}} info={['Copy','Objects']} />
                         </td>
-                        <td className="brd-left cell-center">
-                          <nobr>
-                            <Button className="mmb-btn-s" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="red" onClick={()=>{this.handleUserAllDeleteObject(user._id)}}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button>
-                          </nobr>
+                        <td className="brd-left-dash cell-center">
+                          <CustomButton disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} cls="mmb-btn-s" color="red" onClick={()=>{this.handleUserAllDeleteObject(user._id)}} ico={{ name:"delete", cls:"svg-btn svg-cw90"}} info={['Delete','Pbjects']} />
                         </td>
                       </tr>
                     )
@@ -485,3 +473,14 @@ export default class UserBoard extends Component {
     )
   }
 }
+/*
+
+                            <Button className="mmb-btn-s" disabled={(user.pCnt>0)||(user.mCnt>0)||(user.role!=='user')||(this.state.transferState !== undefined)} variant="red" onClick={()=>{this.handleUserAllDeleteUser(user._id)}}><IconSvg ico="del_user" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button>
+                            <Button className="mmb-btn-s mr-2" disabled={(user.pCnt===0)||(this.state.transferState !== undefined)} variant="green" onClick={()=>{this.handleUserProjectBoard(user._id)}}><IconSvg ico="project" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
+                            <Button className="mmb-btn-s mr-2" disabled={(user.mCnt===0)||(this.state.transferState !== undefined)} variant="green" onClick={()=>{this.handleUserMaterialBoard(user._id)}}><IconSvg ico="material" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
+                            <Button className="mmb-btn-s" disabled={(user.tCnt===0)||(this.state.transferState !== undefined)} variant="green" onClick={()=>{this.handleUserTemplateBoard(user._id)}}><IconSvg ico="template" cls="svg-btn svg-cw90 svg-mr"/>Show</Button>
+                            <Button className="mmb-btn-s mr-2" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="blue" onClick={()=>{this.handleUserAllMove(user._id)}}><IconSvg ico="move" cls="svg-btn svg-cw90 svg-mr"/>Move ...</Button>
+                            <Button className="mmb-btn-s" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="blue" onClick={()=>{this.handleUserAllCopy(user._id)}}><IconSvg ico="copy" cls="svg-btn svg-cw90 svg-mr"/>Copy ...</Button>
+                            <Button className="mmb-btn-s" disabled={((user.pCnt===0)&&(user.mCnt===0)&&(user.tCnt===0))||(this.state.transferState !== undefined)} variant="red" onClick={()=>{this.handleUserAllDeleteObject(user._id)}}><IconSvg ico="delete" cls="svg-btn svg-cw90 svg-mr"/>Delete</Button>
+
+*/
