@@ -3,9 +3,10 @@ import { ButtonToolbar } from "react-bootstrap";
 
 export default class CustomButtonRow extends Component {
   render() {
+    const clsName = this.props.noBottomMargin ? '' : 'cust-btn-toolbar';
     return (
       <>
-        <ButtonToolbar className="cust-btn-toolbar"> 
+        <ButtonToolbar className={clsName}> 
             {this.props.btnList}
         </ButtonToolbar>
       </>

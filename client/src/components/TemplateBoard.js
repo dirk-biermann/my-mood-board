@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import { CardColumns, Button } from "react-bootstrap";
-import ObjectCard from "./ObjectCard";
-import SiteHeader from "./SiteHeader";
-import MessageBox from "./MessageBox";
+import ObjectCard from "./Formats/ObjectCard";
+import SiteHeader from "./Formats/SiteHeader";
+import MessageBox from "./Modals/MessageBox";
 import IconSvg from "./Icons/IconSvg";
-import Loading from "./Loading";
-import CustomButtonRow from "./CustomButtonRow";
+import Loading from "./Formats/Loading";
+import CustomButtonRow from "./Formats/CustomButtonRow";
 
 export default class TemplateBoard extends Component {
   constructor(){

@@ -9,7 +9,8 @@ const materialSchema = new Schema ({
   imagePublicID:  { type: String, required: false  },
   
   owner:         { type: Schema.Types.ObjectId, ref: 'User'},
-  template:      { type: Schema.Types.ObjectId, ref: 'Template'},
+  //template:      { type: Schema.Types.ObjectId, ref: 'Template'},
+  template:      {},
   projects:    [ { type: Schema.Types.ObjectId, ref: 'Project'} ]
   },
   {

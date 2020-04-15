@@ -126,9 +126,6 @@ router.delete("/owner/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const materialId = req.params.id;
   try {
-    // create one material
-    allMaterials = await Material.find( { owner: { $nin: userList } } ).populate('owner');
-
     const result = await Material.findByIdAndDelete(materialId);    
     res.json( result );
   } catch (err) {

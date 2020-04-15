@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import { Form, Col, Button, Table, Badge } from "react-bootstrap";
-import SiteHeader from "./SiteHeader";
+import SiteHeader from "./Formats/SiteHeader";
 import { cloneObject, moveElement } from "../services/init";
-import CustomButton from "./CustomButton";
-import CustomButtonRow from "./CustomButtonRow";
-import ObjectCard from "./ObjectCard";
+import CustomButton from "./Formats/CustomButton";
+import CustomButtonRow from "./Formats/CustomButtonRow";
+import ObjectCard from "./Formats/ObjectCard";
 import IconSvg from "./Icons/IconSvg";
 import InputTextBox from "./Inputs/InputTextBox";
 import InputTextArea from "./Inputs/InputTextArea";
@@ -13,9 +13,9 @@ import InputTextNumeric from "./Inputs/InputTextNumeric";
 import InputTextSelect from "./Inputs/InputTextSelect";
 import InputTextColor from "./Inputs/InputTextColor";
 import InputCheckBox from "./Inputs/InputCheckBox";
-import MessageBox from "./MessageBox";
-import ElementExample from "./ElementExample";
-import Loading from "./Loading";
+import MessageBox from "./Modals/MessageBox";
+import ElementExample from "./Modals/ElementExample";
+import Loading from "./Formats/Loading";
 
 export default class TemplateDetail extends Component {
   constructor(props){
@@ -349,22 +349,29 @@ export default class TemplateDetail extends Component {
     let btnListEdit = [];
     let btnListSave = [];
   	let formColumnGroups = [ (<></>), (<></>), (<></>) ];
+    let elementHeader = '';
 
     if( this.state.loadTemplate === true ) { return ( <Loading variant="warning"/> ) }
 
+    const disableSaveUpdate = (this.state.template.name.length > 0) && (this.state.isEditMode === false) ? false : true;
+
     if( this.state.isEditMode===true ) {
+      const labelText = this.state.element.label === "" ? "<no name>" : this.state.element.label;
+
       btnListEdit.push( <Button key={'btn_edit_01'} className="mr-2 mb-1" variant="dark" onClick={this.handleCancelEditElement}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button> );
-      btnListEdit.push( <Button key={'btn_edit_02'} className="mr-2 mb-1" variant="blue" onClick={this.handleUpdateEditElement}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Update</Button> ); 
-      btnListEdit.push( <Button key={'btn_edit_03'} className="mr-2 mb-1" variant="green" onClick={this.handleCloneEditElement}><IconSvg ico="copy" cls="svg-btn svg-cw90 svg-mr"/>Clone</Button> ); 
+      btnListEdit.push( <Button key={'btn_edit_02'} className="mr-2 mb-1" variant="blue" onClick={this.handleUpdateEditElement}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Update Element</Button> ); 
+      btnListEdit.push( <Button key={'btn_edit_03'} className="mr-2 mb-1" variant="green" onClick={this.handleCloneEditElement}><IconSvg ico="copy" cls="svg-btn svg-cw90 svg-mr"/>Clone Element</Button> ); 
+      elementHeader = <>Edit Element '<i>{labelText}</i>' [#{this.state.elementIdx+1}]</>;
     } else {
       btnListEdit.push( <Button key={'btn_edit_01'} disabled={this.state.element.type===''} className="mr-2 mb-1" variant="green" onClick={this.handleAddElement}><IconSvg ico="plus" cls="svg-btn svg-cw90 svg-mr"/>Add Element</Button> );
+      elementHeader = <>New Element</>;
     }
 
     btnListSave.push( <Button key={'btn_edit_01'} className="mr-2 mb-1" variant="dark" onClick={this.handleCancelTemplate}><IconSvg ico="cancel" cls="svg-btn svg-cw90 svg-mr"/>Cancel</Button> );
     if( this.state.createMode===true ) {
-      btnListSave.push( <Button key={'btn_save_01'} disabled={this.state.isEditMode===true} className="mr-2 mb-1" variant="blue" onClick={this.handleSaveTemplate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save</Button> );
+      btnListSave.push( <Button key={'btn_save_01'} disabled={disableSaveUpdate} className="mr-2 mb-1" variant="blue" onClick={this.handleSaveTemplate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Save Template</Button> );
     } else {
-      btnListSave.push( <Button key={'btn_save_01'} disabled={this.state.isEditMode===true} className="mr-2 mb-1" variant="blue" onClick={this.handleUpdateTemplate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Update</Button> );
+      btnListSave.push( <Button key={'btn_save_01'} disabled={disableSaveUpdate} className="mr-2 mb-1" variant="blue" onClick={this.handleUpdateTemplate}><IconSvg ico="save" cls="svg-btn svg-cw90 svg-mr"/>Update Template</Button> );
     }
 
     formColumnGroups[0] = (
@@ -398,7 +405,7 @@ export default class TemplateDetail extends Component {
                 name={"def"} 
                 onChange={this.handleChangeInput}
                 margin={true}
-                readOnly={true}
+                readOnly={false}
               />
             </Form.Group>
           );
@@ -589,30 +596,7 @@ export default class TemplateDetail extends Component {
                 onChange={this.handleChangeInput}
               />
             </Form.Group>
-          </Form.Row>
-          <Form.Row className="frm-alpha-w10">
-            <Form.Group as={Col} sm="6" md="4" lg="3">
-              <InputTextSelect 
-                  value={this.state.typeSelected}
-                  placeholder={"Select element type"}
-                  label={"Element:"}
-                  name={"type"}
-                  options={this.typeList} 
-                  onChange={this.handleChangeSelect}
-                  isDisabled={this.state.isEditMode}
-                  margin={true}
-                  showValue={true}
-                  style={{marginBottom: "1rem"}}
-              />
-            </Form.Group>
-            {formColumnGroups[0]}
-            {formColumnGroups[1]}
-            {formColumnGroups[2]}
-          </Form.Row>
 
-          <CustomButtonRow btnList={btnListEdit} />
-          
-          <Form.Row className="frm-alpha-w10">
             <Form.Group as={Col} sm="12">
               <Table responsive striped hover variant="dark" className="tab-vcenter" style={{marginBottom: "0"}}>
                 <thead style={{backgroundColor: "#303030"}}>
@@ -631,10 +615,11 @@ export default class TemplateDetail extends Component {
                 {
                   this.state.template.elements.map( (element, id, arr) => {
                     const rowStyle = id===this.state.elementIdx ? { backgroundColor: "rgb(64,128,0,0.25)" } : {};
+                    const badgeStyle = id===this.state.elementIdx ? 'success' : 'light';
 
                     return (
                       <tr key={`element_row_${id}`} style={rowStyle}>
-                        <td><Badge variant="light-l">{id+1}</Badge></td>
+                        <td><Badge className="badge-l" variant={badgeStyle}>{id+1}</Badge></td>
                         <td>{this.typeList.find( (t) => { return t[0]===element.type; })[1]}</td>
                         <td className="brd-left-dash">[ {element.type} ]</td>
                         <td className="brd-left">{element.label}</td>
@@ -696,21 +681,15 @@ export default class TemplateDetail extends Component {
                           )
                         }
                         <td className="brd-left cell-center">
-                          <nobr>
                             <CustomButton disabled={this.state.isEditMode} cls="mmb-btn-s mr-1" color="blue" onClick={ () => { this.handleEditElement(id) } } ico={{ name:"edit", cls:"svg-btn svg-cw90"}} info={['Edit','Element']} />
                             <CustomButton disabled={this.state.isEditMode} cls="mmb-btn-s mr-1" color="yellow" onClick={ () => { this.handleElementExample(id) } } ico={{ name:"expand", cls:"svg-btn svg-cw90"}} info={['Show','Element Sample']} />
-                          </nobr>
                         </td>
                         <td className="brd-left-dash cell-center">
-                          <nobr>
                             <CustomButton disabled={this.state.isEditMode} cls="mmb-btn-s mr-1" color="red" onClick={ () => { this.handleDeleteElement(id) } } ico={{ name:"delete", cls:"svg-btn svg-cw90"}} info={['Delete','Element']} />
-                          </nobr>
                         </td>
                         <td className="brd-left cell-center">
-                          <nobr>
-                            <CustomButton disabled={this.state.isEditMode || id===0} cls="mmb-btn-s mmb-move mr-1" color="green" onClick={ () => { this.handleElementMoveUp(id) } } ico={{ name:"up", cls:"svg-btn svg-cw90"}} info={['Move','Up']} />
-                            <CustomButton disabled={this.state.isEditMode || id===(arr.length-1)} cls="mmb-btn-s mmb-move mr-2" color="green" onClick={ () => { this.handleElementMoveDown(id) } } ico={{ name:"down", cls:"svg-btn svg-cw90"}} info={['Move','Down']} />
-                          </nobr>
+                            <CustomButton disabled={this.state.isEditMode || id===0} cls="mmb-btn-s mmb-move mr-1" color="green" onClick={ () => { this.handleElementMoveUp(id) } } ico={{ name:"ups", cls:"svg-btn svg-cw90"}} info={['Move','Up']} />
+                            <CustomButton disabled={this.state.isEditMode || id===(arr.length-1)} cls="mmb-btn-s mmb-move mr-2" color="green" onClick={ () => { this.handleElementMoveDown(id) } } ico={{ name:"downs", cls:"svg-btn svg-cw90"}} info={['Move','Down']} />
                         </td>
                       </tr>
                     )
@@ -728,9 +707,40 @@ export default class TemplateDetail extends Component {
                 </tbody>
               </Table>
             </Form.Group>
+
+            <Form.Group as={Col} sm="12" md="12" lg="12">
+              <CustomButtonRow noBottomMargin={true} btnList={btnListSave} />
+            </Form.Group>
+
           </Form.Row>
 
-          <CustomButtonRow btnList={btnListSave} />
+          <Form.Row className="site-header">
+            <IconSvg ico={'element'} cls="svg-nav svg-sw10 svg-cw50 svg-mr"/>
+            <h2 className="dib">{elementHeader}</h2>
+          </Form.Row>
+
+          <Form.Row className="frm-alpha-w10">
+            <Form.Group as={Col} sm="6" md="4" lg="3">
+              <InputTextSelect 
+                  value={this.state.typeSelected}
+                  placeholder={"Select element type"}
+                  label={"Element:"}
+                  name={"type"}
+                  options={this.typeList} 
+                  onChange={this.handleChangeSelect}
+                  isDisabled={this.state.isEditMode}
+                  margin={true}
+                  showValue={true}
+                  style={{marginBottom: "1rem"}}
+              />
+            </Form.Group>
+            {formColumnGroups[0]}
+            {formColumnGroups[1]}
+            {formColumnGroups[2]}
+            <Form.Group as={Col} sm="12" md="12" lg="12">
+              <CustomButtonRow noBottomMargin={true} btnList={btnListEdit} />
+            </Form.Group>
+          </Form.Row>
 
         </Form>
         <MessageBox option={this.state.confirmActionInfo} />

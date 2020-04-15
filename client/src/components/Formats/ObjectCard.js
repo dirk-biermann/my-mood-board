@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
-import IconSvg from "./Icons/IconSvg";
-import ImageDisp from "./ImageDisp";
-import DetailDisp from "./DetailDisp";
+import IconSvg from "../Icons/IconSvg";
+import ImageDisp from "../Modals/ImageDisp";
+import DetailDisp from "../Modals/DetailDisp";
 
 export default class ObjectCard extends Component {
   constructor(props){
@@ -289,11 +289,11 @@ export default class ObjectCard extends Component {
             { ( hasInfo || hasAssign ) && (
               <Card.Footer style={{textAlign: "right"}}>
                 <>
-                  { hasInfo && ( <span style={{textShadow: "2px 2px 2px black", fontSize: "0.9rem"}}>{imgInfo}</span> ) }
+                  { hasInfo && ( <span style={{color: "rgba(255,255,255,0.75)", textShadow: "2px 2px 2px black", fontSize: "1.0rem"}}>{imgInfo}</span> ) }
                   { hasInfo && hasAssign && ( <br/> )}
                   { hasAssign && (
                     <div className="f-item mmb-a-svg" onClick={this.handleThisAssign}>
-                      <span style={{textShadow: "2px 2px 2px black"}}>Assigned</span>
+                      <span style={{color: "rgba(255,255,255,0.75)", textShadow: "2px 2px 2px black", fontSize: "1.0rem"}}>Assigned</span>
                       {assignState}
                     </div>
                   )}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Navbar } from "react-bootstrap";
-import IconSvg from "./Icons/IconSvg";
+import IconSvg from "../Icons/IconSvg";
 
 export default class AppFooter extends Component {
   constructor(){

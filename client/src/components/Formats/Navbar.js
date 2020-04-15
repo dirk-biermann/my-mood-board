@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import About from './About.js';
+import About from '../Modals/About';
 
 import { Link } from "react-router-dom";
 import { Navbar as Navmenu } from "react-bootstrap";
-import { logout } from "../services/auth";
+import { logout } from "../../services/auth";
 
-import IconSvg from "./Icons/IconSvg";
+import IconSvg from "../Icons/IconSvg";
 
 export default class Navbar extends Component {
   constructor(){

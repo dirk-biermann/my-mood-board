@@ -15,6 +15,11 @@ const initCollection = (collection, password) => {
 */
 
 const cloneObject = (obj) => {
+  let newObj = Object.assign({}, obj);
+  return newObj;
+}
+
+const cloneObjectOld = (obj) => {
   if (obj === null || typeof (obj) !== 'object' || 'isActiveClone' in obj)
       return obj;
   var temp;
@@ -59,7 +64,7 @@ const toInt = (num,base) => {
 }
 
 const getElementData = (props) => {
-    let dataValue = { props: {} };
+    let dataValue = {};
 
     if( props.elementData ) {
       dataValue.props = cloneObject( props.elementData );
@@ -75,8 +80,11 @@ const getElementData = (props) => {
       dataValue.hasUnit = dataValue.props.opt.unit !== undefined ? true : false;
       dataValue.valUnit = dataValue.hasUnit ? dataValue.props.opt.unit : '';
     } else {
-      dataValue.props = props;
+      dataValue.props = Object.assign({}, props);
+      //dataValue.props = props;
 
+      if( !dataValue.props.label.endsWith(":") ) {dataValue.props.label += ":"; }
+      
       dataValue.hasUnit = props.unit !== undefined ? true : false;
       dataValue.valUnit = dataValue.hasUnit ? props.unit : '';
     }
@@ -93,9 +101,9 @@ const getElementData = (props) => {
       dataValue.max = dataValue.props.opt.max !== undefined ? dataValue.props.opt.max.toString() : dataValue.max;
     }
 
-    console.log( "DV:", (props.elementData ? "ELEMENT" : "PROPS"), dataValue );
+    //console.log( "DV:", (props.elementData ? "ELEMENT" : "PROPS"), dataValue.props );
     return dataValue;
   }
 
-export { getElementData, cloneObject, imageExists, moveElement, toInt };
+export { getElementData, cloneObject, cloneObjectOld, imageExists, moveElement, toInt };
 

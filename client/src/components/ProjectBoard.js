@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import { CardColumns, Button } from "react-bootstrap";
-import ObjectCard from "./ObjectCard";
-import MessageBox from "./MessageBox";
-import SiteHeader from "./SiteHeader";
+import ObjectCard from "./Formats/ObjectCard";
+import MessageBox from "./Modals/MessageBox";
+import SiteHeader from "./Formats/SiteHeader";
 import IconSvg from "./Icons/IconSvg";
-import Loading from "./Loading";
-import CustomButtonRow from "./CustomButtonRow";
+import Loading from "./Formats/Loading";
+import CustomButtonRow from "./Formats/CustomButtonRow";
 
 export default class ProjectBoard extends Component {
   constructor(){

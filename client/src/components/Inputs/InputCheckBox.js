@@ -27,7 +27,7 @@ export default class InputCheckBox extends Component {
 
   handleOnChange = (event) => {
     if( this.props.onChange ) {
-      this.props.onChange( { target: { name: this.props.name, value: !this.state.curState } } );
+      this.props.onChange( { target: { name: this.props.name, value: !this.state.curState, idx: this.props.idx } } );
     }
     this.setState( {curState: !this.state.curState } );
   }
@@ -37,30 +37,32 @@ export default class InputCheckBox extends Component {
   
     return (
       <div className='myRow' style={dataValue.marginBottom}>
-        <Form.Label className="myCol-33 mr-2"><nobr>{dataValue.props.label}</nobr></Form.Label>
-        { dataValue.props.isDisabled ? (
-            <Form.Check className="myCol-66"
+        <Form.Label className="myCol-33"><nobr>{dataValue.props.label}</nobr></Form.Label>
+        { ( (dataValue.props.isDisabled) || (dataValue.props.readOnly) ) ? (
+          <div className="form-control" readOnly={true} style={{width: "100%"}}>
+            <Form.Check
               disabled
               type="switch"
-              id="custom-switch"
+              id="disabled-custom-switch"
               label=""
               autoFocus={dataValue.props.autoFocus}
-              readOnly={dataValue.props.readOnly}
               onChange={this.handleOnChange}
               checked={this.state.curState}
               name={dataValue.props.name}
             />
+          </div>
           ):(
-            <Form.Check className="myCol-66"
+          <div className="form-control" style={{width: "100%"}}>
+            <Form.Check
               type="switch"
               id="custom-switch"
               label=""
               autoFocus={dataValue.props.autoFocus}
-              readOnly={dataValue.props.readOnly}
               onChange={this.handleOnChange}
               checked={this.state.curState}
               name={dataValue.props.name}
             />
+          </div>
           )
         }
       </div>

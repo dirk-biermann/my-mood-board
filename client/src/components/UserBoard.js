@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import { Form, Col, Table, Button, CardColumns, Badge } from "react-bootstrap";
-import SiteHeader from "./SiteHeader";
-import Loading from "./Loading";
+import SiteHeader from "./Formats/SiteHeader";
+import Loading from "./Formats/Loading";
 import IconSvg from "./Icons/IconSvg";
-import ObjectCard from "./ObjectCard";
-import MessageBox from "./MessageBox";
-import CustomButton from "./CustomButton";
-import CustomButtonRow from "./CustomButtonRow";
+import ObjectCard from "./Formats/ObjectCard";
+import MessageBox from "./Modals/MessageBox";
+import CustomButton from "./Formats/CustomButton";
+import CustomButtonRow from "./Formats/CustomButtonRow";
 
 export default class UserBoard extends Component {
   constructor(props) {

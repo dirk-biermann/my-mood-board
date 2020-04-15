@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import { CardColumns, Form, Button, Row, Col } from "react-bootstrap";
-import MessageBox from "./MessageBox";
+import MessageBox from "./Modals/MessageBox";
 import InputTextBox from "./Inputs/InputTextBox";
 import InputTextArea from "./Inputs/InputTextArea";
-import SiteHeader from "./SiteHeader";
-import Loading from "./Loading";
-import ObjectCard from "./ObjectCard";
+import SiteHeader from "./Formats/SiteHeader";
+import Loading from "./Formats/Loading";
+import ObjectCard from "./Formats/ObjectCard";
 import IconSvg from "./Icons/IconSvg";
 import { cloneObject } from "../services/init";
-import CustomButtonRow from "./CustomButtonRow";
+import CustomButtonRow from "./Formats/CustomButtonRow";
 
 export default class ProjectDetail extends Component {
   constructor(props) {
@@ -125,14 +125,19 @@ export default class ProjectDetail extends Component {
   //
   // -----------------------------------------
   handleProjectCreate = ( routeProjectBoard ) => {
+    console.log( "PRJ:", 'create' );
     axios
       .post("/api/projects/create", {
           info: "Create Project",
           data: this.state.project
       })
       .then(response => {
-        if( routeProjectBoard === true ){ this.props.history.push("/projectboard"); }
-        this.props.history.push(`/materialboard/${response.data._id}`);
+        if( routeProjectBoard === true )
+        { 
+          this.props.history.push("/projectboard");
+        } else {
+          this.props.history.push(`/materialboard/${response.data._id}`);
+        }
       })
       .catch(err => {
         console.log(err);
@@ -143,6 +148,7 @@ export default class ProjectDetail extends Component {
   //
   // -----------------------------------------
   handleProjectUpdate = (idx) => {
+    console.log( "PRJ:", 'update' );
     axios
       .put(`/api/projects/${idx}`, {
           info: "Update Project",

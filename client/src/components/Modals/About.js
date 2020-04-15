@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Modal, Container, Row, Col } from "react-bootstrap";
-import IconSvg from "./Icons/IconSvg";
+import IconSvg from "../Icons/IconSvg";
 
 export default class AppAbout extends Component {
   constructor(){

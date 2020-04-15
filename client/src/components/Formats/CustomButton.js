@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
-import IconSvg from "./Icons/IconSvg";
+import IconSvg from "../Icons/IconSvg";
 
 export default class CustomButton extends Component {
   showTooltip = (info) => {

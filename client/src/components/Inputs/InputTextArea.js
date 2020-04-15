@@ -3,6 +3,15 @@ import { Form } from "react-bootstrap";
 import { getElementData } from "../../services/init";
 
 export default class InputTextArea extends Component {
+
+  handleOnChange = (event) => {
+    const { name, value } = event.target;
+
+    if( this.props.onChange ) {
+      this.props.onChange( { target: { name: name, value: value, idx: this.props.idx } } );
+    }
+  }
+
   render() {
     const dataValue = getElementData(this.props);    
     return (
@@ -14,7 +23,7 @@ export default class InputTextArea extends Component {
           rows={dataValue.rowCnt}
           name={dataValue.props.name}
           value={dataValue.props.value}
-          onChange={this.props.onChange}
+          onChange={this.handleOnChange}
           placeholder={dataValue.props.placeholder}
           autoFocus={dataValue.props.autoFocus}
           maxLength={dataValue.len}

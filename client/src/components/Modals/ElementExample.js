@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Button, Modal, Row, Col } from "react-bootstrap";
-import IconSvg from "./Icons/IconSvg";
-import InputTextBox from "./Inputs/InputTextBox";
-import InputTextNumeric from "./Inputs/InputTextNumeric";
-import InputTextArea from "./Inputs/InputTextArea";
-import InputTextColor from "./Inputs/InputTextColor";
-import InputCheckBox from "./Inputs/InputCheckBox";
-import { cloneObject } from "../services/init";
+import IconSvg from "../Icons/IconSvg";
+import InputTextBox from "../Inputs/InputTextBox";
+import InputTextNumeric from "../Inputs/InputTextNumeric";
+import InputTextArea from "../Inputs/InputTextArea";
+import InputTextColor from "../Inputs/InputTextColor";
+import InputCheckBox from "../Inputs/InputCheckBox";
+import { cloneObject } from "../../services/init";
 
 export default class ElementExample extends Component {
   constructor(){
@@ -69,7 +69,7 @@ export default class ElementExample extends Component {
     //console.log( "MsgBox-GO [3]" );
     return (
       <Modal 
-        size="md"
+        size="lacst"
         centered
         show={this.props.option.showAction}
         style={{color:"black"}}

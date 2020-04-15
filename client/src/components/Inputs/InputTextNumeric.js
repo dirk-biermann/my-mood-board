@@ -21,7 +21,7 @@ export default class InputTextNumeric extends Component {
       
     //console.log( "E-CHG:", name, " value:", value, " orgValue:", dataValue.props.value, " min:", dataValue.min, " max:", dataValue.max, " validValue:", validValue );
     
-    this.props.onChange( {target: {name: name, value: validValue}} );
+    this.props.onChange( {target: {name: name, value: validValue, idx: this.props.idx }} );
   }
 
   render() {
@@ -41,8 +41,8 @@ export default class InputTextNumeric extends Component {
                   value={dataValue.props.value}
                   onChange={this.handleNumericInputChange}
                   placeholder={dataValue.props.placeholder}
-                  autoFocus={dataValue.autoFocus}
-                  readOnly={dataValue.readOnly}
+                  autoFocus={dataValue.props.autoFocus}
+                  readOnly={dataValue.props.readOnly}
                   aria-describedby="etype-addon"
                 />
                 <InputGroup.Append>

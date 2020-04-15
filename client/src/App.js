@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Route, Redirect } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Formats/Navbar";
 import ProjectBoard from "./components/ProjectBoard";
 import ProjectDetail from "./components/ProjectDetail";
 import MaterialBoard from "./components/MaterialBoard";
@@ -13,8 +13,8 @@ import UserBoard from "./components/UserBoard";
 import Startpage from "./components/Startpage";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import Distance from "./components/Distance";
-import Footer from "./components/Footer";
+import Distance from "./components/Formats/Distance";
+import Footer from "./components/Formats/Footer";
 
 // ----------------------------------------------------------
 const renderMergedProps = (component, ...rest) => {

@@ -5,7 +5,7 @@
 .modal-header h3, .modal-header h4 { margin-bottom: 0;  flex-grow: 1; }
 .modal-footer { padding: 0.2rem;}
 
-.modal-content { box-Shadow: 0px 0px 30px #999 };
+.modal-content { box-Shadow: 0px 0px 30px 10px #000 };
 
 .element-mb { margin-bottom: 0.5rem; }
 
@@ -160,6 +160,10 @@ button.badge-color { width: calc( 100% - 40px )!important; }
   color: #212529;
   background-color: #f8f9fa;
 }
+.badge-l {
+  font-size: 1rem !important;
+}
+
 .va-top { vertical-align: top; }
 
 .mmb-btn-s { font-size: 1rem; }

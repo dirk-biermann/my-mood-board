@@ -6,8 +6,16 @@ import { getElementData } from "../../services/init";
 export default class InputTextColor extends Component {
 
   handleChangeColor = (name, color) => {
-    console.log( "PickUp Color: ", color );
-    this.props.onChange( { target: { name: name, value: color } } );
+    //console.log( "PickUp Color: ", color );
+    this.props.onChange( { target: { name: name, value: color, idx: this.props.idx } } );
+  }
+
+  handleOnChange = (event) => {
+    const { value } = event.target;
+
+    if( this.props.onChange ) {
+      this.props.onChange( { target: { name: this.props.name, value: value, idx: this.props.idx } } );
+    }
   }
 
   render() {
@@ -17,17 +25,17 @@ export default class InputTextColor extends Component {
         <div className='myRow' style={dataValue.marginBottom}>
           <Form.Label className="myCol-33"><nobr>{dataValue.props.label}</nobr></Form.Label>
           <div style={{width:"100%", display:"flex", justifyContent: "space-between"}}>
-            <Form.Control style={{width: "50%"}}
+            <Form.Control style={{marginRight: "5px"}}
                 as="input"
                 type="text"
                 name={dataValue.props.name}
                 value={dataValue.props.value}
-                onChange={this.props.onChange}
+                onChange={this.handleOnChange}
                 placeholder={dataValue.props.placeholder}
-                autoFocus={dataValue.autoFocus}
-                readOnly={dataValue.readOnly}
+                autoFocus={dataValue.props.autoFocus}
+                readOnly={true}
               />
-            <CustomColorPicker name={dataValue.props.name} hex={dataValue.props.value} pickupColor={this.handleChangeColor} showDemo={true}/>
+            <CustomColorPicker readOnly={dataValue.props.readOnly} name={dataValue.props.name} hex={dataValue.props.value} pickupColor={this.handleChangeColor} showDemo={true}/>
           </div>
         </div>
       </>

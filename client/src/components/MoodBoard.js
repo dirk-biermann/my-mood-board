@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import { CardColumns, Button } from "react-bootstrap";
-import ObjectCard from "./ObjectCard";
-import SiteHeader from "./SiteHeader";
-import Loading from "./Loading";
+import ObjectCard from "./Formats/ObjectCard";
+import SiteHeader from "./Formats/SiteHeader";
+import Loading from "./Formats/Loading";
 import IconSvg from "./Icons/IconSvg";
-import CustomButtonRow from "./CustomButtonRow";
+import CustomButtonRow from "./Formats/CustomButtonRow";
 
 export default class MoodBoard extends Component {
   constructor(props){
